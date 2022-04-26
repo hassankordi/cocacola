@@ -517,9 +517,10 @@
     </div>
   </div>
   <!--  Time line chart -->
-  <div class="col-xl-12 stretch-card mt-2" *ngIf="data.length !== 0">
+  <!-- *ngIf="data?.length !== 0" -->
+  <div class="col-xl-12 stretch-card mt-2" >
     <div class="card">
-      <div class="card-body">
+      <div class="card-body" style="padding: 3rem ;">
         <div class="row">
           <div class="col-12 text-center">
             <h6 class="card-title pt-1 mr-3">Time line chart</h6>
@@ -548,20 +549,24 @@
                 ></i
                 >Waiting</span
               >
+              <span class="m-3 font-weight-bold"
+                ><i
+                  class="link-icon m-2 mb-1 blueIcon"
+                  data-feather="square"
+                  appFeatherIcon
+                ></i
+                >Cleaning</span
+              >
             </div>
           </div>
         </div>
         <hr />
-        <div
-          class="col-12"
-          id="history-chart"
-          *ngIf="line1Data.data.length != 0"
-        >
-          <div class="row">
+        <div class="col-12" id="history-chart"*ngIf="line1Data?.data.length != 0">
+          <div class="row align-items-end">
             <div class="col-1 h-5 text-center time-line-full-title1">
               <p
                 style="
-                  margin-top: 42px;
+                  margin-top: 50px;
                   font-weight: bold;
                   font-size: 16px;
                   color: grey;
@@ -587,12 +592,12 @@
             </div>
           </div>
         </div>
-        <div class="col-12" *ngIf="line2Data.data.length != 0">
-          <div class="row">
+        <div class="col-12" *ngIf="line2Data?.data.length != 0">
+          <div class="row align-items-end">
             <div class="col-1 h-5 text-center time-line-full-title1">
               <p
                 style="
-                  margin-top: 42px;
+                  margin-top: 50px;
                   font-weight: bold;
                   font-size: 16px;
                   color: grey;
@@ -603,7 +608,7 @@
             </div>
             <div class="col-11" style="height: 60px">
               <apx-chart
-                [series]="line2Timeline.series"
+                [series]="line2Timeline?.series"
                 [chart]="line2Timeline.chart"
                 [fill]="line2Timeline.fill"
                 [grid]="line2Timeline.grid"
@@ -619,12 +624,12 @@
             </div>
           </div>
         </div> 
-        <div class="col-12" *ngIf="line3Data.data.length != 0">
-          <div class="row">
+        <div class="col-12" *ngIf="line3Data?.data.length != 0">
+          <div class="row align-items-end">
             <div class="col-1 h-5 text-center time-line-full-title1">
               <p
                 style="
-                  margin-top: 42px;
+                  margin-top: 50px;
                   font-weight: bold;
                   font-size: 16px;
                   color: grey;
@@ -650,12 +655,12 @@
             </div>
           </div>
         </div>
-        <div class="col-12" *ngIf="line4Data.data.length != 0">
-          <div class="row">
+        <div class="col-12" *ngIf="line4Data?.data.length != 0">
+          <div class="row align-items-end">
             <div class="col-1 h-5 text-center time-line-full-title1">
               <p
                 style="
-                  margin-top: 42px;
+                  margin-top: 50px;
                   font-weight: bold;
                   font-size: 16px;
                   color: grey;
@@ -681,8 +686,8 @@
             </div>
           </div>
         </div>
-        <div class="col-12" *ngIf="line5Data.data.length != 0">
-          <div class="row">
+        <div class="col-12" *ngIf="line5Data?.data.length != 0">
+          <div class="row align-items-end">
             <div class="col-1 h-5 text-center time-line-full-title1">
               <p
                 style="

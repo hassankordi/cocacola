@@ -893,9 +893,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     //time
     this.currentDate = this.calendar.getToday();
     this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-      this.DrawTimeLine(res.lines_Timeline);
+      console.log("Time" , res)
+      this.DrawTimeLine(res);
 
-      this.data = res.lines_Timeline;
+      this.data = res;
     });
 
     // start HOVER TOGGLE
@@ -948,6 +949,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
               fillColor: "#29a32c",
             };
             this.line1Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
+            };
+            this.line1Data.data.push(obj);
           }
         } else if (element.identifier == "Line 2") {
           if (element.state == "Offline") {
@@ -978,6 +989,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                 new Date(element.to).getTime(),
               ],
               fillColor: "#29a32c",
+            };
+            this.line2Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
             };
             this.line2Data.data.push(obj);
           }
@@ -1012,6 +1033,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
               fillColor: "#29a32c",
             };
             this.line3Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
+            };
+            this.line3Data.data.push(obj);
           }
         } else if (element.identifier == "Line 4") {
           if (element.state == "Offline") {
@@ -1042,6 +1073,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                 new Date(element.to).getTime(),
               ],
               fillColor: "#29a32c",
+            };
+            this.line4Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
             };
             this.line4Data.data.push(obj);
           }
@@ -1076,6 +1117,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
               fillColor: "#29a32c",
             };
             this.line5Data.data.push(obj);
+          } else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
+            };
+            this.line5Data.data.push(obj);
           }
         }
       });
@@ -1086,7 +1137,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.line4Timeline.series = [this.line4Data];
       this.line5Timeline.series = [this.line5Data];
 
-      console.log(this.line1Data);
+      console.log("1",this.line1Data);
+      console.log("2",this.line2Data);
+      console.log("3",this.line3Data);
+      console.log("4",this.line4Data);
+      console.log("5",this.line5Data);
       if (this.line1Data.data == []) {
         this.line1Null = null;
       } else {
@@ -1113,7 +1168,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.line5Null = this.line5Data;
       }
 
+      console.log(this.line1Timeline);
+      console.log(this.line2Timeline);
+      console.log(this.line3Timeline);
       console.log(this.line4Timeline);
+      console.log(this.line5Timeline);
     });
   }
 
@@ -1418,9 +1477,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dashboardFilter.endDate = this.dateByDay;
       console.log(this.dashboardFilter);
     }
-    this.dashboardService
-      .getDashboard(this.dashboardFilter)
-      .subscribe((res) => {
+    this.dashboardService.getDashboard(this.dashboardFilter).subscribe((res) => {
         if (res) {
           console.log(">>>>>>>", res);
           this.totalDashboardInfo = res;
@@ -1437,8 +1494,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-      if (res.lines_Timeline) {
-        this.DrawTimeLine(res.lines_Timeline);
+      console.log("oh" , res)
+      if (res) {
+        this.DrawTimeLine(res);
         this.data = res;
         console.log(this.timeLineChart, "in filter");
       }

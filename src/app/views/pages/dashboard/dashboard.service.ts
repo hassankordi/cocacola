@@ -265,13 +265,55 @@ export class DashboardService {
   }
 
   getTimeLine(filter: DashboardFilter) {
-    if (filter.LineID != null) {
-      var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&LineID=${filter.LineID}`;
-    } else {
-      var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}`;
+    // 
+    if (filter.LineID == null &&filter.startDate == null &&filter.endDate == null) {
+      if (filter.duration != null) {
+        var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&timetype=${filter.TimeType}&Duration=${filter.duration}`;
+      } else if (filter.duration !== null && filter.LineID !== null) {
+        var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&LineNum=${filter.LineID}`;
+      } else {
+        var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&timetype=${filter.TimeType}`;
+      }
+    } else if (
+      filter.startDate != null &&
+      filter.endDate != null &&
+      filter.LineID != null
+    ) {
+      console.log("working");
+      var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&LineNum=${filter.LineID}&timetype=${filter.TimeType}&StartTime=${filter.startDate}&EndTime=${filter.endDate}`;
+    } else if (
+      filter.startDate != null &&
+      filter.endDate != null &&
+      filter.LineID == null
+    ) {
+      console.log("not working");
+      var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&timetype=${filter.TimeType}&StartTime=${filter.startDate}&EndTime=${filter.endDate}`;
+    } else if (
+      filter.startDate == null &&
+      filter.endDate == null &&
+      filter.LineID != null
+    ) {
+      if (filter.duration !== null && filter.TimeType !== null) {
+        var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&LineNum=${filter.LineID}&timetype=${filter.TimeType}&Duration=${filter.duration}`;
+      } else {
+        var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&LineNum=${filter.LineID}&timetype=${filter.TimeType}`;
+      }
     }
-
+    console.log(filter);
     return this.http.get<any>(environment.sourceUrl + url, this.httpOptions);
+
+
+
+
+
+    // 
+    // if (filter.LineID != null) {
+    //   var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}&LineID=${filter.LineID}`;
+    // } else {
+    //   var url = `/LineKPIs/GetTimeline?Factory=${filter.Factory}`;
+    // }
+
+    // return this.http.get<any>(environment.sourceUrl + url, this.httpOptions);
   }
   /*--------------------------HttpErrorHandler----------------------- */
   errorHandler(error: HttpErrorResponse) {
@@ -280,11 +322,7 @@ export class DashboardService {
   }
 
   getDashboard(filter: DashboardFilter) {
-    if (
-      filter.LineID == null &&
-      filter.startDate == null &&
-      filter.endDate == null
-    ) {
+    if (filter.LineID == null &&filter.startDate == null &&filter.endDate == null) {
       if (filter.duration != null) {
         var url = `/LineKPIs/GetData?Factory=${filter.Factory}&timetype=${filter.TimeType}&Duration=${filter.duration}`;
       } else if (filter.duration !== null && filter.LineID !== null) {
