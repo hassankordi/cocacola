@@ -1,0 +1,297 @@
+// *{
+//   padding: 0;
+//   margin: 0;
+// }
+
+@keyframes growProgressBar {
+  0%,
+  33% {
+    --pgPercentage: 0;
+  }
+  100% {
+    --pgPercentage: var(--value);
+  }
+}
+
+@property --pgPercentage {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 5;
+}
+
+div[role="progressbar"] {
+  --size: 8rem;
+  --fg: #e61d2b;
+  --bg: #def;
+  --pgPercentage: var(--value);
+  animation: growProgressBar 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      closest-side,
+      white 80%,
+      transparent 0 99.9%,
+      white 0
+    ),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--fg);
+}
+
+div[role="progressbar"]::before {
+  counter-reset: percentage var(--value);
+}
+.borderBottom {
+  border-bottom: solid 1px;
+}
+
+.btn-outline-red {
+  border-color: #e61d2b !important;
+  color: white;
+  background-color: #e61d2b;
+}
+
+i {
+  color: #e61d2b;
+}
+P {
+  font-weight: bolder;
+  font-size: 0.8rem;
+}
+
+.Perform span {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.Yields span {
+  font-size: 0.8rem;
+  color: #e61d2b;
+  font-weight: bolder;
+}
+.Yields small {
+  font-weight: bold;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.chartBox {
+  padding: 20px;
+  border-radius: 10px;
+  border: solid 1px #e61d2b;
+  background: white;
+}
+
+.time-line-full {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 0px 10px;
+
+  .time-line-full-title {
+    line-height: 35px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+    background-color: #fff;
+
+    svg {
+      margin: 0px 7px;
+    }
+  }
+  .line-name {
+    color: #2c3e50;
+    font-size: 0.75rem;
+    font-weight: bold;
+    position: relative;
+    top: -5px;
+  }
+  .progress {
+    height: 10px;
+  }
+  .time-line-full-body {
+    width: 100%;
+    height: calc(100% - 38px);
+
+    .time-line-position {
+      margin-top: 12px;
+    }
+    .time-line-full-title1 {
+      position: relative;
+      top: 38px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    // .shift-top{
+    //   height: 60px !important;
+    // }
+  }
+
+  
+}
+
+::ng-deep.mat-form-field {
+  display: block;
+  position: relative;
+  flex: auto;
+  width: 150px!important;
+}
+.ourRelative{
+  position: relative;
+}
+.hoverData{
+  width: 600px;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  top: 30px;
+  left: 30px;
+  background-color: whitesmoke ;
+  border-radius: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+}
+.hoverWaterData {
+  width: 400px;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  background-color: whitesmoke ;
+  border-radius: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.hoverSyrubData {
+  width: 400px;
+  height: auto;
+  
+  position: absolute;
+  right: 0px ;
+  z-index: 1;
+  background-color: whitesmoke ;
+  border-radius: 10px;
+}
+.hoverWaterDetails {
+  font-size: 16px;
+  color: black;
+  font-weight: 500;
+}
+
+
+// #bottle-div{
+//   position: relative;
+
+//   z-index: 556;
+//   width: 400px; 
+//   height: 400px;
+//   // display: none;
+// }
+// #bottle-hover {
+
+//   &:hover{
+//     background-color: #5081bc;
+//     #bottle-div{
+//       background-color: #de0c1c !important;
+//       // display: block;
+//     }
+  // }
+
+
+// }
+
+
+@media screen and (max-width: 992px) {
+
+  .mat-form-field {
+    display: block;
+    position: relative;
+    flex: auto;
+    width: 250px!important;
+  }
+
+}
+#kpiDiv {
+  font-size: 17px;
+}
+
+::ng-deep mat-icon{
+margin-top: 2px;
+}
+.redIcon {
+  color: #de0c1c;
+  background-color:#de0c1c;
+  height: 16px;
+  width: 16px
+
+}
+
+.greenIcon {
+  color: rgb(62 181 65 / 85%);
+  background-color: rgba(41, 163, 44, 0.85);
+  height: 16px;
+  width: 16px
+
+}
+.greyIcon {
+  color: rgba(218, 218, 218);
+  background-color: rgba(218, 218, 218);
+  height: 16px;
+  width: 16px
+
+}
+.card-title {
+  margin-top: 6px;
+}
+.black {
+ font-size: 20px;
+ font-weight: bolder;
+color: black ;
+
+}
+.blackDiv {
+ font-size: 16px;
+ font-weight: bolder;
+ color: black;
+}
+.blue {
+color: #5081bc;
+background-color: #5081bc;
+margin-bottom: 3px;
+height: 15px;
+width: 16px
+}
+.red {
+color: #d72424;
+background-color: #d72424;
+margin-bottom: 3px;
+height: 15px;
+width: 16px
+}
+.green {
+color: #91c157;
+background-color: #91c157;
+margin-bottom: 3px;
+height: 15px;
+width: 16px
+}
+hr {
+  padding: 0px;
+  height: 0px;
+  margin-top: 9px;
+  background-color: rgb(235, 223, 223);
+}
+
+.hoverDetails {
+  font-size: 16px;
+  color: black;
+  font-weight: 500;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+// ::ng-deep .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+//   color: #8f95b4 !important;
+// }

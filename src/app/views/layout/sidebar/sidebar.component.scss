@@ -1,0 +1,42 @@
+
+.link-title{
+  font-size: 1rem!important;
+  font-weight: bold;
+}
+.menuText{
+  font-size: 1.2rem!important;
+
+}
+.masterText{
+  color: #e61d2b!important;
+
+}
+.bg-red{
+  background-color: #e51e2a!important;
+}
+
+li span {
+  color: white!important;
+}
+.link-icon{
+   color: white!important;
+ }
+
+ .sidebar .sidebar-header {
+  height: 60px;
+  border-bottom:none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+   border-right:none; 
+  z-index: 999;
+  width: 240px;
+  transition: width 0.1s ease;
+}
+
+.sidebar .sidebar-header span {
+  color: white!important;
+  background-color: #fff!important;
+
+}

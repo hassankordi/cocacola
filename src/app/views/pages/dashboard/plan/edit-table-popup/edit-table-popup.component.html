@@ -1,0 +1,171 @@
+<div class="card">
+  <form #grid="ngForm" (ngSubmit)="submitForm(grid , 'Edited SuccessFully','Done','1000')">
+    <div class="row px-2">
+      <div class="col-md-5 ">
+        <div class="row">
+          <div class="col-12">
+          <!-- calender -->
+          <mat-card class="demo-inline-calendar-card">
+            <mat-calendar
+              [(selected)]="selected"
+              (click)="CalenderDate(selected)"
+              name="date"  ngDefaultControl [(ngModel)]="data.date"
+            ></mat-calendar>
+          </mat-card>
+           </div>
+  
+          <div class="col-12  p-4 ">
+            <div class="row">
+              <div class="col-md-6">
+                <!-- Time picker2 here -->
+                <label class="example-input-wrapper d-flex w-100">
+                  <input placeholder="Start Time"
+                       [(ngModel)]="data.startTime"
+                          name="startTime"
+                          [owlDateTime]="dt1"
+                          (dateTimeChange)="timePicker1($event.value)"  class="inpTime w-100" >
+                          
+                  <owl-date-time [pickerType]="'timer'"  #dt1></owl-date-time>
+                  <span class="calenderSpan" [owlDateTimeTrigger]="dt1">
+                    <i class="fas fa-calendar-alt"></i>
+                </span>
+                </label>
+              </div>
+              <div class="col-md-6"> 
+                   <!-- Time picker1 here -->
+                   <label class="example-input-wrapper d-flex w-100">
+                    <input placeholder="End Time"
+                    [(ngModel)]="data.endTime"
+                       name="endTime"
+                            [owlDateTime]="dt2"
+                            (dateTimeChange)="timePicker2($event.value)"  class="inpTime w-100" >
+                            
+                    <owl-date-time [pickerType]="'timer'"  #dt2></owl-date-time>
+                    <span class="calenderSpan" [owlDateTimeTrigger]="dt2">
+                      <i class="fas fa-calendar-alt"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+  
+           </div>
+        </div>
+      </div>
+      <div class="col-2"></div>
+      <div class="col-md-5   ">
+        <div class="row">
+          <div class="col-12 d-flex py-2">
+            <!-- get location -->
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Location</mat-label>
+              <mat-select  [(ngModel)]="data.location" name="location" (click)="hideOption1Location()" >
+                <mat-option  class="d-none" [value]="data.location" *ngIf="hideOpt">
+                  {{data.location}}
+                </mat-option>   
+        
+                <mat-option
+                  *ngFor="let elem of location"
+                  [value]="elem.name"
+                  (click)="selectLocation(elem.name , elem.id , elem.location)"
+                >
+                  {{ elem.location }}-
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-12 d-flex py-2">
+            <!-- get all lines -->
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>All Lines</mat-label>
+              <mat-select [disabled]="openLines_Shift" [(ngModel)]="data.lineName" name="line" (click)="hideOption2Line()" >
+                <mat-option  class="d-none" value="{{data.lineName}}" *ngIf="hideOpt2">
+                  {{data.lineName}}
+                  </mat-option>   
+
+                <mat-option
+                  *ngFor="let elem of allLines"
+                  [value]="elem.name"
+                  (click)="selectLineId(elem.id , elem.lineNum , elem.name)"
+                >
+                  {{ elem.name }}
+                </mat-option>
+              </mat-select>
+            
+            </mat-form-field>
+
+
+          </div>
+          <div class="col-12 d-flex py-2">
+            <!-- machine -->
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Machine</mat-label>
+              <mat-select name="food" [disabled]="openMachine" [(ngModel)]="data.machineName" name="machine" (click)="hideOption3Machine()" >
+                <mat-option  class="d-none" value="{{data.machineName}}" *ngIf="hideOpt3">
+                  {{data.machineName}}
+                </mat-option>  
+
+                <mat-option *ngFor="let machine of allMachines" (click)="machineName(machine.plcName , machine.machineName)"  [value]="machine.machineName">
+                 {{machine.machineName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+          </div>
+          <div class="col-12 d-flex py-2">
+            <!-- main reason -->
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Main Reason</mat-label>
+              <mat-select  [(ngModel)]="data.mainReason"   name="reason" (click)="hideOption4MainReason()">
+                <mat-option  class="d-none" [value]="data.mainReason" *ngIf="hideOpt4">
+                  {{data.mainReason}}
+                </mat-option> 
+
+                <mat-option
+                  *ngFor="let reason of MainReason"
+                  [value]="reason.name"
+                  (click)="sendMainReasonValue(reason.value , reason.name)"
+                >
+                  {{ reason.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+          <div class="col-12 d-flex py-2">
+            <!-- sub reason -->
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Sub Reason</mat-label>
+              <mat-select   [(ngModel)]="data.subReason" name="subReason" (click)="hideOption5SubReason()" [disabled]="openSubReason">
+                <mat-option  class="d-none" value="{{data.subReason}}" *ngIf="hideOpt5">
+                  {{data.subReason}}
+                </mat-option>
+                <mat-option
+                [value]="reason.name"
+                  *ngFor="let reason of subReasonDropDownValue"
+                  (click)="subReasonClick(reason.value , reason.name)"
+                >
+                  {{ reason.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        <!-- input when click on reduced speed  -->
+          <div class="col-md-6 col-12 d-flex" *ngIf="!showReduceSpeedField">
+            <mat-form-field class="example-full-width">
+              <mat-label>Reduce Speed</mat-label>
+              <input matInput #inp placeholder="Reduce Speed" [(ngModel)]="processSkipInputValue">
+             
+            </mat-form-field>
+          </div>
+
+           
+          </div>
+          <div class="col-12 d-flex py-2">
+            <!-- btn submit -->
+            <button class="btn btn-primary w-100" [disabled]="(data.lineName == null || data.subReason == null || data.machineName == null)">Submit</button>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </form>
+</div>

@@ -1,0 +1,30 @@
+
+.menu-border{
+
+    border-left: dashed 3px #22263b;
+    button{
+        position: relative;
+        display: block !important;
+        &::before{
+            content: " ";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #22263b;
+            position: absolute;
+            left: -16px;
+            top: 30%;
+
+
+        }
+    }
+    .activeLink{
+        background-color: #f44336;
+        color: white;
+        padding: 10px 25px;
+        font-size: 18px;
+        transition: all 0.2s ease-in;
+        
+
+    }
+}

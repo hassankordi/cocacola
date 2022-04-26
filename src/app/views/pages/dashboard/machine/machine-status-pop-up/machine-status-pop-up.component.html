@@ -1,0 +1,15 @@
+
+<mat-dialog-content class="mat-typography">
+
+  <div id="chart">
+    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [markers]="chartOptions.markers"
+      [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels" [title]="chartOptions.title" [yaxis]="yaxis"
+      [xaxis]="xaxis"></apx-chart>
+  </div>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

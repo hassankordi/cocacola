@@ -1,0 +1,81 @@
+host {
+  overflow: scroll;
+}
+.red {
+    color: red;
+}
+.demo-inline-calendar-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+  
+.mat-table {
+    overflow: auto;
+  }
+  ::ng-deep .mat-tab-body-content {
+      overflow: hidden !important;
+  }
+  ::ng-deep.mat-form-field {
+    display: block;
+    position: relative;
+    flex: auto;
+    width: 150px!important;
+  }
+
+
+  @media screen and (max-width: 992px) {
+
+    .mat-form-field {
+      display: block;
+      position: relative;
+      flex: auto;
+      width: 250px!important;
+      margin: auto;
+    }
+  
+  }
+  .calenderSpan {
+    color: #417cf9;
+    cursor: pointer;
+    font-size: 18px;
+    margin: auto;
+    padding-left: 1rem;
+  }
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  .tableCont {
+   height: 100%;
+
+  }
+  .my_class1 {
+    color: red;
+  }
+  .inpTime {
+    height: 33px;
+    border: 1px solid #727cf5;
+    border-radius: 5px;
+    text-align: center;
+  }
+  table {
+    width: 100%;
+  }
+  th {
+    font-weight: bold;
+    color: red;
+    font-size: 15px;
+    width: 160px;
+  }
+  td {
+    font-weight: 400;
+  }
+  #addButton {
+    margin-right: 57px;
+  }

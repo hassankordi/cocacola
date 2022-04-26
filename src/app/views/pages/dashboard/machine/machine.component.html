@@ -1,0 +1,330 @@
+<div class="row">
+  <div class="col-xl-12 stretch-card">
+    <div class="card">
+      <div class="card-body p-2">
+        <div class="row">
+
+          <div class="col-md-3 d-flex">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Plant</mat-label>
+              <mat-select [(ngModel)]="factory">
+                <mat-option *ngFor="let elem of location" [value]="elem.name"
+                  (click)="selectLocation(elem.name, elem.id)">
+                  {{ elem.location }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2 d-flex">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>All Lines</mat-label>
+              <mat-select [disabled]="openLines" [(ngModel)]="line">
+                <mat-option *ngFor="let elem of allLines" (click)="selectLine(elem.id )" [value]="elem.name">
+                  {{ elem.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- [(ngModel)]="selectedMoments" -->
+          <div class="col-md-3 d-flex">
+
+            
+            <input (dateTimeChange)="durationStatus($event)" class="form-control p-3 h-100 rounded" placeholder="Duration"  [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [selectMode]="'range'">
+            <owl-date-time #dt12></owl-date-time>
+          </div>
+         
+
+          <div class="pl-3 pt-2">
+            <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+            <button class="btn btn-primary" (click)="getAllMachines($event)" [disabled]="disableSearch">Search</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row pt-3" *ngIf="showGifImg">
+  <div class="col-12 ">
+    <div class="d-flex justify-content-center align-items-center  bg-white">
+      <img width="200" src="/assets/images/loader.gif">
+    </div>
+  </div>
+</div>
+
+
+<!-- start  -->
+<div class="row" *ngFor="let elem of blowMouldersVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state1 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Blow Moulders : {{timeStamp1 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 " [class.blurImg]="status1 == 'OffLine'">
+            <img src="/assets/images/blow.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of blowMouldersKey[0]; let x = index"
+                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status1 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Graph</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status1 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngFor="let elem of DpalletizerVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state2 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Dpalletizer : {{timeStamp2 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status2 == 'OffLine'">
+            <img src="/assets/images/stack-of-boxes.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of DpalletizerKey[0]; let x = index"
+                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status2 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Graph</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status2 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngFor="let elem of mixersVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state3 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Mixer : {{timeStamp3 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status3 == 'OffLine'">
+            <img src="/assets/images/mixer.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of mixersKey[0]; let x = index"
+                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status3 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Graph</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status3 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngFor="let elem of fillerVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state4 == 'On' ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Filler : {{timeStamp4 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status4 == 'OffLine'">
+            <img src="/assets/images/filler.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of fillerKey[0]; let x = index"
+                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status4 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Graph</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status4 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngFor="let elem of cartonizerShrinkVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state5 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Cartonizer : {{timeStamp5 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status5 == 'OffLine'">
+            <img src="/assets/images/parcel.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of cartonizerShrinkKey[0]; let x = index"
+                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status5 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Graph</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status5 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngFor="let elem of palletizerVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state6 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Palletizer : {{timeStamp6 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status6 == 'OffLine'">
+            <img src="/assets/images/pall.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of palletizerKey[0]; let x = index"
+                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status6 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Graph</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status6 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

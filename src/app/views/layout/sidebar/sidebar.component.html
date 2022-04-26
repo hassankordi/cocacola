@@ -1,0 +1,117 @@
+<nav class="sidebar bg-red" style="overflow: hidden;">
+  <div class="sidebar-header bg-red ">
+    <!--- Toggler -->
+    <div
+      class="sidebar-toggler not-active "
+      #sidebarToggler
+      (click)="toggleSidebar($event)"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <!--- Logo -->
+<div class=" animate__animated animate__fadeIn animate__delay-1s p-2"  >
+  <img src="assets/images/Coca-Cola-logo-108E6559A3-seeklogo.com.png" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+</div>
+  <div class="sidebar-body d-flex flex-wrap align-content-stretch bg-red">
+    <!--- Sidemenu start -->
+
+    <ul class="sidebar-nav metismenu">
+      <li class="nav-item">
+        <a routerLink="dashboard" class="nav-link">
+          <i class="link-icon" data-feather="home" appFeatherIcon></i>
+          <span class="link-title">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink='dashboard/Plan' class="nav-link">
+          <i class="link-icon" data-feather="activity" appFeatherIcon></i>
+          <span class="link-title">Plan</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink='dashboard/machine' class="nav-link">
+          <i class="link-icon" data-feather="cpu" appFeatherIcon></i>
+          <span class="link-title">Machine</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink='dashboard/machine-indecators' class="nav-link">
+          <i class="link-icon" data-feather="cpu" appFeatherIcon></i>
+          <span class="link-title">Machines Indecators</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink='dashboard/machine-tag-explore' class="nav-link">
+          <i class="link-icon" data-feather="cpu" appFeatherIcon></i>
+          <span class="link-title">Machines Tags Explore</span>
+        </a>
+      </li>
+      <!--
+      <li class="nav-item">
+        <a routerLink="/notfound" class="nav-link">
+          <i class="link-icon" data-feather="folder" appFeatherIcon></i>
+          <span class="link-title">Tab</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/notfound" class="nav-link">
+          <i class="link-icon" data-feather="bar-chart" appFeatherIcon></i>
+          <span class="link-title">Chart</span>
+        </a>
+      </li> -->
+      <li class="menuText nav-item nav-category py-4 text-light">Settings</li>
+
+      <li class="nav-item">
+        <a routerLink="/notfound" class="nav-link">
+          <i class="link-icon" data-feather="user" appFeatherIcon></i>
+          <span class="link-title">Logout</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/notfound" class="nav-link">
+          <i class="link-icon" data-feather="settings" appFeatherIcon></i>
+          <span class="link-title">Settings</span>
+        </a>
+      </li>
+    </ul>
+
+    <!--- Sidemenu end -->
+  </div>
+</nav>
+<!-- <nav class="settings-sidebar">
+  <div class="sidebar-body">
+    <a href="" class="settings-sidebar-toggler" (click)="toggleSettingsSidebar($event)">
+      <i class="icon feather icon-settings"></i>
+    </a>
+    <h6 class="text-muted">Sidebar:</h6>
+    <div class="form-group border-bottom">
+      <div class="form-check form-check-inline">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="sidebarThemeSettings" (change)="onSidebarThemeChange($event)" id="sidebarLight" value="sidebar-light" checked>
+          <i class="input-frame"></i>
+          Light
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="sidebarThemeSettings" (change)="onSidebarThemeChange($event)" id="sidebarDark" value="sidebar-dark">
+          <i class="input-frame"></i>
+          Dark
+        </label>
+      </div>
+    </div>
+    <div class="theme-wrapper">
+      <h6 class="text-muted mb-2">Light Theme:</h6>
+      <a class="theme-item active" href="https://www.nobleui.com/angular/template/demo1/">
+        <img src="assets/images/screenshots/light.jpg" alt="light theme">
+      </a>
+      <h6 class="text-muted mb-2">Dark Theme:</h6>
+      <a class="theme-item" href="https://www.nobleui.com/angular/template/demo2/">
+        <img src="assets/images/screenshots/dark.jpg" alt="dark theme">
+      </a>
+    </div>
+  </div>
+</nav> -->

@@ -1,0 +1,718 @@
+<!-- Header of DashBord (filter) -->
+
+
+
+<div class="row">
+  <div class="col-xl-12 stretch-card">
+    <div class="card">
+      <div class="card-body p-2">
+        <form class="row " #formVal="ngForm">
+          <div class="col-md-2 d-flex">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Plant</mat-label>
+              <mat-select [(ngModel)]="selectedLocation" name="plant">
+                <mat-option [value]="null"></mat-option>
+                <mat-option
+                  *ngFor="let elem of location"
+                  [value]="elem.name"
+                  (click)="selectLocation(elem.name, elem.id)"
+                >
+                  {{ elem.location }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2 d-flex">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>All Lines</mat-label>
+              <mat-select [(ngModel)]="selectedLines" name="line">
+                <mat-option [value]="null"></mat-option>
+
+                <mat-option
+                  *ngFor="let elem of allLines"
+                  (click)="selectLine(elem.id)"
+                  [value]="elem.name"
+                >
+                  {{ elem.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 d-flex">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Select Time</mat-label>
+              <mat-select [(ngModel)]="selectedTimePlan" name="time">
+                <mat-option
+                  *ngFor="let elem of selectTimeArr"
+                  (click)="selectTime(elem.value, formVal)"
+                  [value]="elem.value"
+                >
+                  {{ elem.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 d-flex">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Shifts</mat-label>
+
+              <mat-select
+                [disabled]="openShifts"
+                [(ngModel)]="selectedTimeShift"
+                name="shift"
+              >
+                <mat-option
+                  *ngFor="let elem of shiftTimeType"
+                  (click)="shiftType(elem.value)"
+                  [value]="elem.value"
+                >
+                  {{ elem.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 d-flex" *ngIf="showPickerDay">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Choose a date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                name="dataDay"
+                [(ngModel)]="calenderByDay"
+                (dateChange)="fromDateByDay($event)"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 d-flex" *ngIf="showPickerMultiple">
+            <mat-form-field [appearance]="'outline'">
+              <mat-date-range-input
+                class="bg-outline-red"
+                [formGroup]="range"
+                [rangePicker]="picker"
+              >
+                <input
+                  matStartDate
+                  formControlName="start"
+                  placeholder="Start date"
+                  (dateChange)="fromDate($event)"
+                  [disabled]="openDate"
+                />
+                <input
+                  matEndDate
+                  formControlName="end"
+                  placeholder="End date"
+                  (dateChange)="fromDate2($event)"
+                  [disabled]="openDate"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+              <mat-error
+                *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+                >Invalid start date</mat-error
+              >
+              <mat-error
+                *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+                >Invalid end date</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="mt-2 ml-3">
+            <button class="btn btn-outline-danger" (click)="filter($event)">
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- section display data  [ TOTAL PRODUCTION | Performance KPI | Usage Ratios ]-->
+<div class="row">
+  <div class="col-xl-3 pr-0 py-2 stretch-card">
+    <!-- card -->
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="fas fa-chart-line pr-2"></i> Total Production
+        </h4>
+        <hr />
+
+        <div class="row" *ngIf="totalDashboardInfo?.length !== 0">
+          <div class="col-12 row py-2 ourRelative">
+            <div class="col-8">
+              <p id="bottle-hover" (mouseleave)="showBottleDiv = false" (mouseenter)="showBottleDiv = true">
+                <i class="fas fa-wine-bottle pr-2"></i>Bottle
+              </p>
+            </div>
+
+            <div class="col-4">
+              <p>{{ totalDashboardInfoObj?.totalbottels | number: "1.0-1" }}</p>
+            </div>
+            <mat-card class="hoverData p-0 m-0"  *ngIf="showBottleDiv">
+             <div class="col-12 p-0 m-0"  >
+               <div class="row" *ngFor="let elem of totalProduction">
+                 <div class="col-md-5 m-2 hoverDetails">
+                 Product : {{elem.productName}}
+                 </div>
+                 <div class="col-md-5 m-2 hoverDetails">
+                  Bottle :  {{elem.physicalCases}}
+                 </div>
+                 <div class="col-md-5 m-2 hoverDetails">
+                  Size : {{elem.size}}
+                 </div>
+                 <div class="col-md-5 m-2 hoverDetails">
+                  Line : {{elem.line}}
+                 </div>
+              <div style="height: 1px;width: 100%;color: white;background-color: rgb(252, 217, 217);"></div>
+               </div>
+             </div>
+            </mat-card>
+          </div>
+          <div class="col-12 row py-2">
+            <div class="col-8">
+              <p (mouseleave)="showPhysicalDiv = false" (mouseenter)="showPhysicalDiv = true"><i class="fab fa-codepen pr-2" >
+              </i>Physical Case</p>
+            </div>
+            <div class="col-4">
+              <p>{{ totalDashboardInfoObj?.totalPackets | number: "1.0-1" }}</p>
+            </div>
+
+            <mat-card class="hoverData p-0 m-0"  *ngIf="showPhysicalDiv">
+              <div class="col-12"  >
+                <div class="row" *ngFor="let elem of totalProduction">
+                  <div class="col-md-5 m-2 hoverDetails">
+                  Product : {{elem.productName}}
+                  </div>
+                  <div class="col-md-5 m-2 hoverDetails">
+                   Physical Cases :  {{elem.packet}}
+                  </div>
+                  <div class="col-md-5 m-2 hoverDetails">
+                   Size : {{elem.size}}
+                  </div>
+                  <div class="col-md-5 m-2 hoverDetails">
+                   Line : {{elem.line}}
+                  </div>
+               <div style="height: 1px;width: 100%;color: white;background-color: rgb(252, 217, 217);"></div>
+                </div>
+              </div>
+             </mat-card>
+          </div>
+
+          <div class="col-12 row py-2">
+            <div class="col-8">
+              <p (mouseleave)="showPalletDiv = false" (mouseenter)="showPalletDiv = true"><i class="fas fa-industry pr-2"></i> Pallet</p>
+            </div>
+            <div class="col-4">
+              <p>{{ totalDashboardInfoObj?.totalPallet | number: "1.0-1" }}</p>
+            </div>
+            <mat-card class="hoverData p-0 m-0"  *ngIf="showPalletDiv">
+              <div class="col-12"  >
+                <div class="row" *ngFor="let elem of totalProduction">
+                  <div class="col-md-5 m-2 hoverDetails">
+                  Product : {{elem.productName}}
+                  </div>
+                  <div class="col-md-5 m-2 hoverDetails">
+                   Pallet :  {{elem.pallet}}
+                  </div>
+                  <div class="col-md-5 m-2 hoverDetails">
+                   Size : {{elem.size}}
+                  </div>
+                  <div class="col-md-5 m-2 hoverDetails">
+                   Line : {{elem.line}}
+                  </div>
+               <div style="height: 1px;width: 100%;color: white;background-color: rgb(252, 217, 217);"></div>
+                </div>
+              </div>
+             </mat-card>
+          </div>
+        </div>
+        <div class="strech-card" *ngIf="totalDashboardInfo?.length == 0">
+          <h5 class="font-weight-bold text-center">
+            <i class="fas fa-charging-station"></i> NO DATA
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 pr-0 py-2 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">
+          <i class="fas fa-chart-pie pr-2"></i>Performance KPI
+        </h6>
+        <hr />
+
+        <div
+          class="row justify-content-center align-items-center"
+          *ngIf="totalDashboardInfo?.length !== 0"
+        >
+          <div
+            role="progressbar"
+            style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}"
+          >
+            <small
+              >{{ totalDashboardInfoObj?.sle * 100 | number: "1.0-0" }} %</small
+            >
+          </div>
+        </div>
+        <div
+          class="text-center pt-4 font-weight-bold"
+          id="kpiDiv"
+          *ngIf="totalDashboardInfo?.length !== 0"
+        >
+          SLE
+        </div>
+
+        <div class="strech-card" *ngIf="totalDashboardInfo?.length == 0">
+          <h5 class="font-weight-bold text-center">
+            <i class="fas fa-charging-station"></i> NO DATA
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 pr-0 py-2 stretch-card">
+    <div class="card p-1">
+      <div class="card-body p-1">
+        <h6 class="card-title"><i class="fas fa-plug pr-2"></i>Usage Ratios</h6>
+        <hr />
+        <div class="row" *ngIf="totalDashboardInfo?.length !== 0">
+          <div class="col-12 row py-2">
+            <div class="col-6">
+              <p><i class="fas fa-bolt pr-2"></i>Energy</p>
+              <p class="pl-3">(WH)</p>
+            </div>
+            <div class="col-6">
+              <p>Per Litres</p>
+              <p>
+                {{ totalDashboardInfoObj?.energyLiterRatio | number: "1.0-5" }}
+              </p>
+            </div>
+          </div>
+          <div class="col-11 borderBottom my-3"></div>
+
+          <div class="col-12 row py-2">
+            <div class="col-6">
+              <p (mouseenter)="showDivData = true" (mouseleave)="showDivData = false"><i class="fas fa-tint pr-2"></i>Water</p>
+              <mat-card class="hoverWaterData p-1"  *ngIf="showDivData == true">
+                <div class="col-12" >
+                  <p *ngIf="totalMaterial.length == 0" class="text-danger text-center font-weight-bold   pt-2">No Data</p>
+                  <div class="row"  *ngFor="let elem of totalMaterial ">
+                    <div class="col-md-12 hoverWaterDetails">
+                     <p>Water Consumption : {{elem.water_Consumption}} L</p>
+
+                    </div>
+                 <div *ngIf="totalMaterial.length > 1" style="height: 1px;width: 100%;color: white;background-color: rgb(252, 217, 217);"></div>
+                  </div>
+                </div>
+               </mat-card>
+              <p class="pl-3">(L)</p>
+            </div>
+            <div class="col-6">
+              <p>Per Litres</p>
+              <p>
+                {{ totalDashboardInfoObj?.waterLiterRatio | number: "1.0-3" }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="strech-card" *ngIf="totalDashboardInfo?.length == 0">
+          <h5 class="font-weight-bold text-center">
+            <i class="fas fa-charging-station"></i> NO DATA
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 py-2 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">
+          <i class="fas fa-certificate pr-2"></i> Yield
+        </h6>
+        <hr />
+        <div class="row" *ngIf="totalDashboardInfo?.length !== 0">
+          <div
+            class="col-5 p-0 d-flex justify-content-center Yield"
+            style="border-right: solid 1px"
+          >
+            <div>
+              <div class="py-2 ">
+                <span class="d-block pb-2 font-weight-bold" (mouseenter)="showCo2Data = true" (mouseleave)="showCo2Data = false">Co2 Yield</span>
+                <mat-card class="hoverSyrubData p-1"  *ngIf="showCo2Data == true">
+                  <div class="col-12"  >
+                    <p *ngIf="totalMaterial.length == 0" class="text-danger text-center font-weight-bold   pt-2">No Data</p>
+
+                    <div class="row" *ngFor="let elem of totalMaterial ">
+                      <div class="col-md-12 hoverWaterDetails">
+                         <p>Co2 Consumption : {{elem.co2_Consumption}} KG</p>
+    
+                      </div>
+                   
+                     
+                   <div *ngIf="totalMaterial.length > 1" style="height: 1px;width: 100%;color: white;background-color: rgb(252, 217, 217);"></div>
+                    </div>
+                  </div>
+                 </mat-card>
+                <small class="font-weight-bold"
+                  >{{
+                    totalDashboardInfoObj?.co2Yield * 100 | number: "1.0-1"
+                  }}%</small
+                >
+              
+              </div>
+              <div class="py-2 ">
+                <span class="d-block pb-2 font-weight-bold" (mouseenter)="showSyrubData = true" (mouseleave)="showSyrubData = false">Syrup Yield</span>
+                <mat-card class="hoverSyrubData p-1 m-0"  *ngIf="showSyrubData == true">
+                  <div class="col-12"  >
+                    <p *ngIf="totalMaterial.length == 0" class="text-danger text-center font-weight-bold  pt-2">No Data</p>
+
+                    <div class="row" *ngFor="let elem of totalMaterial ">
+                      <div class="col-md-12 hoverWaterDetails">
+                     <p>Syrup Consumption : {{elem.syrup_Consumption}} L</p>
+                      </div>
+                   
+                     
+                   <div *ngIf="totalMaterial.length > 1" style="height: 1px;width: 100%;color: white;background-color: rgb(252, 217, 217);"></div>
+                    </div>
+                  </div>
+                 </mat-card>
+                <small class="font-weight-bold"
+                  >{{
+                    totalDashboardInfoObj?.syrupYield * 100 | number: "1.0-1"
+                  }}%</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-7 d-flex align-items-start Perform">
+            <!--  -->
+            <div>
+              <div class="py-1 d-flex justify-content-between">
+                <span class="pr-2">Perform Yield</span>
+                <span
+                  >{{
+                    totalDashboardInfoObj?.preformYield * 100 | number: "1.0-1"
+                  }}%</span
+                >
+              </div>
+              <div class="py-1 d-flex justify-content-between">
+                <span class="pr-2">Cans Yield</span>
+                <span
+                  >{{
+                    totalDashboardInfoObj?.cansYield * 100 | number: "1.0-1"
+                  }}%</span
+                >
+              </div>
+              <div class="py-1 d-flex justify-content-between">
+                <span class="pr-2">NRB Yield</span>
+                <span
+                  >{{
+                    totalDashboardInfoObj?.nrGlassYield * 100 | number: "1.0-1"
+                  }}%</span
+                >
+              </div>
+              <div class="py-1 d-flex justify-content-between">
+                <span class="pr-2">Crowns Yield</span>
+                <span
+                  >{{
+                    totalDashboardInfoObj?.crownsYield * 100 | number: "1.0-1"
+                  }}%</span
+                >
+              </div>
+              <div class="py-1 d-flex justify-content-between">
+                <span class="pr-2">Closures</span>
+                <span
+                  >{{
+                    totalDashboardInfoObj?.closures * 100 | number: "1.0-1"
+                  }}%</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="strech-card" *ngIf="totalDashboardInfo?.length == 0">
+          <h5 class="font-weight-bold text-center">
+            <i class="fas fa-charging-station"></i> NO DATA
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- section Charts -->
+<div class="row">
+  <!-- WaterFall Chart -->
+  <div class="col-xl-12 stretch-card" *ngIf="totalDashboardInfo?.length !== 0">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <h6 class="card-title text-center">SLE Water Fall</h6>
+            <div class="text-center">
+              <span class="m-2 font-weight-bold">
+                <i
+                  class="link-icon m-2 blue"
+                  data-feather="square"
+                  appFeatherIcon
+                ></i
+                >Increase</span
+              >
+              <span class="m-2 font-weight-bold"
+                ><i
+                  class="link-icon m-2 red"
+                  data-feather="square"
+                  appFeatherIcon
+                ></i
+                >Decrease</span
+              >
+              <span class="m-2 font-weight-bold"
+                ><i
+                  class="link-icon m-2 green"
+                  data-feather="square"
+                  appFeatherIcon
+                ></i
+                >Total</span
+              >
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <apx-chart
+          [legend]="barChartOptions.legend"
+          [dataLabels]="barChartOptions.dataLabels"
+          [series]="barChartOptions.series"
+          [colors]="barChartOptions.colors"
+          [grid]="barChartOptions.grid"
+          [chart]="barChartOptions.chart"
+          [xaxis]="barChartOptions.xaxis"
+          [yaxis]="barChartOptions.yaxis"
+          [annotations]="barChartOptions.annotations"
+          [tooltip]="barChartOptions.tooltip"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-12 strech-card" *ngIf="totalDashboardInfo?.length == 0">
+    <div class="card">
+      <div class="card-body py-5">
+        <h6 class="card-title">Water Fall Chart</h6>
+
+        <h4 class="text-center font-weight-bold">
+          <i class="far fa-chart-bar"></i> NO DATA
+        </h4>
+      </div>
+    </div>
+  </div>
+  <!--  Time line chart -->
+  <div class="col-xl-12 stretch-card mt-2" *ngIf="data.length !== 0">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h6 class="card-title pt-1 mr-3">Time line chart</h6>
+            <div>
+              <span class="m-3 font-weight-bold">
+                <i
+                  class="link-icon m-2 mb-1 redIcon"
+                  data-feather="square"
+                  appFeatherIcon
+                ></i
+                >Off</span
+              >
+              <span class="m-3 font-weight-bold"
+                ><i
+                  class="link-icon m-2 mb-1 greenIcon"
+                  data-feather="square"
+                  appFeatherIcon
+                ></i
+                >On</span
+              >
+              <span class="m-3 font-weight-bold"
+                ><i
+                  class="link-icon m-2 mb-1 greyIcon"
+                  data-feather="square"
+                  appFeatherIcon
+                ></i
+                >Waiting</span
+              >
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div
+          class="col-12"
+          id="history-chart"
+          *ngIf="line1Data.data.length != 0"
+        >
+          <div class="row">
+            <div class="col-1 h-5 text-center time-line-full-title1">
+              <p
+                style="
+                  margin-top: 42px;
+                  font-weight: bold;
+                  font-size: 16px;
+                  color: grey;
+                "
+              >
+                Line 1
+              </p>
+            </div>
+            <div class="col-11" style="height: 60px">
+              <apx-chart
+                [series]="line1Timeline.series"
+                [chart]="line1Timeline.chart"
+                [fill]="line1Timeline.fill"
+                [grid]="line1Timeline.grid"
+                [dataLabels]="line1Timeline.dataLabels"
+                [plotOptions]="line1Timeline.plotOptions"
+                [xaxis]="line1Timeline.xaxis"
+                [yaxis]="line1Timeline.yaxis"
+                [tooltip]="line1Timeline?.tooltip"
+                [legend]="line1Timeline?.legend"
+                [title]="line1Timeline?.title"
+              ></apx-chart>
+            </div>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="line2Data.data.length != 0">
+          <div class="row">
+            <div class="col-1 h-5 text-center time-line-full-title1">
+              <p
+                style="
+                  margin-top: 42px;
+                  font-weight: bold;
+                  font-size: 16px;
+                  color: grey;
+                "
+              >
+                Line 2
+              </p>
+            </div>
+            <div class="col-11" style="height: 60px">
+              <apx-chart
+                [series]="line2Timeline.series"
+                [chart]="line2Timeline.chart"
+                [fill]="line2Timeline.fill"
+                [grid]="line2Timeline.grid"
+                [dataLabels]="line2Timeline.dataLabels"
+                [plotOptions]="line2Timeline.plotOptions"
+                [xaxis]="line2Timeline.xaxis"
+                [yaxis]="line2Timeline.yaxis"
+                [tooltip]="line2Timeline?.tooltip"
+                [legend]="line2Timeline?.legend"
+                [title]="line2Timeline?.title"
+                height="100px"
+              ></apx-chart>
+            </div>
+          </div>
+        </div> 
+        <div class="col-12" *ngIf="line3Data.data.length != 0">
+          <div class="row">
+            <div class="col-1 h-5 text-center time-line-full-title1">
+              <p
+                style="
+                  margin-top: 42px;
+                  font-weight: bold;
+                  font-size: 16px;
+                  color: grey;
+                "
+              >
+                Line 3
+              </p>
+            </div>
+            <div class="col-11" style="height: 60px">
+              <apx-chart
+                [series]="line3Timeline.series"
+                [chart]="line3Timeline.chart"
+                [fill]="line3Timeline.fill"
+                [grid]="line3Timeline.grid"
+                [dataLabels]="line3Timeline.dataLabels"
+                [plotOptions]="line3Timeline.plotOptions"
+                [xaxis]="line3Timeline.xaxis"
+                [yaxis]="line3Timeline.yaxis"
+                [tooltip]="line3Timeline?.tooltip"
+                [legend]="line3Timeline?.legend"
+                [title]="line3Timeline?.title"
+              ></apx-chart>
+            </div>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="line4Data.data.length != 0">
+          <div class="row">
+            <div class="col-1 h-5 text-center time-line-full-title1">
+              <p
+                style="
+                  margin-top: 42px;
+                  font-weight: bold;
+                  font-size: 16px;
+                  color: grey;
+                "
+              >
+                Line 4
+              </p>
+            </div>
+            <div class="col-11" style="height: 60px">
+              <apx-chart
+                [series]="line4Timeline.series"
+                [chart]="line4Timeline.chart"
+                [fill]="line4Timeline.fill"
+                [grid]="line4Timeline.grid"
+                [dataLabels]="line4Timeline.dataLabels"
+                [plotOptions]="line4Timeline.plotOptions"
+                [xaxis]="line4Timeline.xaxis"
+                [yaxis]="line4Timeline.yaxis"
+                [tooltip]="line4Timeline?.tooltip"
+                [legend]="line4Timeline?.legend"
+                [title]="line4Timeline?.title"
+              ></apx-chart>
+            </div>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="line5Data.data.length != 0">
+          <div class="row">
+            <div class="col-1 h-5 text-center time-line-full-title1">
+              <p
+                style="
+                  margin-top: 35px;
+                  font-weight: bold;
+                  font-size: 16px;
+                  color: grey;
+                "
+              >
+                Line 5
+              </p>
+            </div>
+            <div class="col-11" style="height: 60px">
+              <apx-chart
+                [series]="line5Timeline.series"
+                [chart]="line5Timeline.chart"
+                [fill]="line5Timeline.fill"
+                [grid]="line5Timeline.grid"
+                [dataLabels]="line5Timeline.dataLabels"
+                [plotOptions]="line5Timeline.plotOptions"
+                [xaxis]="line5Timeline.xaxis"
+                [yaxis]="line5Timeline.yaxis"
+                [tooltip]="line5Timeline?.tooltip"
+                [legend]="line5Timeline?.legend"
+                [title]="line5Timeline?.title"
+              ></apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

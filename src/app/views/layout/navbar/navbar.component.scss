@@ -1,0 +1,44 @@
+.bg-red{
+  background-color: #de0c1c!important;
+}
+.loginIcon {
+  cursor: pointer;
+}
+
+element.style {
+}
+.navbar .navbar-content .navbar-nav .nav-item.nav-apps .dropdown-menu .dropdown-body, .navbar .navbar-content .navbar-nav .nav-item.nav-notifications .dropdown-menu .dropdown-body, .navbar .navbar-content .navbar-nav .nav-item.nav-messages .dropdown-menu .dropdown-body {
+    padding: 5px; 
+     max-height: 100vh!important; 
+     overflow: auto !important;
+    position: relative;
+}
+.alarm {
+  font-size: 30px !important;
+}
+.alert-number {
+  position: relative;
+    left: 9px;
+    top: 3px;
+    color: #535353;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  // background: #727cf5 ; 
+  border-radius: 5px;  
+}
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  .notifiDiv {
+    max-height: 500px;
+  }
+  .notifiVal {
+    font-size: 14px;
+  }
+ ::ng-deep .mat-typography p {
+    margin: 2px !important;
+}
