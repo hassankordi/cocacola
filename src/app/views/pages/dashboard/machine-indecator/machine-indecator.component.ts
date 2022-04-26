@@ -557,6 +557,7 @@ export class MachineIndecatorComponent implements OnInit {
       console.log(err);
 
     })
+    // hassan's last ay haga 
 
     // this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
     //   if (res.lines_Timeline) {
