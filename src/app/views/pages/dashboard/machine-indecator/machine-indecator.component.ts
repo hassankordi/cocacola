@@ -93,6 +93,7 @@ export class MachineIndecatorComponent implements OnInit {
   machineCurrentState:any ;
   machineCurrentStatus:any;
   machineTimeLine:any;
+  machineAvailabilityBottle:any;
 
   // end
   //constructor
@@ -502,8 +503,10 @@ export class MachineIndecatorComponent implements OnInit {
       console.log(this.machineTimeLine);
       console.log(res);
       
-     
+     this.machineAvailabilityBottle = (this.machineindicator.productionOutput / this.machineindicator.expected)*100
       
+     
+     console.log(this.machineAvailabilityBottle);
      
 
     }, (err) => {
