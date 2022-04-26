@@ -1437,6 +1437,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
+      console.log(res);
+      alert('hi')
+      
       if (res.lines_Timeline) {
         this.DrawTimeLine(res.lines_Timeline);
         this.data = res;

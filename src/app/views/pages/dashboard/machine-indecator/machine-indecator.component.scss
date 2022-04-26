@@ -57,6 +57,17 @@ div[role="progressbar"]::before {
     color: hsl(0, 0%, 78%);
    margin-right: 10px;
 }
+.online{
+   
+    color: hsl(120, 100%, 60%);
+   margin-right: 10px;
+}
+
+.offline{
+   
+    color: hsl(0, 0%, 78%);
+   margin-right: 10px;
+}
 
 @media screen and (max-width: 992px) {
 }

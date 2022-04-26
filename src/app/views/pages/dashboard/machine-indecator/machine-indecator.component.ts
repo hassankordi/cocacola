@@ -67,16 +67,17 @@ export class MachineIndecatorComponent implements OnInit {
   allMachines: any;
 
   selectedLocation = "Alex";
-  factoryId:any = 1;
+  factoryId: any = 1;
   selectedLine = null;
   selectedMachine = null;
   startDate = null;
   endDate = null;
+  selectedLineNumber: any = null
 
 
   openMachineSelect = false
   openDuration = false
-
+  displayData = false
 
   formVal;
   sub1$: Subscription;
@@ -89,11 +90,18 @@ export class MachineIndecatorComponent implements OnInit {
 
   lineName: any
 
-  machineindicator: any ={};
-  machineCurrentState:any ;
-  machineCurrentStatus:any;
-  machineTimeLine:any;
-  machineAvailabilityBottle:any;
+  machineindicator: any = {
+    oee: 0,
+    avalability: 0,
+    productionOutput: 0,
+    expected: 0
+  };
+  machineID:any = "machine Name"
+  machineCurrentState: any;
+  machineCurrentStatus: any;
+  machineTimeLine: any;
+  machineAvailabilityBottle: any = 0;
+
 
   // end
   //constructor
@@ -194,6 +202,8 @@ export class MachineIndecatorComponent implements OnInit {
   }
   ngAfterViewInit(): void { }
   ngOnInit(): void {
+    // this.availbilBar.style.width ='90%'
+
 
 
 
@@ -258,7 +268,8 @@ export class MachineIndecatorComponent implements OnInit {
     console.log(elem);
     this.dashboardFilter.LineID = elem.id;
     console.log(elem);
-    this.selectedLine = elem.lineNum
+    // this.selectedLine = elem.lineNum
+    this.selectedLineNumber = elem.lineNum
     this.openMachineSelect = true
 
     this.dashboardService.getMachinePlan(elem.id).subscribe((res) => {
@@ -482,45 +493,78 @@ export class MachineIndecatorComponent implements OnInit {
 
 
   filter(event) {
+    this.machineindicator = {}
+    this.machineCurrentState = 0
+    this.machineCurrentStatus = "offline"
+    this.machineAvailabilityBottle = 0
 
+    this.displayData = false
     let data = {
       machineId: this.selectedMachine,
       factory: Number(this.factoryId),
-      line: Number(this.selectedLine),
+      line: Number(this.selectedLineNumber),
       start: this.startDate,
       end: this.endDate,
     }
     console.log(data);
 
-    this.dashboardService.getMachineIndIndicator(data).subscribe((res:any) => {
-      this.machineindicator = res[0].machineindicator[0]
-      this.machineCurrentState = res[0].state
-      this.machineCurrentStatus = res[0].status
-      this.machineTimeLine = res[0].machinetimeline
-      console.log(this.machineindicator);
-      console.log(this.machineCurrentState);
-      console.log(this.machineCurrentStatus);
-      console.log(this.machineTimeLine);
+    this.dashboardService.getMachineIndIndicator(data).subscribe((res: any) => {
       console.log(res);
       
-     this.machineAvailabilityBottle = (this.machineindicator.productionOutput / this.machineindicator.expected)*100
-      
+     this.machineID = res[0]?.machine;
+     console.log(this.machineID);
+     console.log(res[0]?.machine);
      
-     console.log(this.machineAvailabilityBottle);
-     
+
+      if (res[0]?.machineindicator.length) {
+
+        this.machineindicator = res[0].machineindicator[0];
+        this.machineCurrentState = res[0].state
+        this.machineCurrentStatus = res[0].status
+        this.machineTimeLine = res[0].machinetimeline
+        console.log(this.machineindicator);
+        console.log(this.machineCurrentState);
+        console.log(this.machineCurrentStatus);
+        console.log(this.machineTimeLine);
+        console.log(res);
+        this.displayData = true
+
+        this.machineAvailabilityBottle = (this.machineindicator.productionOutput / this.machineindicator.expected) * 100
+
+        this.machineAvailabilityBottle = this.machineAvailabilityBottle.toFixed(0)
+        console.log(this.machineAvailabilityBottle);
+        // availbilBar.style.width = `${this.machineAvailabilityBottle}`
+
+      }
+      else {
+        this.displayData = true
+        this.machineCurrentState = res[0].state
+        this.machineCurrentStatus = res[0].status
+        this.machineindicator = {
+          oee: 0,
+          avalability: 0,
+          productionOutput: 0,
+          expected: 0
+        };
+      }
+      console.log(res);
+
+
+
+
 
     }, (err) => {
       console.log(err);
 
     })
 
-    this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-      if (res.lines_Timeline) {
-        this.DrawTimeLine(res.lines_Timeline);
+    // this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
+    //   if (res.lines_Timeline) {
+    //     this.DrawTimeLine(res.lines_Timeline);
 
 
-      }
-    });
+    //   }
+    // });
   }
 
 
