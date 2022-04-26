@@ -153,19 +153,19 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   dateByDay;
   openDate = true;
   calenderByDay;
-  showBottleDiv : boolean = false;
-  showPhysicalDiv : boolean = false
-  showPalletDiv : boolean = false
-  showDivData  :boolean = false
-  showCo2Data  :boolean = false
-  showSyrubData : boolean = false
-  totalProduction  : any = [] ;
-  totalMaterial  : any = []
+  showBottleDiv: boolean = false;
+  showPhysicalDiv: boolean = false
+  showPalletDiv: boolean = false
+  showDivData: boolean = false
+  showCo2Data: boolean = false
+  showSyrubData: boolean = false
+  totalProduction: any = [];
+  totalMaterial: any = []
   formVal;
   sub1$: Subscription;
   sub2$: Subscription;
   dataaaa = [
-    "mohamed" , 
+    "mohamed",
     "ahmed"
   ];
   shiftTimeType: any = [
@@ -634,10 +634,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sub1$.unsubscribe();
     this.sub2$.unsubscribe();
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
   ngOnInit(): void {
 
-    this.showPickerMultiple = true; 
+    this.showPickerMultiple = true;
     console.log(this.barChartOptions);
 
     //Factories
@@ -687,7 +687,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                         this.totalDashboardInfoObj.installed_Capacity,
                         Math.ceil(
                           this.totalDashboardInfoObj.installed_Capacity -
-                            this.totalDashboardInfoObj.nonScheduled * 100
+                          this.totalDashboardInfoObj.nonScheduled * 100
                         ),
                       ],
                     },
@@ -698,7 +698,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                         0,
                         Math.ceil(
                           this.totalDashboardInfoObj.installed_Capacity -
-                            this.totalDashboardInfoObj.nonScheduled * 100
+                          this.totalDashboardInfoObj.nonScheduled * 100
                         ),
                       ],
                     },
@@ -708,13 +708,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       y: [
                         Math.ceil(
                           this.totalDashboardInfoObj.installed_Capacity -
-                            this.totalDashboardInfoObj.nonScheduled * 100
+                          this.totalDashboardInfoObj.nonScheduled * 100
                         ),
                         Math.ceil(
                           this.totalDashboardInfoObj.installed_Capacity -
-                            this.totalDashboardInfoObj.nonScheduled * 100
+                          this.totalDashboardInfoObj.nonScheduled * 100
                         ) -
-                          this.totalDashboardInfoObj.scheduledMaintenance * 100,
+                        this.totalDashboardInfoObj.scheduledMaintenance * 100,
                       ],
                     },
                     {
@@ -724,12 +724,12 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                         0,
                         Math.ceil(
                           this.totalDashboardInfoObj.installed_Capacity -
-                            this.totalDashboardInfoObj.nonScheduled * 100
+                          this.totalDashboardInfoObj.nonScheduled * 100
                         ) -
-                          Math.ceil(
-                            this.totalDashboardInfoObj.scheduledMaintenance *
-                              100
-                          ),
+                        Math.ceil(
+                          this.totalDashboardInfoObj.scheduledMaintenance *
+                          100
+                        ),
                       ],
                     },
                     {
@@ -744,7 +744,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                         this.totalDashboardInfoObj.paid_Time,
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100
                         ),
                       ],
                     },
@@ -754,12 +754,12 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       y: [
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100
                         ),
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP * 100
                         ),
                       ],
                     },
@@ -769,15 +769,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       y: [
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP * 100
                         ),
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100
                         ),
                       ],
                     },
@@ -787,18 +787,18 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       y: [
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100
                         ),
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100 -
-                            this.totalDashboardInfoObj.minorStoppage
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100 -
+                          this.totalDashboardInfoObj.minorStoppage
                         ),
                       ],
                     },
@@ -808,20 +808,20 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       y: [
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100 -
-                            this.totalDashboardInfoObj.minorStoppage
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100 -
+                          this.totalDashboardInfoObj.minorStoppage
                         ),
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100 -
-                            this.totalDashboardInfoObj.minorStoppage -
-                            this.totalDashboardInfoObj.setup_Time * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100 -
+                          this.totalDashboardInfoObj.minorStoppage -
+                          this.totalDashboardInfoObj.setup_Time * 100
                         ),
                       ],
                     },
@@ -831,22 +831,22 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       y: [
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100 -
-                            this.totalDashboardInfoObj.minorStoppage -
-                            this.totalDashboardInfoObj.setup_Time * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100 -
+                          this.totalDashboardInfoObj.minorStoppage -
+                          this.totalDashboardInfoObj.setup_Time * 100
                         ),
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100 -
-                            this.totalDashboardInfoObj.minorStoppage -
-                            this.totalDashboardInfoObj.setup_Time * 100 -
-                            this.totalDashboardInfoObj.lossTime * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100 -
+                          this.totalDashboardInfoObj.minorStoppage -
+                          this.totalDashboardInfoObj.setup_Time * 100 -
+                          this.totalDashboardInfoObj.lossTime * 100
                         ),
                       ],
                     },
@@ -856,24 +856,24 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       y: [
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100 -
-                            this.totalDashboardInfoObj.minorStoppage -
-                            this.totalDashboardInfoObj.setup_Time * 100 -
-                            this.totalDashboardInfoObj.lossTime * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100 -
+                          this.totalDashboardInfoObj.minorStoppage -
+                          this.totalDashboardInfoObj.setup_Time * 100 -
+                          this.totalDashboardInfoObj.lossTime * 100
                         ),
                         Math.ceil(
                           this.totalDashboardInfoObj.paid_Time -
-                            this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                            this.totalDashboardInfoObj.changeOverTime_CIP *
-                              100 -
-                            this.totalDashboardInfoObj.epl * 100 -
-                            this.totalDashboardInfoObj.minorStoppage -
-                            this.totalDashboardInfoObj.setup_Time * 100 -
-                            this.totalDashboardInfoObj.lossTime * 100 -
-                            this.totalDashboardInfoObj.opl * 100
+                          this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                          this.totalDashboardInfoObj.changeOverTime_CIP *
+                          100 -
+                          this.totalDashboardInfoObj.epl * 100 -
+                          this.totalDashboardInfoObj.minorStoppage -
+                          this.totalDashboardInfoObj.setup_Time * 100 -
+                          this.totalDashboardInfoObj.lossTime * 100 -
+                          this.totalDashboardInfoObj.opl * 100
                         ),
                       ],
                     },
@@ -1140,7 +1140,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.totalDashboardInfoObj.installed_Capacity,
                     Math.ceil(
                       this.totalDashboardInfoObj.installed_Capacity -
-                        this.totalDashboardInfoObj.nonScheduled * 100
+                      this.totalDashboardInfoObj.nonScheduled * 100
                     ),
                   ],
                 },
@@ -1151,7 +1151,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                     0,
                     Math.ceil(
                       this.totalDashboardInfoObj.installed_Capacity -
-                        this.totalDashboardInfoObj.nonScheduled * 100
+                      this.totalDashboardInfoObj.nonScheduled * 100
                     ),
                   ],
                 },
@@ -1161,13 +1161,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.installed_Capacity -
-                        this.totalDashboardInfoObj.nonScheduled * 100
+                      this.totalDashboardInfoObj.nonScheduled * 100
                     ),
                     Math.ceil(
                       this.totalDashboardInfoObj.installed_Capacity -
-                        this.totalDashboardInfoObj.nonScheduled * 100
+                      this.totalDashboardInfoObj.nonScheduled * 100
                     ) -
-                      this.totalDashboardInfoObj.scheduledMaintenance * 100,
+                    this.totalDashboardInfoObj.scheduledMaintenance * 100,
                   ],
                 },
                 {
@@ -1177,11 +1177,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                     0,
                     Math.ceil(
                       this.totalDashboardInfoObj.installed_Capacity -
-                        this.totalDashboardInfoObj.nonScheduled * 100
+                      this.totalDashboardInfoObj.nonScheduled * 100
                     ) -
-                      Math.ceil(
-                        this.totalDashboardInfoObj.scheduledMaintenance * 100
-                      ),
+                    Math.ceil(
+                      this.totalDashboardInfoObj.scheduledMaintenance * 100
+                    ),
                   ],
                 },
                 {
@@ -1196,7 +1196,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.totalDashboardInfoObj.paid_Time,
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100
                     ),
                   ],
                 },
@@ -1206,12 +1206,12 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100
                     ),
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100
                     ),
                   ],
                 },
@@ -1221,14 +1221,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100
                     ),
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100
                     ),
                   ],
                 },
@@ -1238,16 +1238,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100
                     ),
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100 -
-                        this.totalDashboardInfoObj.minorStoppage
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100 -
+                      this.totalDashboardInfoObj.minorStoppage
                     ),
                   ],
                 },
@@ -1257,18 +1257,18 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100 -
-                        this.totalDashboardInfoObj.minorStoppage
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100 -
+                      this.totalDashboardInfoObj.minorStoppage
                     ),
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100 -
-                        this.totalDashboardInfoObj.minorStoppage -
-                        this.totalDashboardInfoObj.setup_Time * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100 -
+                      this.totalDashboardInfoObj.minorStoppage -
+                      this.totalDashboardInfoObj.setup_Time * 100
                     ),
                   ],
                 },
@@ -1278,20 +1278,20 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100 -
-                        this.totalDashboardInfoObj.minorStoppage -
-                        this.totalDashboardInfoObj.setup_Time * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100 -
+                      this.totalDashboardInfoObj.minorStoppage -
+                      this.totalDashboardInfoObj.setup_Time * 100
                     ),
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100 -
-                        this.totalDashboardInfoObj.minorStoppage -
-                        this.totalDashboardInfoObj.setup_Time * 100 -
-                        this.totalDashboardInfoObj.lossTime * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100 -
+                      this.totalDashboardInfoObj.minorStoppage -
+                      this.totalDashboardInfoObj.setup_Time * 100 -
+                      this.totalDashboardInfoObj.lossTime * 100
                     ),
                   ],
                 },
@@ -1301,22 +1301,22 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100 -
-                        this.totalDashboardInfoObj.minorStoppage -
-                        this.totalDashboardInfoObj.setup_Time * 100 -
-                        this.totalDashboardInfoObj.lossTime * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100 -
+                      this.totalDashboardInfoObj.minorStoppage -
+                      this.totalDashboardInfoObj.setup_Time * 100 -
+                      this.totalDashboardInfoObj.lossTime * 100
                     ),
                     Math.ceil(
                       this.totalDashboardInfoObj.paid_Time -
-                        this.totalDashboardInfoObj.maintenance_Setup * 100 -
-                        this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
-                        this.totalDashboardInfoObj.epl * 100 -
-                        this.totalDashboardInfoObj.minorStoppage -
-                        this.totalDashboardInfoObj.setup_Time * 100 -
-                        this.totalDashboardInfoObj.lossTime * 100 -
-                        this.totalDashboardInfoObj.opl * 100
+                      this.totalDashboardInfoObj.maintenance_Setup * 100 -
+                      this.totalDashboardInfoObj.changeOverTime_CIP * 100 -
+                      this.totalDashboardInfoObj.epl * 100 -
+                      this.totalDashboardInfoObj.minorStoppage -
+                      this.totalDashboardInfoObj.setup_Time * 100 -
+                      this.totalDashboardInfoObj.lossTime * 100 -
+                      this.totalDashboardInfoObj.opl * 100
                     ),
                   ],
                 },
@@ -1387,19 +1387,19 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   fromDate(event) {
     let date = new Date(event.value);
     let modifiedTime = date.toISOString()
-    this.date1 = modifiedTime.replace('22:00:00.000Z' , "").concat("00:00:00.000Z");
+    this.date1 = modifiedTime.replace('22:00:00.000Z', "").concat("00:00:00.000Z");
     this.dashboardFilter.startDate = this.date1
     console.log(this.dashboardFilter)
- 
+
   }
   fromDate2(event) {
     let date = new Date(event.value);
     let modifiedTime = date.toISOString()
-   this.date2 = modifiedTime.replace('22:00:00.000Z' , "").concat("00:00:00.000Z");
-   this.dashboardFilter.endDate =  this.date2
+    this.date2 = modifiedTime.replace('22:00:00.000Z', "").concat("00:00:00.000Z");
+    this.dashboardFilter.endDate = this.date2
 
   }
-  
+
   fromDateByDay(event) {
     let myDate = new Date(event.target.value);
     myDate.setDate(myDate.getDate() + 1);
@@ -1409,8 +1409,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   filter(event) {
-    if(this.dashboardFilter.endDate  &&  this.dashboardFilter.endDate.includes('T00:00:00.000Z00:00:00.000Z')) {
-      this.dashboardFilter.endDate = this.date1 
+    if (this.dashboardFilter.endDate && this.dashboardFilter.endDate.includes('T00:00:00.000Z00:00:00.000Z')) {
+      this.dashboardFilter.endDate = this.date1
     }
     console.log("llll", this.dashboardFilter);
     if (this.dateByDay) {
@@ -1427,7 +1427,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           this.totalDashboardInfo.forEach((element) => {
             element.forEach((elem) => {
               this.totalDashboardInfoObj = elem;
-              console.log("uuuuuu" , elem)
+              console.log("uuuuuu", elem)
               this.totalProduction = this.totalDashboardInfoObj.total_Production
               this.totalMaterial = this.totalDashboardInfoObj.total_Materials
             })
@@ -1437,17 +1437,36 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-      console.log(res);
-      alert('hi')
-      
       if (res.lines_Timeline) {
         this.DrawTimeLine(res.lines_Timeline);
-        this.data = res;
-        console.log(this.timeLineChart, "in filter");
+        ((res) => {
+          if (res) {
+            console.log(">>>>>>>", res);
+            this.totalDashboardInfo = res;
+            this.totalDashboardInfo.forEach((element) => {
+              element.forEach((elem) => {
+                this.totalDashboardInfoObj = elem;
+                console.log("uuuuuu", elem)
+                this.totalProduction = this.totalDashboardInfoObj.total_Production
+                this.totalMaterial = this.totalDashboardInfoObj.total_Materials
+              })
+            })
+            this.drawLossTree(res);
+          }
+        });
+
+        this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
+          console.log("oh" , res)
+          if (res) {
+            this.DrawTimeLine(res);
+            this.data = res;
+            console.log(this.timeLineChart, "in filter");
+          }
+        });
       }
-    });
+    
+     
+    
+    })
   }
-
- 
-
 }
