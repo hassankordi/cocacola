@@ -893,9 +893,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     //time
     this.currentDate = this.calendar.getToday();
     this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-      this.DrawTimeLine(res.lines_Timeline);
+      console.log("Time" , res)
+      this.DrawTimeLine(res);
 
-      this.data = res.lines_Timeline;
+      this.data = res;
     });
 
     // start HOVER TOGGLE
@@ -948,6 +949,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
               fillColor: "#29a32c",
             };
             this.line1Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
+            };
+            this.line1Data.data.push(obj);
           }
         } else if (element.identifier == "Line 2") {
           if (element.state == "Offline") {
@@ -978,6 +989,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                 new Date(element.to).getTime(),
               ],
               fillColor: "#29a32c",
+            };
+            this.line2Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
             };
             this.line2Data.data.push(obj);
           }
@@ -1012,6 +1033,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
               fillColor: "#29a32c",
             };
             this.line3Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
+            };
+            this.line3Data.data.push(obj);
           }
         } else if (element.identifier == "Line 4") {
           if (element.state == "Offline") {
@@ -1044,6 +1075,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
               fillColor: "#29a32c",
             };
             this.line4Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
+            };
+            this.line4Data.data.push(obj);
           }
         } else if (element.identifier == "Line 5") {
           if (element.state == "Offline") {
@@ -1074,6 +1115,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                 new Date(element.to).getTime(),
               ],
               fillColor: "#29a32c",
+            };
+            this.line5Data.data.push(obj);
+          }else if(element.state == 'Cleaning in Process') {
+            let obj = {
+              x: "Time",
+              y: [
+                new Date(element.from).getTime(),
+                new Date(element.to).getTime(),
+              ],
+              fillColor: "#576FE6",
             };
             this.line5Data.data.push(obj);
           }
@@ -1437,8 +1488,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-      if (res.lines_Timeline) {
-        this.DrawTimeLine(res.lines_Timeline);
+      if (res) {
+        this.DrawTimeLine(res);
         ((res) => {
           if (res) {
             console.log(">>>>>>>", res);
@@ -1456,11 +1507,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-          console.log("oh" , res)
           if (res) {
+          
+            console.log("Time" , res)
             this.DrawTimeLine(res);
             this.data = res;
-            console.log(this.timeLineChart, "in filter");
           }
         });
       }
