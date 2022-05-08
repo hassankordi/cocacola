@@ -139,7 +139,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   data = [];
   selectedValue;
   timeLineChart;
-  selectedLocation;
+  selectedLocation = "Alex";
   selectedLines;
   selectedTimeShift;
   selectedShift;

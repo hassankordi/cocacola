@@ -232,6 +232,8 @@ export class MachineTagExploreComponent implements OnInit {
     // get machine tag data (speed data) ..ect 
     this.dashboardService.getMachineTag(data).subscribe((res: any) => {
 
+      console.log(res);
+      
       // feh data
       if (res.length != 0) {
         this.emptyArray = false
@@ -239,6 +241,11 @@ export class MachineTagExploreComponent implements OnInit {
         this.tagTableName = this.activeTag.displayName
         this.tagsData = res;
         res.forEach((elem) => {
+          console.log(elem);
+          console.log(this.activeTag.columnName);
+          
+          console.log(elem[this.activeTag.columnName]);
+          
           this.mySeries.push([elem.timeStamp.replace("T", " "), Number(elem[this.activeTag.columnName].toFixed(0))])
           this.tableDate.push(elem.timeStamp.replace("T", " "))
           this.tableTagData.push(Number(elem[this.activeTag.columnName].toFixed(0)))

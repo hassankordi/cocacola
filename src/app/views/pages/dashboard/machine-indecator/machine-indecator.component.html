@@ -50,7 +50,7 @@
             <owl-date-time [disabled]="!openDuration" #dt12></owl-date-time>
           </div>
         
-          <div class="col-md-2">
+          <div class="col-md-2 row align-items-center ">
             <button class="btn btn-outline-danger" [disabled]="!openDialogBtn" (click)="filter($event)">
               Search
             </button>
@@ -101,7 +101,7 @@
             <div class="col-md-5">
               <div class="row justify-content-center align-items-center">
                 <!-- style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}" -->
-                <div role="progressbar"  style="--value:{{ machineindicator?.avalability * 100  | number }}" class="progressbar-circle">
+                <div role="progressbar"  style="--value:{{ machineindicator?.avalability * 100  | number }} ; --fg: {{ machineindicator?.avalability * 100 <= 50 ? '#e61d2b':'#33ff33' }};" class="bg-warning progressbar-circle">
                   <small
                   >{{ machineindicator?.avalability * 100 | number: "1.0-0" }} %</small
                 >
