@@ -379,4 +379,15 @@ export class DashboardService {
       );
     }
   }
+
+  getMachineTagProperties(machineId){
+    return this.http.get(
+      environment.sourceUrl + `/Machines/MachineTagProperties?MachineID=${machineId}` 
+    );
+  }
+  getMachineTag(data){
+    return this.http.get(
+      environment.sourceUrl + `/Machines/MachineTag?MachineID=${data.machineId}&from=${data.start}&to=${data.end}` 
+    );
+  }
 }

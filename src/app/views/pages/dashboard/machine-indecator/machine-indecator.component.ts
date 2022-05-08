@@ -88,6 +88,9 @@ export class MachineIndecatorComponent implements OnInit {
 
   openDialogBtn: boolean = false;
 
+  // this variable for =>  if ouda sent me an empty array with out any properties 
+  emptyArray:boolean = false
+
   lineName: any
 
   machineindicator: any = {
@@ -518,6 +521,9 @@ export class MachineIndecatorComponent implements OnInit {
 
       if (res[0]?.machineindicator.length) {
 
+        this.emptyArray = false
+        this.displayData = true
+
         this.machineindicator = res[0].machineindicator[0];
         this.machineCurrentState = res[0].state
         this.machineCurrentStatus = res[0].status
@@ -527,7 +533,7 @@ export class MachineIndecatorComponent implements OnInit {
         console.log(this.machineCurrentStatus);
         console.log(this.machineTimeLine);
         console.log(res);
-        this.displayData = true
+       
 
         this.machineAvailabilityBottle = (this.machineindicator.productionOutput / this.machineindicator.expected) * 100
 
@@ -537,8 +543,12 @@ export class MachineIndecatorComponent implements OnInit {
 
       }
       else {
+
+       if(res.length !=0){
+       
+         this.emptyArray = false
         this.displayData = true
-        this.machineCurrentState = res[0].state
+        this.machineCurrentState = res[0]?.state
         this.machineCurrentStatus = res[0].status
         this.machineindicator = {
           oee: 0,
@@ -546,6 +556,16 @@ export class MachineIndecatorComponent implements OnInit {
           productionOutput: 0,
           expected: 0
         };
+       }
+       else{
+         // done 
+       
+
+        this.displayData = false ;
+        this.emptyArray = true
+       
+
+       }
       }
       console.log(res);
 
