@@ -33,11 +33,11 @@
             <input (dateTimeChange)="durationStatus($event)" class="form-control p-3 h-100 rounded" placeholder="Duration"  [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [selectMode]="'range'">
             <owl-date-time #dt12></owl-date-time>
           </div>
-         
 
-          <div class="pl-3 pt-2">
+
+          <div class="d-flex">
             <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
-            <button class="btn btn-primary" (click)="getAllMachines($event)" [disabled]="disableSearch">Search</button>
+            <button class="btn btn-danger mx-1 px-4" (click)="getAllMachines($event)" [disabled]="disableSearch">Search</button>
           </div>
 
         </div>

@@ -2,57 +2,58 @@
   <div class="col-xl-12 stretch-card">
     <div class="card">
       <div class="card-body p-2">
-        <form class="row" #formVal="ngForm">
-          <div class="col-md-2 d-flex">
-            <mat-form-field class="w-100" [appearance]="'outline'">
-              <mat-label>Factory</mat-label>
-              <mat-select [(ngModel)]="selectedLocation" name="plant">
-                <mat-option [value]="null"></mat-option>
-                <mat-option *ngFor="let elem of location" [value]="elem.name" (click)="selectLocation(elem)">
-                  {{ elem.location }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+        <form #formVal="ngForm">
+          <div class="row">
+            <div class="col-md-2 d-flex">
+              <mat-form-field class="w-100" [appearance]="'outline'">
+                <mat-label>Factory</mat-label>
+                <mat-select [(ngModel)]="selectedLocation" name="plant">
+                  <mat-option [value]="null"></mat-option>
+                  <mat-option *ngFor="let elem of location" [value]="elem.name" (click)="selectLocation(elem)">
+                    {{ elem.location }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <div class="col-md-2 d-flex">
+              <mat-form-field class="w-100" [appearance]="'outline'">
+                <mat-label>All Lines</mat-label>
+                <mat-select [(ngModel)]="selectedLine" name="line">
+                  <mat-option [value]="null"></mat-option>
+  
+                  <mat-option *ngFor="let elem of allLines" (click)="selectLine(elem)" [value]="elem.name">
+                    {{ elem.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2 d-flex">
+              <mat-form-field class="w-100" [appearance]="'outline'">
+                <mat-label>Machines</mat-label>
+                <mat-select [disabled]="!openMachineSelect" [(ngModel)]="selectedMachine" name="machine">
+                  <mat-option (click)="selectMachine()" [value]="null"></mat-option>
+                  <mat-option *ngFor="let elem of allMachines" (click)="selectMachine()" [value]="elem.plcName">
+                    {{ elem.plcName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <div class="col-md-2 d-flex">  
+              <input [disabled]="!openDuration" (dateTimeChange)="durationStatus($event)"
+                class="form-control p-3 h-100 rounded" placeholder="Duration" [owlDateTimeTrigger]="dt12"
+                [owlDateTime]="dt12" [selectMode]="'range'">
+              <owl-date-time [disabled]="!openDuration" #dt12></owl-date-time>
+            </div>
+  
+            <div class="d-flex">
+              <button class="btn btn-danger mx-1 px-4" [disabled]="!openDialogBtn" (click)="filter($event)">
+                Search
+              </button>
+            </div>
           </div>
 
-          <div class="col-md-2 d-flex">
-            <mat-form-field class="w-100" [appearance]="'outline'">
-              <mat-label>All Lines</mat-label>
-              <mat-select [(ngModel)]="selectedLine" name="line">
-                <mat-option [value]="null"></mat-option>
-
-                <mat-option *ngFor="let elem of allLines" (click)="selectLine(elem)" [value]="elem.name">
-                  {{ elem.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-md-2 d-flex">
-            <mat-form-field class="w-100" [appearance]="'outline'">
-              <mat-label>Machines</mat-label>
-              <mat-select [disabled]="!openMachineSelect" [(ngModel)]="selectedMachine" name="machine">
-                <mat-option (click)="selectMachine()" [value]="null"></mat-option>
-                <mat-option *ngFor="let elem of allMachines" (click)="selectMachine()" [value]="elem.plcName">
-                  {{ elem.plcName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-2 d-flex">
-
-
-            <input [disabled]="!openDuration" (dateTimeChange)="durationStatus($event)"
-              class="w-100 form-control h-75 rounded" placeholder="Duration" [owlDateTimeTrigger]="dt12"
-              [owlDateTime]="dt12" [selectMode]="'range'">
-            <owl-date-time [disabled]="!openDuration" #dt12></owl-date-time>
-          </div>
-
-          <div class="col-md-2">
-            <button class="btn btn-outline-danger" [disabled]="!openDialogBtn" (click)="filter($event)">
-              Search
-            </button>
-          </div>
         </form>
       </div>
     </div>

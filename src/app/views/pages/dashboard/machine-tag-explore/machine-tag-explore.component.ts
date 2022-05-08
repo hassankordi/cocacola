@@ -221,11 +221,20 @@ export class MachineTagExploreComponent implements OnInit {
 
     // get properties name like => speed , cout ..ect 
     this.dashboardService.getMachineTagProperties(this.selectedMachine).subscribe((res: any) => {
+      // feh properties
+     if(res.length != 0){
       console.log(res);
+      this.emptyArray = false
       this.displayData = true
       this.activeTag = res[0]
       res.shift()
       this.tags = res;
+     }
+     else{
+      this.emptyArray = true
+      this.displayData = false
+
+     }
      
     })
 
@@ -233,6 +242,10 @@ export class MachineTagExploreComponent implements OnInit {
     this.dashboardService.getMachineTag(data).subscribe((res: any) => {
 
       console.log(res);
+      this.tagsData = [];
+      this.mySeries = [];
+      this.tableDate=[];
+      this.tableTagData = []
       
       // feh data
       if (res.length != 0) {
