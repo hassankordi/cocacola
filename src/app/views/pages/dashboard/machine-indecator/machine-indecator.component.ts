@@ -97,7 +97,7 @@ export class MachineIndecatorComponent implements OnInit {
   startDate = null;
   endDate = null;
   selectedLineNumber: any = null
-  plantName  :any;
+  plantName  : any = 'Alex';
 
   openMachineSelect = false
   openDuration = false
