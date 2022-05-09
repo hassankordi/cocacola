@@ -74,6 +74,9 @@ export class DashboardService {
       environment.sourceUrl + "/Navigation/MachinesOfLines/" + LineId
     );
   }
+  getMachineFunctionality() {
+    return this.http.get(environment.sourceUrl + '/MachineFunctionality')
+  }
   getMachineHistoricalStatus(data) {
 
     return this.http.get(
@@ -391,6 +394,11 @@ export class DashboardService {
     }
   }
 
+  getAllMachinesForFunctionality(functionalityId) {
+    return this.http.get<any[]>(
+      environment.sourceUrl +`/Machines/MachinesStatus?machinefunctionalityid=${functionalityId}`
+    );
+  }
   getMachineTagProperties(machineId){
     return this.http.get(
       environment.sourceUrl + `/Machines/MachineTagProperties?MachineID=${machineId}` 

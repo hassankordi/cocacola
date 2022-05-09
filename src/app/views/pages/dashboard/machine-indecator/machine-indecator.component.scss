@@ -125,4 +125,7 @@ hr {
     height: 16px;
     width: 16px
   }
-  
+  ::ng-deep .mat-form-field-wrapper {
+    padding: 0px !important;
+    margin: 0px !important;
+}

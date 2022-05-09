@@ -4,10 +4,11 @@
       <div class="card-body p-2">
         <div class="row">
 
-          <div class="col-md-3 d-flex">
+          <div class="col-md-2 d-flex">
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>Plant</mat-label>
               <mat-select [(ngModel)]="factory">
+                <mat-option [value]="null" (click)="plantLineNull()"></mat-option>
                 <mat-option *ngFor="let elem of location" [value]="elem.name"
                   (click)="selectLocation(elem.name, elem.id)">
                   {{ elem.location }}
@@ -20,14 +21,27 @@
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>All Lines</mat-label>
               <mat-select [disabled]="openLines" [(ngModel)]="line">
+                <mat-option [value]="null" (click)="plantLineNull()"></mat-option>
                 <mat-option *ngFor="let elem of allLines" (click)="selectLine(elem.id )" [value]="elem.name">
+
                   {{ elem.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
+          <div class="col-md-2 d-flex">
+            <mat-form-field class="w-100" [appearance]="'outline'">
+              <mat-label>Functionality</mat-label>
+              <mat-select [disabled]="plantSelected || lineSelected" [(ngModel)]="FunctionlaityValue">
+                <mat-option [value]="null"></mat-option>
+                <mat-option *ngFor="let elem of machineFunctionlity" (click)="selectFunctionality(elem.id)" [value]="elem.name">
+                 {{elem.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
           <!-- [(ngModel)]="selectedMoments" -->
-          <div class="col-md-3 d-flex">
+          <div class="col-md-2 d-flex">
 
             
             <input (dateTimeChange)="durationStatus($event)" class="form-control p-3 h-100 rounded" placeholder="Duration"  [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [selectMode]="'range'">

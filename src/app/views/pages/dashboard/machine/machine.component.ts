@@ -53,17 +53,22 @@ export class MachineComponent implements OnInit {
   mixersVal = [];
   fillerKey = [];
   fillerVal = [];
+  functionlaityId  :any;
   cartonizerShrinkKey = [];
   cartonizerShrinkVal = [];
+  machineFunctionlity : any = [];
   palletizerKey = [];
   palletizerVal = [];
   openLines = true;
   showGifImg = false
   disableSearch = false
+  plantSelected : boolean = false
+  lineSelected : boolean = false
   factory
   line;
   machine;
   startDate;
+  FunctionlaityValue  :any
   endDate;
   openDialogBtn: boolean = false;
   machineDuration;
@@ -83,11 +88,16 @@ export class MachineComponent implements OnInit {
           this.allLines = res;
         });
     });
+    this.dashboardService.getMachineFunctionality().subscribe(res=>{
+      this.machineFunctionlity = res
+    })
   }
-
+  
   selectLocation(elem, id) {
     this.line = ''
     this.lineId = undefined
+    this.plantSelected = true
+    this.FunctionlaityValue = ''
     this.dashboardFilter.LineID = undefined
     console.log("ok", elem);
     this.factoryId = id;
@@ -101,38 +111,126 @@ export class MachineComponent implements OnInit {
     });
   }
   selectLine(lineId) {
-
+    this.lineSelected = true
     this.dashboardFilter.LineID = lineId;
     this.lineId = lineId;
+    this.FunctionlaityValue = ''
 
     console.log(this.lineId);
     console.log(this.DpalletizerVal);
 
   }
-
+  selectFunctionality(functionlityId) {
+    this.functionlaityId = functionlityId
+  }
 
 
   getAllMachines(event) {
 
-    this.blowMouldersKey = []
-    this.blowMouldersVal = []
-    this.DpalletizerKey = []
-    this.DpalletizerVal = []
-    this.mixersKey = []
-    this.mixersVal = []
-    this.fillerKey = []
-    this.fillerVal = []
-    this.cartonizerShrinkKey = []
-    this.cartonizerShrinkVal = []
-    this.palletizerKey = []
-    this.palletizerVal = []
-    this.showGifImg = true
-    this.disableSearch = true
-    this.dashboardService
-      .getAllMachines(this.factoryId, this.lineId)
-      .subscribe((res) => {
+    if(!this.functionlaityId) {
+      alert("no")
+      this.blowMouldersKey = []
+      this.blowMouldersVal = []
+      this.DpalletizerKey = []
+      this.DpalletizerVal = []
+      this.mixersKey = []
+      this.mixersVal = []
+      this.fillerKey = []
+      this.fillerVal = []
+      this.cartonizerShrinkKey = []
+      this.cartonizerShrinkVal = []
+      this.palletizerKey = []
+      this.palletizerVal = []
+      this.showGifImg = true
+      this.disableSearch = true
+      this.dashboardService.getAllMachines(this.factoryId, this.lineId).subscribe((res) => {
 
 
+          if (res) {
+            this.showGifImg = false
+            this.disableSearch = false
+          }
+          this.allMachines = res[0];
+          console.log("2", this.allMachines)
+          console.log('heyyy', this.allMachines)
+          this.blowMoulders = this.allMachines.blow_Moulders;
+
+          this.blowMoulders.forEach((element) => {
+            console.log("elment", element);
+            this.timeStamp1 = element.timeStamp;
+            this.state1 = element.state;
+            this.status1 = element.status;
+            this.blowMouldersKey.push(Object.keys(element));
+            this.blowMouldersVal.push(Object.values(element));
+          });
+          console.log(this.blowMouldersVal);
+
+          this.dPalletizers = this.allMachines.dPalletizers;
+          this.dPalletizers.forEach((element) => {
+            this.timeStamp2 = element.timeStamp;
+            this.state2 = element.state;
+            this.status2 = element.status;
+            this.DpalletizerKey.push(Object.keys(element));
+            this.DpalletizerVal.push(Object.values(element));
+          });
+          this.mixers = this.allMachines.mixers;
+          this.mixers.forEach((element) => {
+            console.log(element)
+            this.timeStamp3 = element.timeStamp;
+            this.state3 = element.state;
+            this.status3 = element.status;
+            this.mixersKey.push(Object.keys(element));
+            this.mixersVal.push(Object.values(element));
+          });
+          this.filler = this.allMachines.fillers;
+          this.filler.forEach((element) => {
+            this.timeStamp4 = element.timeStamp;
+            this.state4 = element.state;
+            this.status4 = element.status;
+            this.fillerKey.push(Object.keys(element));
+            this.fillerVal.push(Object.values(element));
+          });
+          this.cartonizerShrink = this.allMachines.cartonizers_Shrinks;
+          this.cartonizerShrink.forEach((element) => {
+            this.timeStamp5 = element.timeStamp;
+            this.state5 = element.state;
+            this.status5 = element.status;
+            this.cartonizerShrinkKey.push(Object.keys(element));
+            this.cartonizerShrinkVal.push(Object.values(element));
+          });
+          this.palletizer = this.allMachines.palletizers;
+          this.palletizer.forEach((element) => {
+            console.log(element);
+            this.timeStamp6 = element.timeStamp;
+            this.state6 = element.state;
+            console.log(this.state6);
+            this.status6 = element.status;
+            console.log(this.status6);
+
+            this.palletizerKey.push(Object.keys(element));
+            this.palletizerVal.push(Object.values(element));
+          });
+        });
+
+    }
+
+    if(this.functionlaityId) {
+      alert("yes")
+      this.dashboardService.getAllMachinesForFunctionality(this.functionlaityId).subscribe(res=>{
+        this.blowMouldersKey = []
+        this.blowMouldersVal = []
+        this.DpalletizerKey = []
+        this.DpalletizerVal = []
+        this.mixersKey = []
+        this.mixersVal = []
+        this.fillerKey = []
+        this.fillerVal = []
+        this.cartonizerShrinkKey = []
+        this.cartonizerShrinkVal = []
+        this.palletizerKey = []
+        this.palletizerVal = []
+        this.showGifImg = true
+        this.disableSearch = true
         if (res) {
           this.showGifImg = false
           this.disableSearch = false
@@ -197,9 +295,14 @@ export class MachineComponent implements OnInit {
           this.palletizerKey.push(Object.keys(element));
           this.palletizerVal.push(Object.values(element));
         });
-      });
+      })
+    }
 
     event.stopPropagation()
+  }
+  plantLineNull() {
+    this.plantSelected = false
+    this.lineSelected = false
   }
 
 
@@ -245,6 +348,7 @@ export class MachineComponent implements OnInit {
     })
 
   }
+ 
   openDialog(data: any) {
     const dialogRef = this.dialog.open(MachineStatusPopUp, {
       data, height: '550px',
