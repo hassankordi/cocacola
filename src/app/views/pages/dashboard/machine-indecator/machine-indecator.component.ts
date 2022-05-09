@@ -90,6 +90,13 @@ export class MachineIndecatorComponent implements OnInit {
   allLines: any;
   allMachines: any;
 
+
+  // this array holds al machines data
+  allMachinesIndicatorData: any = [];
+
+  // load animation
+  showGifImg:any = false
+
   selectedLocation = "Alex";
   factoryId: any = 1;
   selectedLine = null;
@@ -97,7 +104,7 @@ export class MachineIndecatorComponent implements OnInit {
   startDate = null;
   endDate = null;
   selectedLineNumber: any = null
-  plantName  : any = 'Alex';
+  plantName  :any;
 
   openMachineSelect = false
   openDuration = false
@@ -123,7 +130,7 @@ export class MachineIndecatorComponent implements OnInit {
     productionOutput: 0,
     expected: 0
   };
-  machineID:any = "machine Name"
+  machineID:any = null
   machineCurrentState: any;
   machineCurrentStatus: any;
   machineTimeLine: any;
@@ -523,7 +530,7 @@ export class MachineIndecatorComponent implements OnInit {
   ngOnInit(): void {
     // this.availbilBar.style.width ='90%'
 
-
+    this.plantName = "Alex"
 
 
 
@@ -813,12 +820,17 @@ export class MachineIndecatorComponent implements OnInit {
 
 
   filter(event) {
+
+
+    this.showGifImg = true 
+
     this.machineindicator = {}
     this.machineCurrentState = 0
     this.machineCurrentStatus = "offline"
     this.machineAvailabilityBottle = 0
 
-    this.displayData = false
+    this.displayData = false ;
+    this.emptyArray = false ;
     let data = {
       machineId: this.selectedMachine,
       factory: this.plantName,
@@ -829,15 +841,25 @@ export class MachineIndecatorComponent implements OnInit {
     console.log(data);
 
     this.dashboardService.getMachineIndIndicator(data).subscribe((res: any) => {
+      this.showGifImg = false 
+     
+
       console.log(res);
-      
-     this.machineID = res[0]?.machine;
-     console.log(this.machineID);
+      this.allMachinesIndicatorData = []
+   res.forEach((elem)=>{
+     console.log(elem);
+     this.allMachinesIndicatorData.push(...elem.machineindicator)
+     
+   })
+   console.log("hasldhsaflksahf" , this.allMachinesIndicatorData);
+   
+
+   this.machineID = res[0]?.machine
      console.log(res[0]?.machine);
      
 
       if (res[0]?.machineindicator.length) {
-
+       
         this.emptyArray = false
         this.displayData = true
 
@@ -917,6 +939,10 @@ export class MachineIndecatorComponent implements OnInit {
       }
       else {
 
+       
+        // console.log( res[0].machineindicator);
+
+        
        if(res.length !=0){
        
          this.emptyArray = false
@@ -940,14 +966,18 @@ export class MachineIndecatorComponent implements OnInit {
        
 
        }
+      
       }
       console.log(res);
-
+      console.log(this.displayData);
+      console.log(this.emptyArray);
+      
 
 
 
 
     }, (err) => {
+      this.showGifImg = false
       console.log(err);
 
     })

@@ -308,8 +308,11 @@ export class MachineTagExploreComponent implements OnInit {
     this.tableTagData = []
  
     console.log(tag, e);
+    
+    
     this.tagTableName = tag.displayName
     this.tagsData.forEach((elem) => {
+      console.log(elem[tag.columnName]);
       this.mySeries.push([elem.timeStamp.replace("T", " "), Number(elem[tag.columnName].toFixed(0))])
 
 
