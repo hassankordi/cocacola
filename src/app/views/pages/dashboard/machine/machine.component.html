@@ -32,7 +32,7 @@
           <div class="col-md-2 d-flex">
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>Functionality</mat-label>
-              <mat-select [disabled]="plantSelected || lineSelected" [(ngModel)]="FunctionlaityValue">
+              <mat-select [disabled]="plantLineSelected" [(ngModel)]="FunctionlaityValue">
                 <mat-option [value]="null"></mat-option>
                 <mat-option *ngFor="let elem of machineFunctionlity" (click)="selectFunctionality(elem.id)" [value]="elem.name">
                  {{elem.name}}
@@ -72,6 +72,62 @@
 
 
 <!-- start  -->
+
+<!-- done -->
+<div class="row" *ngFor="let elem of blowMouldersVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Blow Moulders : {{timeStamp1 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="/assets/images/blow.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of blowMouldersKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 
 <div class="row" *ngFor="let elem of blowMouldersVal;">
   <div class="col-12 py-2">
     <div class="card">
@@ -97,19 +153,72 @@
           <div class="col-11 p-0">
             <div class="row">
               <div class="col-md-2" *ngFor="let i of blowMouldersKey[0]; let x = index"
-                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
                 [class.noneStatus]="status1 == 'OffLine'">
                 <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
                   elem[x] }}</span>
-
+                  <div class="col-12 pt-3" *ngIf="elem[x] == 'OffLine'">
+                    <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+                  </div>
               </div>
               <div class="col-md-2">
                
-                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Historical</button>
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
               </div>
-              <div class="col-12 pt-3" *ngIf="status1 == 'OffLine'">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Dpall -->
+<div class="row" *ngFor="let elem of DpalletizerVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Dpalletizer : {{timeStamp2 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="/assets/images/stack-of-boxes.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of DpalletizerKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
                 <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
               </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
             </div>
           </div>
         </div>
@@ -118,7 +227,7 @@
   </div>
 </div>
 
-<div class="row" *ngFor="let elem of DpalletizerVal;">
+<!-- <div class="row" *ngFor="let elem of DpalletizerVal;">
   <div class="col-12 py-2">
     <div class="card">
       <div class="card-header">
@@ -143,18 +252,71 @@
           <div class="col-11 p-0">
             <div class="row">
               <div class="col-md-2" *ngFor="let i of DpalletizerKey[0]; let x = index"
-                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
                 [class.noneStatus]="status2 == 'OffLine'">
                 <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal">{{
                   elem[x] }}</span>
+                  <div class="col-12 pt-3" *ngIf="elem[x] == 'OffLine'">
+                    <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+                  </div>
               </div>
               <div class="col-md-2">
                
-                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Historical</button>
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
               </div>
-              <div class="col-12 pt-3" *ngIf="status2 == 'OffLine'">
+           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row" *ngFor="let elem of mixersVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on') ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Mixers : {{timeStamp3 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="/assets/images/mixer.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of mixersKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
                 <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
               </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
             </div>
           </div>
         </div>
@@ -163,7 +325,7 @@
   </div>
 </div>
 
-<div class="row" *ngFor="let elem of mixersVal;">
+<!-- <div class="row" *ngFor="let elem of mixersVal;">
   <div class="col-12 py-2">
     <div class="card">
       <div class="card-header">
@@ -188,14 +350,14 @@
           <div class="col-11 p-0">
             <div class="row">
               <div class="col-md-2" *ngFor="let i of mixersKey[0]; let x = index"
-                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
                 [class.noneStatus]="status3 == 'OffLine'">
                 <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
                   elem[x] }}</span>
               </div>
               <div class="col-md-2">
                
-                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Historical</button>
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
               </div>
               <div class="col-12 pt-3" *ngIf="status3 == 'OffLine'">
                 <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
@@ -206,9 +368,61 @@
       </div>
     </div>
   </div>
+</div> -->
+<div class="row" *ngFor="let elem of fillerVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Filler : {{timeStamp4 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="/assets/images/filler.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of fillerKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="row" *ngFor="let elem of fillerVal;">
+
+<!-- <div class="row" *ngFor="let elem of fillerVal;">
   <div class="col-12 py-2">
     <div class="card">
       <div class="card-header">
@@ -233,14 +447,14 @@
           <div class="col-11 p-0">
             <div class="row">
               <div class="col-md-2" *ngFor="let i of fillerKey[0]; let x = index"
-                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
                 [class.noneStatus]="status4 == 'OffLine'">
                 <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
                   elem[x] }}</span>
               </div>
               <div class="col-md-2">
                
-                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Historical</button>
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
               </div>
               <div class="col-12 pt-3" *ngIf="status4 == 'OffLine'">
                 <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
@@ -251,9 +465,60 @@
       </div>
     </div>
   </div>
+</div> -->
+<div class="row" *ngFor="let elem of palletizerVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              palletizer : {{timeStamp5 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="/assets/images/pall.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of palletizerKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="row" *ngFor="let elem of cartonizerShrinkVal;">
+<!-- <div class="row" *ngFor="let elem of cartonizerShrinkVal;">
   <div class="col-12 py-2">
     <div class="card">
       <div class="card-header">
@@ -278,18 +543,76 @@
           <div class="col-11 p-0">
             <div class="row">
               <div class="col-md-2" *ngFor="let i of cartonizerShrinkKey[0]; let x = index"
-                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
-                [class.noneStatus]="status5 == 'OffLine'">
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
                 <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
                   elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
               </div>
               <div class="col-md-2">
                
-                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Historical</button>
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
               </div>
-              <div class="col-12 pt-3" *ngIf="status5 == 'OffLine'">
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="row" *ngFor="let elem of cartonizerShrinkVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')   ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Cartonizer Shrink : {{timeStamp6 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')  ">
+            <img src="/assets/images/parcel.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of cartonizerShrinkKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
                 <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
               </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
             </div>
           </div>
         </div>
@@ -297,8 +620,7 @@
     </div>
   </div>
 </div>
-
-<div class="row" *ngFor="let elem of palletizerVal;">
+<!-- <div class="row" *ngFor="let elem of palletizerVal;">
   <div class="col-12 py-2">
     <div class="card">
       <div class="card-header">
@@ -323,14 +645,14 @@
           <div class="col-11 p-0">
             <div class="row">
               <div class="col-md-2" *ngFor="let i of palletizerKey[0]; let x = index"
-                [class.hideProp]="i == 'state' || i == 'status' || i == 'machineId' || i == 'timeStamp'"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
                 [class.noneStatus]="status6 == 'OffLine'">
                 <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
                   elem[x] }}</span>
               </div>
               <div class="col-md-2">
                
-                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >Historical</button>
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
               </div>
               <div class="col-12 pt-3" *ngIf="status6 == 'OffLine'">
                 <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
@@ -341,4 +663,400 @@
       </div>
     </div>
   </div>
+</div> -->
+<!-- start -->
+
+
+
+<div class="row" *ngFor="let elem of energyVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Energy : {{timeStamp7 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="https://i.ibb.co/6mhkVqD/plug.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of energyKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<!-- <div class="row" *ngFor="let elem of energyVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state7 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Energy : {{timeStamp7 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status7 == 'OffLine'">
+            <img src="/assets/images/pall.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of energyKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status7 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status7 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row" *ngFor="let elem of signalBrokerVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Signal Broker : {{timeStamp8 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="https://i.ibb.co/7bgqB68/engineering.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of signalBrokerKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row" *ngFor="let elem of signalBrokerVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state9 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Signal Broker : {{timeStamp9 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status9 == 'OffLine'">
+            <img src="/assets/images/pall.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of signalBrokerKey[0]; let x = index"
+              
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status9 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status9 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row" *ngFor="let elem of labelersVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on') ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+              Labelers : {{timeStamp9 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes( 'OffLine')">
+            <img src="https://i.ibb.co/c2xVcqm/tag.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of labelersKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row" *ngFor="let elem of labelersVal ;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="state8 == 'On'  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Labelers : {{timeStamp8 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="status8 == 'OffLine'">
+            <img src="/assets/images/pall.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of labelersKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status8 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status8 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row" *ngFor="let elem of waterVal">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bold">
+               Water : {{timeStamp10 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="https://i.ibb.co/fpZHYVt/water-drop.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of waterKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+               >
+           
+               <div *ngIf="elem.includes('OnLine')">
+                 
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+                 
+               </div>
+               
+              </div>
+              <div class="col-12 pt-3" *ngIf="elem.includes('OffLine')">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 
+<div class="row" *ngFor="let elem of  waterVal;">
+  <div class="col-12 py-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1">
+            <mat-icon class=" circleIcon" [ngClass]="elem.includes('on')  ? 'greenColor' : 'RedColor'">circle</mat-icon>
+          </div>
+          <div class="col-11 d-flex align-items-center">
+            <span class="font-weight-bolder">
+              Water : {{timeStamp10 | date : 'short'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1 border-right" [class.blurImg]="elem.includes('OffLine')">
+            <img src="/assets/images/pall.png"
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+          </div>
+          <div class="col-11 p-0">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of waterKey[0]; let x = index"
+                [class.hideProp]="i == 'state'  || i == 'machineId' || i == 'timeStamp'"
+                [class.noneStatus]="status10 == 'OffLine'">
+                <span class="font-weight-bold"> {{ i }}</span> : <span style="font-size: 15px;font-weight: normal;">{{
+                  elem[x] }}</span>
+              </div>
+              <div class="col-md-2">
+               
+                <button mat-raised-button color="warn" [disabled]="!openDialogBtn"  (click)="selectMachineName(elem)" >History</button>
+              </div>
+              <div class="col-12 pt-3" *ngIf="status10 == 'OffLine'">
+                <h2 class=" offHead text-muted"><span><i class="fas fa-plug text-danger"></i></span> OFFLINE</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+

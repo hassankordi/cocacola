@@ -23,6 +23,10 @@ export class MachineComponent implements OnInit {
   mixers: any = [];
   filler: any = [];
   palletizer: any = [];
+  energy : any = []
+  labelers : any = []
+  signalBroker : any = []
+  water : any = []
   lineId: any;
   factoryId: any;
   timeStamp1: any;
@@ -31,6 +35,10 @@ export class MachineComponent implements OnInit {
   timeStamp4: any;
   timeStamp5: any;
   timeStamp6: any;
+  timeStamp7: any;
+  timeStamp8: any;
+  timeStamp9: any;
+  timeStamp10: any;
   state: any;
   status: any;
   state1: any;
@@ -42,9 +50,18 @@ export class MachineComponent implements OnInit {
   state4: any;
   status4: any;
   state5: any;
+  state7: any;
+  state8: any;
+  state9: any;
+  state10: any;
   status5: any;
   state6: any;
   status6: any;
+  status7: any;
+  status8: any;
+  status9: any;
+  status10: any;
+
   blowMouldersKey = [];
   blowMouldersVal = [];
   DpalletizerKey = [];
@@ -53,6 +70,14 @@ export class MachineComponent implements OnInit {
   mixersVal = [];
   fillerKey = [];
   fillerVal = [];
+  energyKey : any = []
+  energyVal : any = []
+  labelersKey : any = []
+  labelersVal : any = []
+  signalBrokerKey : any = []
+  signalBrokerVal : any = []
+  waterKey : any = []
+  waterVal : any = []
   functionlaityId  :any;
   cartonizerShrinkKey = [];
   cartonizerShrinkVal = [];
@@ -62,8 +87,7 @@ export class MachineComponent implements OnInit {
   openLines = true;
   showGifImg = false
   disableSearch = false
-  plantSelected : boolean = false
-  lineSelected : boolean = false
+  plantLineSelected : boolean = false
   factory
   line;
   machine;
@@ -76,6 +100,7 @@ export class MachineComponent implements OnInit {
   constructor(private dashboardService: DashboardService, public dialog: MatDialog, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+ 
     //Factories
     this.dashboardService.getFactories().subscribe((res) => {
       console.log(res);
@@ -96,7 +121,7 @@ export class MachineComponent implements OnInit {
   selectLocation(elem, id) {
     this.line = ''
     this.lineId = undefined
-    this.plantSelected = true
+    this.plantLineSelected = true
     this.FunctionlaityValue = ''
     this.dashboardFilter.LineID = undefined
     console.log("ok", elem);
@@ -111,7 +136,7 @@ export class MachineComponent implements OnInit {
     });
   }
   selectLine(lineId) {
-    this.lineSelected = true
+    
     this.dashboardFilter.LineID = lineId;
     this.lineId = lineId;
     this.FunctionlaityValue = ''
@@ -128,7 +153,14 @@ export class MachineComponent implements OnInit {
   getAllMachines(event) {
 
     if(!this.functionlaityId) {
-      alert("no")
+      this.waterKey = []
+      this.waterVal = []
+      this.energyKey = []
+      this.waterVal = []
+      this.signalBrokerKey = []
+      this.signalBrokerVal = []
+      this.labelersKey = []
+      this.labelersVal = []
       this.blowMouldersKey = []
       this.blowMouldersVal = []
       this.DpalletizerKey = []
@@ -144,29 +176,29 @@ export class MachineComponent implements OnInit {
       this.showGifImg = true
       this.disableSearch = true
       this.dashboardService.getAllMachines(this.factoryId, this.lineId).subscribe((res) => {
-
+        console.log("all",res)
 
           if (res) {
             this.showGifImg = false
             this.disableSearch = false
           }
           this.allMachines = res[0];
-          console.log("2", this.allMachines)
-          console.log('heyyy', this.allMachines)
+        
           this.blowMoulders = this.allMachines.blow_Moulders;
-
-          this.blowMoulders.forEach((element) => {
-            console.log("elment", element);
+          
+          this.blowMoulders.forEach((element , i) => {
+         
             this.timeStamp1 = element.timeStamp;
             this.state1 = element.state;
             this.status1 = element.status;
             this.blowMouldersKey.push(Object.keys(element));
             this.blowMouldersVal.push(Object.values(element));
           });
-          console.log(this.blowMouldersVal);
+         
+          
 
           this.dPalletizers = this.allMachines.dPalletizers;
-          this.dPalletizers.forEach((element) => {
+          this.dPalletizers.forEach((element , i) => {
             this.timeStamp2 = element.timeStamp;
             this.state2 = element.state;
             this.status2 = element.status;
@@ -174,16 +206,16 @@ export class MachineComponent implements OnInit {
             this.DpalletizerVal.push(Object.values(element));
           });
           this.mixers = this.allMachines.mixers;
-          this.mixers.forEach((element) => {
-            console.log(element)
+          this.mixers.forEach((element , i) => {
             this.timeStamp3 = element.timeStamp;
             this.state3 = element.state;
             this.status3 = element.status;
+
             this.mixersKey.push(Object.keys(element));
             this.mixersVal.push(Object.values(element));
           });
           this.filler = this.allMachines.fillers;
-          this.filler.forEach((element) => {
+          this.filler.forEach((element , i) => {
             this.timeStamp4 = element.timeStamp;
             this.state4 = element.state;
             this.status4 = element.status;
@@ -191,7 +223,7 @@ export class MachineComponent implements OnInit {
             this.fillerVal.push(Object.values(element));
           });
           this.cartonizerShrink = this.allMachines.cartonizers_Shrinks;
-          this.cartonizerShrink.forEach((element) => {
+          this.cartonizerShrink.forEach((element , i) => {
             this.timeStamp5 = element.timeStamp;
             this.state5 = element.state;
             this.status5 = element.status;
@@ -199,36 +231,77 @@ export class MachineComponent implements OnInit {
             this.cartonizerShrinkVal.push(Object.values(element));
           });
           this.palletizer = this.allMachines.palletizers;
-          this.palletizer.forEach((element) => {
-            console.log(element);
+          this.palletizer.forEach((element , i) => {
+            
             this.timeStamp6 = element.timeStamp;
             this.state6 = element.state;
-            console.log(this.state6);
             this.status6 = element.status;
-            console.log(this.status6);
 
             this.palletizerKey.push(Object.keys(element));
             this.palletizerVal.push(Object.values(element));
           });
+          this.energy = this.allMachines.energy
+          this.energy.forEach((element , i) => {
+            this.timeStamp7 = element.timeStamp;
+            this.state7 = element.state
+            this.status7 = element.status
+            this.energyKey.push(Object.keys(element))
+            this.energyVal.push(Object.values(element))
+          });
+  
+          this.labelers = this.allMachines.labelers
+          this.labelers.forEach((element , i) => {
+            this.timeStamp8 = element.timeStamp;
+            this.state8 = element.state
+            this.status8 = element.status
+            this.labelersKey.push(Object.keys(element))
+            this.labelersVal.push(Object.values(element))
+          });
+          this.signalBroker = this.allMachines.signalBroker
+          this.signalBroker.forEach((element , i )=> {
+            this.timeStamp9 = element.timeStamp;
+            this.state9 = element.state
+            this.status9 = element.status
+            this.signalBrokerKey.push(Object.keys(element))
+            this.signalBrokerVal.push(Object.values(element))
+          });
+          this.water = this.allMachines.water
+          this.water.forEach((element , i) => {
+            this.timeStamp10 = element.timeStamp;
+            this.state10 = element.state
+            this.status10 = element.status
+            this.waterKey.push(Object.keys(element))
+            this.waterVal.push(Object.values(element))
+          });
+      
+          
         });
 
     }
 
     if(this.functionlaityId) {
-      alert("yes")
       this.dashboardService.getAllMachinesForFunctionality(this.functionlaityId).subscribe(res=>{
-        this.blowMouldersKey = []
-        this.blowMouldersVal = []
-        this.DpalletizerKey = []
-        this.DpalletizerVal = []
-        this.mixersKey = []
-        this.mixersVal = []
-        this.fillerKey = []
-        this.fillerVal = []
-        this.cartonizerShrinkKey = []
-        this.cartonizerShrinkVal = []
-        this.palletizerKey = []
-        this.palletizerVal = []
+
+       this.waterKey = []
+      this.waterVal = []
+      this.energyKey = []
+      this.waterVal = []
+      this.signalBrokerKey = []
+      this.signalBrokerVal = []
+      this.labelersKey = []
+      this.labelersVal = []
+      this.blowMouldersKey = []
+      this.blowMouldersVal = []
+      this.DpalletizerKey = []
+      this.DpalletizerVal = []
+      this.mixersKey = []
+      this.mixersVal = []
+      this.fillerKey = []
+      this.fillerVal = []
+      this.cartonizerShrinkKey = []
+      this.cartonizerShrinkVal = []
+      this.palletizerKey = []
+      this.palletizerVal = []
         this.showGifImg = true
         this.disableSearch = true
         if (res) {
@@ -240,7 +313,7 @@ export class MachineComponent implements OnInit {
         console.log('heyyy', this.allMachines)
         this.blowMoulders = this.allMachines.blow_Moulders;
 
-        this.blowMoulders.forEach((element) => {
+        this.blowMoulders.forEach((element , i) => {
           console.log("elment", element);
           this.timeStamp1 = element.timeStamp;
           this.state1 = element.state;
@@ -251,7 +324,7 @@ export class MachineComponent implements OnInit {
         console.log(this.blowMouldersVal);
 
         this.dPalletizers = this.allMachines.dPalletizers;
-        this.dPalletizers.forEach((element) => {
+        this.dPalletizers.forEach((element , i) => {
           this.timeStamp2 = element.timeStamp;
           this.state2 = element.state;
           this.status2 = element.status;
@@ -259,7 +332,7 @@ export class MachineComponent implements OnInit {
           this.DpalletizerVal.push(Object.values(element));
         });
         this.mixers = this.allMachines.mixers;
-        this.mixers.forEach((element) => {
+        this.mixers.forEach((element , i) => {
           console.log(element)
           this.timeStamp3 = element.timeStamp;
           this.state3 = element.state;
@@ -268,7 +341,7 @@ export class MachineComponent implements OnInit {
           this.mixersVal.push(Object.values(element));
         });
         this.filler = this.allMachines.fillers;
-        this.filler.forEach((element) => {
+        this.filler.forEach((element , i) => {
           this.timeStamp4 = element.timeStamp;
           this.state4 = element.state;
           this.status4 = element.status;
@@ -276,7 +349,7 @@ export class MachineComponent implements OnInit {
           this.fillerVal.push(Object.values(element));
         });
         this.cartonizerShrink = this.allMachines.cartonizers_Shrinks;
-        this.cartonizerShrink.forEach((element) => {
+        this.cartonizerShrink.forEach((element , i) => {
           this.timeStamp5 = element.timeStamp;
           this.state5 = element.state;
           this.status5 = element.status;
@@ -284,8 +357,7 @@ export class MachineComponent implements OnInit {
           this.cartonizerShrinkVal.push(Object.values(element));
         });
         this.palletizer = this.allMachines.palletizers;
-        this.palletizer.forEach((element) => {
-          console.log(element);
+        this.palletizer.forEach((element , i) => {
           this.timeStamp6 = element.timeStamp;
           this.state6 = element.state;
           console.log(this.state6);
@@ -295,14 +367,51 @@ export class MachineComponent implements OnInit {
           this.palletizerKey.push(Object.keys(element));
           this.palletizerVal.push(Object.values(element));
         });
+        this.energy = this.allMachines.energy
+        this.energy.forEach((element , i) => {
+          this.timeStamp7 = element.timeStamp;
+          this.state7 = element.state
+          this.status7 = element.status
+          this.energyKey.push(Object.keys(element))
+          this.energyVal.push(Object.values(element))
+        });
+
+        this.labelers = this.allMachines.labelers
+        this.labelers.forEach((element , i) => {
+          this.timeStamp8 = element.timeStamp;
+          this.state8 = element.state
+          this.status8 = element.status
+          this.labelersKey.push(Object.keys(element))
+          this.labelersVal.push(Object.values(element))
+        });
+        this.signalBroker = this.allMachines.signalBroker
+        this.signalBroker.forEach((element , i) => {
+          this.timeStamp9 = element.timeStamp;
+          this.state9 = element.state
+          this.status9 = element.status
+          this.signalBrokerKey.push(Object.keys(element))
+          this.signalBrokerVal.push(Object.values(element))
+
+        
+        });
+        this.water = this.allMachines.water
+        this.water.forEach((element , i) => {
+          this.timeStamp10 = element.timeStamp;
+          this.state10 = element.state
+          this.status10 = element.status
+          this.waterKey.push(Object.keys(element))
+          this.waterVal.push(Object.values(element))
+        });
       })
     }
+
 
     event.stopPropagation()
   }
   plantLineNull() {
-    this.plantSelected = false
-    this.lineSelected = false
+    this.plantLineSelected = false
+    this.openLines = true
+    this.line = ''
   }
 
 
