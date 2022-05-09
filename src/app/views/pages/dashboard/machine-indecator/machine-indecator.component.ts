@@ -50,13 +50,37 @@ export class MachineIndecatorComponent implements OnInit {
   public line1Timeline: Partial<ChartOptions>;
   dashboardFilter: DashboardFilter = new DashboardFilter();
 
+  public line2Timeline: Partial<ChartOptions>;
+  public line3Timeline: Partial<ChartOptions>;
+  public line4Timeline: Partial<ChartOptions>;
+  public line5Timeline: Partial<ChartOptions>;
   line1Data = {
     name: "Line 1",
     data: [],
   };
 
-
+  line2Data = {
+    name: "Line 2",
+    data: [],
+  };
+  line3Data = {
+    name: "Line 3",
+    data: [],
+  };
+  line4Data = {
+    name: "Line 4",
+    data: [],
+  };
+  line5Data = {
+    name: "Line 5",
+    data: [],
+  };
   line1Null = null;
+  line2Null = null;
+  line3Null = null;
+  line4Null = null;
+  line5Null = null;
+
 
 
   @ViewChild("chart") chart: ChartComponent;
@@ -73,7 +97,7 @@ export class MachineIndecatorComponent implements OnInit {
   startDate = null;
   endDate = null;
   selectedLineNumber: any = null
-
+  plantName  :any;
 
   openMachineSelect = false
   openDuration = false
@@ -83,7 +107,7 @@ export class MachineIndecatorComponent implements OnInit {
   sub1$: Subscription;
   sub2$: Subscription;
 
-
+  machineIdName
 
 
   openDialogBtn: boolean = false;
@@ -193,6 +217,298 @@ export class MachineIndecatorComponent implements OnInit {
       },
     };
 
+    this.line2Timeline = {
+      series: [],
+      chart: {
+        height: 100,
+        type: "rangeBar",
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          distributed: true,
+          dataLabels: {
+            hideOverflowingLabels: true,
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      xaxis: {
+        type: "datetime",
+        labels: {
+          datetimeUTC: false,
+          format: "HH:mm",
+          style: {
+            colors: [],
+            fontSize: "12px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 800,
+            cssClass: "apexcharts-xaxis-label",
+          },
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+      grid: {
+        show: false,
+        row: {
+          colors: ["#f3f4f5", "#fff"],
+          opacity: 0,
+        },
+      },
+      tooltip: {
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="arrow_box p-2">' +
+            "<span>" +
+            // w.globals.initialSeries[seriesIndex].data[dataPointIndex].state
+            // +'<br>'+
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[0]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            " - " +
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[1]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            "</span>" +
+            "</div>"
+          );
+        },
+      },
+    };
+    this.line3Timeline = {
+      series: [],
+      chart: {
+        height: 100,
+        type: "rangeBar",
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          distributed: true,
+          dataLabels: {
+            hideOverflowingLabels: true,
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      xaxis: {
+        type: "datetime",
+        labels: {
+          datetimeUTC: false,
+          format: "HH:mm",
+          style: {
+            colors: [],
+            fontSize: "12px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 800,
+            cssClass: "apexcharts-xaxis-label",
+          },
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+      grid: {
+        show: false,
+        row: {
+          colors: ["#f3f4f5", "#fff"],
+          opacity: 0,
+        },
+      },
+      tooltip: {
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="arrow_box p-2">' +
+            "<span>" +
+            // w.globals.initialSeries[seriesIndex].data[dataPointIndex].state
+            // +'<br>'+
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[0]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            " - " +
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[1]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            "</span>" +
+            "</div>"
+          );
+        },
+      },
+    };
+    this.line4Timeline = {
+      series: [],
+      chart: {
+        height: 100,
+        type: "rangeBar",
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          distributed: true,
+          dataLabels: {
+            hideOverflowingLabels: true,
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      xaxis: {
+        type: "datetime",
+        labels: {
+          datetimeUTC: false,
+          format: "HH:mm",
+          style: {
+            colors: [],
+            fontSize: "12px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 800,
+            cssClass: "apexcharts-xaxis-label",
+          },
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+      grid: {
+        show: false,
+        row: {
+          colors: ["#f3f4f5", "#fff"],
+          opacity: 0,
+        },
+      },
+      tooltip: {
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="arrow_box p-2">' +
+            "<span>" +
+            // w.globals.initialSeries[seriesIndex].data[dataPointIndex].state
+            // +'<br>'+
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[0]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            " - " +
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[1]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            "</span>" +
+            "</div>"
+          );
+        },
+      },
+    };
+    this.line5Timeline = {
+      series: [],
+      chart: {
+        height: 100,
+        type: "rangeBar",
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          distributed: true,
+          dataLabels: {
+            hideOverflowingLabels: true,
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      xaxis: {
+        type: "datetime",
+        labels: {
+          datetimeUTC: false,
+          format: "HH:mm",
+          style: {
+            colors: [],
+            fontSize: "12px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 800,
+            cssClass: "apexcharts-xaxis-label",
+          },
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+      grid: {
+        show: false,
+        row: {
+          colors: ["#f3f4f5", "#fff"],
+          opacity: 0,
+        },
+      },
+      tooltip: {
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="arrow_box p-2">' +
+            "<span>" +
+            // w.globals.initialSeries[seriesIndex].data[dataPointIndex].state
+            // +'<br>'+
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[0]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            " - " +
+            formatDate(
+              new Date(
+                w.globals.initialSeries[seriesIndex].data[dataPointIndex].y[1]
+              ),
+              "hh:mm a",
+              "en"
+            ) +
+            "</span>" +
+            "</div>"
+          );
+        },
+      },
+    };
 
     // end
 
@@ -231,14 +547,14 @@ export class MachineIndecatorComponent implements OnInit {
     console.log(event);
     // check if start date or end date is null
     if (event.value[0] == null || event.value[1] == null) {
-      this.openDialogBtn = false
+      // this.openDialogBtn = false
     }
     else {
       this.startDate = event.value[0]
       this.endDate = event.value[1]
       this.startDate = this.datePipe.transform(this.startDate, "yyyy-MM-dd h:mm:ss")
       this.endDate = this.datePipe.transform(this.endDate, "yyyy-MM-dd h:mm:ss")
-      this.openDialogBtn = true
+      // this.openDialogBtn = true
 
       console.log(this.startDate, this.endDate);
 
@@ -248,6 +564,7 @@ export class MachineIndecatorComponent implements OnInit {
   }
 
   selectLocation(elem) {
+    this.plantName = elem.name
     this.selectedLine = null;
     this.allLines = [];
     this.allMachines = [];
@@ -296,193 +613,193 @@ export class MachineIndecatorComponent implements OnInit {
   }
 
 
-  DrawTimeLine(Data: any) {
-    setTimeout(() => {
-      // console.log(this._CurrentActivityService.timeLine.lines_Timeline[0]);
-      this.line1Data.data = [];
+  // DrawTimeLine(Data: any) {
+  //   setTimeout(() => {
+  //     // console.log(this._CurrentActivityService.timeLine.lines_Timeline[0]);
+  //     this.line1Data.data = [];
 
 
-      this.line1Null = Data;
+  //     this.line1Null = Data;
 
-      // console.log(this.line1Null);
-      this.line1Null?.forEach((element) => {
-        if (element.identifier == "Line 1") {
-          if (element.state == "Offline") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#e22517",
-            };
-            this.line1Data.data.push(obj);
-          } else if (element.state == "Waiting") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#dadada",
-            };
-            this.line1Data.data.push(obj);
-          } else if (element.state == "Online") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#29a32c",
-            };
-            this.line1Data.data.push(obj);
-          }
-        } else if (element.identifier == "Line 2") {
-          if (element.state == "Offline") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#e22517",
-            };
+  //     // console.log(this.line1Null);
+  //     this.line1Null?.forEach((element) => {
+  //       if (element.line == 1) {
+  //         if (element.state == "Offline") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#e22517",
+  //           };
+  //           this.line1Data.data.push(obj);
+  //         } else if (element.state == "Waiting") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#dadada",
+  //           };
+  //           this.line1Data.data.push(obj);
+  //         } else if (element.state == "Online") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#29a32c",
+  //           };
+  //           this.line1Data.data.push(obj);
+  //         }
+  //       } else if (element.line == 2) {
+  //         if (element.state == "Offline") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#e22517",
+  //           };
 
-          } else if (element.state == "Waiting") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#dadada",
-            };
+  //         } else if (element.state == "Waiting") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#dadada",
+  //           };
 
-          } else if (element.state == "Online") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#29a32c",
-            };
+  //         } else if (element.state == "Online") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#29a32c",
+  //           };
 
-          }
-        } else if (element.identifier == "Line 3") {
-          if (element.state == "Offline") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#e22517",
-            };
+  //         }
+  //       } else if (element.line == 3) {
+  //         if (element.state == "Offline") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#e22517",
+  //           };
 
-          } else if (element.state == "Waiting") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#dadada",
-            };
+  //         } else if (element.state == "Waiting") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#dadada",
+  //           };
 
-          } else if (element.state == "Online") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#29a32c",
-            };
+  //         } else if (element.state == "Online") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#29a32c",
+  //           };
 
-          }
-        } else if (element.identifier == "Line 4") {
-          if (element.state == "Offline") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#e22517",
-            };
+  //         }
+  //       } else if (element.line == 4) {
+  //         if (element.state == "Offline") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#e22517",
+  //           };
 
-          } else if (element.state == "Waiting") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#dadada",
-            };
+  //         } else if (element.state == "Waiting") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#dadada",
+  //           };
 
-          } else if (element.state == "Online") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#29a32c",
-            };
+  //         } else if (element.state == "Online") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#29a32c",
+  //           };
 
-          }
-        } else if (element.identifier == "Line 5") {
-          if (element.state == "Offline") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#e22517",
-            };
+  //         }
+  //       } else if (element.line == 5) {
+  //         if (element.state == "Offline") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#e22517",
+  //           };
 
-          } else if (element.state == "Waiting") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#dadada",
-            };
+  //         } else if (element.state == "Waiting") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#dadada",
+  //           };
 
-          } else if (element.state == "Online") {
-            let obj = {
-              x: "Time",
-              y: [
-                new Date(element.from).getTime(),
-                new Date(element.to).getTime(),
-              ],
-              fillColor: "#29a32c",
-            };
+  //         } else if (element.state == "Online") {
+  //           let obj = {
+  //             x: "Time",
+  //             y: [
+  //               new Date(element.stateStartTime).getTime(),
+  //               new Date(element.stateEndTime).getTime(),
+  //             ],
+  //             fillColor: "#29a32c",
+  //           };
 
-          }
-        }
-      });
+  //         }
+  //       }
+  //     });
 
-      this.line1Timeline.series = [this.line1Data];
-
-
-      console.log(this.line1Data);
-      if (this.line1Data.data == []) {
-        this.line1Null = null;
-      } else {
-        this.line1Null = this.line1Data;
-      }
+  //     this.line1Timeline.series = [this.line1Data];
 
 
+  //     console.log(this.line1Data);
+  //     if (this.line1Data.data == []) {
+  //       this.line1Null = null;
+  //     } else {
+  //       this.line1Null = this.line1Data;
+  //     }
 
-    });
-  }
+
+
+  //   });
+  // }
 
   fromDate(event) {
     let date = new Date(event.value);
@@ -504,7 +821,7 @@ export class MachineIndecatorComponent implements OnInit {
     this.displayData = false
     let data = {
       machineId: this.selectedMachine,
-      factory: Number(this.factoryId),
+      factory: this.plantName,
       line: Number(this.selectedLineNumber),
       start: this.startDate,
       end: this.endDate,
@@ -528,11 +845,67 @@ export class MachineIndecatorComponent implements OnInit {
         this.machineCurrentState = res[0].state
         this.machineCurrentStatus = res[0].status
         this.machineTimeLine = res[0].machinetimeline
-        console.log(this.machineindicator);
-        console.log(this.machineCurrentState);
-        console.log(this.machineCurrentStatus);
+        
         console.log(this.machineTimeLine);
-        console.log(res);
+        this.line1Null =  res[0].machinetimeline
+        console.log("yup", this.line1Null )
+        this.line1Null?.forEach((element) => {
+       
+            if (element.state == "Offline") {
+              let obj = {
+                x: "Time",
+                y: [
+                  new Date(element.stateStartTime).getTime(),
+                  new Date(element.stateEndTime).getTime(),
+                ],
+                fillColor: "#e22517",
+              };
+              this.line1Data.data.push(obj);
+            } else if (element.state == "Waiting") {
+              let obj = {
+                x: "Time",
+                y: [
+                  new Date(element.stateStartTime).getTime(),
+                  new Date(element.stateEndTime).getTime(),
+                ],
+                fillColor: "#dadada",
+              };
+              this.line1Data.data.push(obj);
+              console.log(this.line1Data)
+            } else if (element.state == "Online") {
+              let obj = {
+                x: "Time",
+                y: [
+                  new Date(element.stateStartTime).getTime(),
+                  new Date(element.stateEndTime).getTime(),
+                ],
+                fillColor: "#29a32c",
+              };
+              this.line1Data.data.push(obj);
+            }else if(element.state == 'Cleaning in Process') {
+              let obj = {
+                x: "Time",
+                y: [
+                  new Date(element.stateStartTime).getTime(),
+                  new Date(element.stateEndTime).getTime(),
+                ],
+                fillColor: "#576FE6",
+              };
+              this.line1Data.data.push(obj);
+            }
+          
+        }); 
+       
+        console.log("ok", this.line1Data)
+
+      this.line1Timeline.series = [this.line1Data];
+      this.line2Timeline.series = [this.line2Data];
+      this.line3Timeline.series = [this.line3Data];
+      this.line4Timeline.series = [this.line4Data];
+      this.line5Timeline.series = [this.line5Data];
+       
+
+
        
 
         this.machineAvailabilityBottle = (this.machineindicator.productionOutput / this.machineindicator.expected) * 100
@@ -550,6 +923,7 @@ export class MachineIndecatorComponent implements OnInit {
         this.displayData = true
         this.machineCurrentState = res[0]?.state
         this.machineCurrentStatus = res[0].status
+        this.machineIdName = res[0].machine
         this.machineindicator = {
           oee: 0,
           avalability: 0,

@@ -41,6 +41,10 @@ export class DashboardService {
   sendDashboardNoti = new Subject();
   sendDashboardNotiAsync = this.sendDashboardNoti.asObservable()
 
+  getNotifications() {
+    return this.http.get(environment.sourceUrl + '/Machines/Notification')
+  }
+
   getFactories() {
     return this.http.get(environment.sourceUrl + "/Factories/");
   }
@@ -54,9 +58,16 @@ export class DashboardService {
   }
   getMachineIndIndicator(data){
     // /api/Machines/MachineIndIndicator
-    return this.http.get(
-      environment.sourceUrl + `/Machines/MachineIndIndicator?factory=${data.factory}&line=${data.line}&machineid=${data.machineId}&From=${data.start}&To=${data.end}` 
-    );
+   if((data.factory !== null) && (data.line !== 0) && (data.machineId !== null) && (data.start !== null) && (data.end !== null) ) {
+      return this.http.get(
+        environment.sourceUrl + `/Machines/MachineIndIndicator?factory=${data.factory}&line=${data.line}&machineid=${data.machineId}&From=${data.start}&To=${data.end}` 
+      );
+    }else if(data.factory !== null && data.start !== null && data.end !== null) {
+      return this.http.get(
+        environment.sourceUrl + `/Machines/MachineIndIndicator?factory=${data.factory}&From=${data.start}&To=${data.end}` 
+      );
+    }
+   
   }
   getMachinesofLines(LineId) {
     return this.http.get(

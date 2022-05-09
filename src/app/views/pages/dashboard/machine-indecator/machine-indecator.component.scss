@@ -15,6 +15,10 @@
     
 }
 
+.bg-red{
+    background-color: #e51e2a;
+}
+
 div[role="progressbar"] {
     --size: 8rem;
     --fg: #e61d2b;
@@ -48,7 +52,7 @@ div[role="progressbar"]::before {
 
 .status-green{
     font-size: 40px;
-    color: hsl(120, 100%, 60%);
+    color: #3eb541d9;
    margin-right: 10px;
 }
 
@@ -59,7 +63,7 @@ div[role="progressbar"]::before {
 }
 .online{
    
-    color: hsl(120, 100%, 60%);
+    color: #3eb541d9;
    margin-right: 10px;
 }
 
@@ -93,3 +97,32 @@ hr {
 
 
 
+.redIcon {
+    color: #de0c1c;
+    background-color:#de0c1c;
+    height: 16px;
+    width: 16px
+  
+  }
+  
+  .greenIcon {
+    color: rgb(62 181 65 / 85%);
+    background-color: rgba(41, 163, 44, 0.85);
+    height: 16px;
+    width: 16px
+  
+  }
+  .greyIcon {
+    color: rgba(218, 218, 218);
+    background-color: rgba(218, 218, 218);
+    height: 16px;
+    width: 16px
+  
+  }
+  .blueIcon {
+    color: #576FE6;
+    background-color: #576FE6;
+    height: 16px;
+    width: 16px
+  }
+  

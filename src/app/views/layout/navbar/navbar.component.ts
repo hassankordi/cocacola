@@ -25,6 +25,15 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.dashService.getNotifications().subscribe(res=>{
+      console.log(res)
+      this.notifiData = res[0]
+      this.modifyNotifiData = [...this.notifiData?.blow_Moulders , ...this.notifiData?.cartonizers_Shrinks , ...this.notifiData?.dPalletizers , ...this.notifiData?.energy , ...this.notifiData?.fillers , ...this.notifiData?.mixers , ...this.notifiData?. palletizers ,...this.notifiData?.signalBroker , ...this.notifiData?.water ] 
+
+    }) 
+    
+
+
     this.signalRService.startConnection()
     this.signalRService.hubConnection.on("sendNotification" , data=>{
     this.notifiData = data[0]

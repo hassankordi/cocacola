@@ -45,13 +45,14 @@
           <div class="col-md-2 d-flex">
 
             
-            <input [disabled]="!openDuration" (dateTimeChange)="durationStatus($event)" class="w-100 form-control h-75 rounded"
+            <input  (dateTimeChange)="durationStatus($event)" class="form-control p-3 h-100 rounded"
              placeholder="Duration"  [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [selectMode]="'range'">
-            <owl-date-time [disabled]="!openDuration" #dt12></owl-date-time>
+            <owl-date-time  #dt12></owl-date-time>
           </div>
         
-          <div class="col-md-2 row align-items-center ">
-            <button class="btn btn-outline-danger" [disabled]="!openDialogBtn" (click)="filter($event)">
+          <div class="d-flex ">
+            <!-- openDialogBtn -->
+            <button class="btn btn-danger mx-1 px-4"  (click)="filter($event)">
               Search
             </button>
           </div>
@@ -64,17 +65,16 @@
 
 
 
+<!--  -->
 
 
-
-<div class="row justify-content-center" *ngIf="displayData && !emptyArray"   >
-
-  <div class="col-xl-12 pr-0 py-2 stretch-card">
+<div class="row justify-content-center" *ngIf="displayData && !emptyArray"    >
+  <div class="col-xl-6 pr-0 py-2 stretch-card">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">
+        <h5 class="card-title py-2">
           <!-- status-ball -->
-          <span [class]="machineCurrentState ==1?'status-green':'status-gray'">•</span> {{ machineID }}   <button class="m-2" mat-raised-button color="warn">Current Status <span [class]="machineCurrentState ==1?'online':'offline'">{{machineCurrentStatus}}</span> </button>
+          <span [ngClass]="machineCurrentState == 1?'status-green':'status-gray'">•</span> {{ machineID }}   <span class="m-2 bg-red text-white p-2 rounded ">Current Status <span [ngClass]="machineCurrentState ==1?'online':'offline'">{{machineCurrentStatus}}</span> </span>
         </h5>
       
 
@@ -82,7 +82,7 @@
         <!-- this row is for two progress bars and the three btns  -->
         <div class="row align-items-center">
           <div class="col-xl-12 row justify-content-center">
-            <div class="col-md-5">
+            <div class="col-md-6">
               <div class="row justify-content-center align-items-center">
                 <!-- role="progressbar"
                 style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}" -->
@@ -98,10 +98,11 @@
                 SLE
               </div>
             </div>
-            <div class="col-md-5">
+            <!--  -->
+            <div class="col-md-6">
               <div class="row justify-content-center align-items-center">
                 <!-- style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}" -->
-                <div role="progressbar"  style="--value:{{ machineindicator?.avalability * 100  | number }} ; --fg: {{ machineindicator?.avalability * 100 <= 50 ? '#e61d2b':'#33ff33' }};" class="bg-warning progressbar-circle">
+                <div role="progressbar"  style="--value:{{ machineindicator?.avalability * 100  | number }} ; --fg: {{ machineindicator?.avalability * 100 <= 50 ? '#e61d2b':'' }};" class="bg-warning progressbar-circle">
                   <small
                   >{{ machineindicator?.avalability * 100 | number: "1.0-0" }} %</small
                 >
@@ -129,17 +130,133 @@
               <div id="availbilBar" class="progress-bar" [style.width.%]="machineAvailabilityBottle" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">{{machineAvailabilityBottle}}%
               </div>
             </div>
+            <div>
+
+            </div>
             <div class="row mt-3">
               <div class="col-6 text-center">
                 <span style="font-weight: bold; text-transform: capitalize;">actually</span>
-                <button class="mt-2  w-100" mat-raised-button color="warn">{{machineindicator.productionOutput | number: "1.0-1"}} Bottle</button>
+                <p class="mt-2  w-100  p-2 bg-red text-white rounded" >{{machineindicator.productionOutput | number: "1.0-1"}} Bottle</p>
               </div>
               <div class="col-6 text-center">
                 <span style="font-weight: bold; text-transform: capitalize;">expected</span>
-                <button class="mt-2 w-100" mat-raised-button color="warn">{{machineindicator.expected | number: "1.0-1"}} Bottle</button>
+                <p class="mt-2 w-100  p-2 bg-red text-white rounded">{{machineindicator.expected | number: "1.0-1"}} Bottle</p>
               </div>
             </div>
           </div>
+         <!-- start time line -->
+         <div class="col-xl-12 stretch-card mt-2" >
+          <div class="card">
+            <div class="card-body" style="padding: 3rem ;">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <h6 class="card-title pt-1 mr-3">Time line chart</h6>
+                  <div>
+                    <span class="m-3 font-weight-bold">
+                      <i
+                        class="link-icon m-2 mb-1 redIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >Off</span
+                    >
+                    <span class="m-3 font-weight-bold"
+                      ><i
+                        class="link-icon m-2 mb-1 greenIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >On</span
+                    >
+                    <span class="m-3 font-weight-bold"
+                      ><i
+                        class="link-icon m-2 mb-1 greyIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >Waiting</span
+                    >
+                    <span class="m-3 font-weight-bold"
+                      ><i
+                        class="link-icon m-2 mb-1 blueIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >Cleaning</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="col-12" id="history-chart"*ngIf="line1Data?.data.length != 0">
+                <div class="row align-items-end">
+                  <div class="col-12 h-5 text-center time-line-full-title1">
+                    <p
+                      style="
+                        margin-top: 50px;
+                        font-weight: bold;
+                        font-size: 16px;
+                        color: grey;
+                      "
+                    >
+                     {{machineID}}
+                    </p>
+                  </div>
+                  <div class="col-11" style="height: 60px">
+                    <apx-chart
+                      [series]="line1Timeline.series"
+                      [chart]="line1Timeline.chart"
+                      [fill]="line1Timeline.fill"
+                      [grid]="line1Timeline.grid"
+                      [dataLabels]="line1Timeline.dataLabels"
+                      [plotOptions]="line1Timeline.plotOptions"
+                      [xaxis]="line1Timeline.xaxis"
+                      [yaxis]="line1Timeline.yaxis"
+                      [tooltip]="line1Timeline?.tooltip"
+                      [legend]="line1Timeline?.legend"
+                      [title]="line1Timeline?.title"
+                    ></apx-chart>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-12" *ngIf="line2Data?.data.length != 0">
+                <div class="row align-items-end">
+                  <div class="col-1 h-5 text-center time-line-full-title1">
+                    <p
+                      style="
+                        margin-top: 50px;
+                        font-weight: bold;
+                        font-size: 16px;
+                        color: grey;
+                      "
+                    >
+                    {{machineID}}
+                    </p>
+                  </div>
+                  <div class="col-11" style="height: 60px">
+                    <apx-chart
+                      [series]="line2Timeline?.series"
+                      [chart]="line2Timeline.chart"
+                      [fill]="line2Timeline.fill"
+                      [grid]="line2Timeline.grid"
+                      [dataLabels]="line2Timeline.dataLabels"
+                      [plotOptions]="line2Timeline.plotOptions"
+                      [xaxis]="line2Timeline.xaxis"
+                      [yaxis]="line2Timeline.yaxis"
+                      [tooltip]="line2Timeline?.tooltip"
+                      [legend]="line2Timeline?.legend"
+                      [title]="line2Timeline?.title"
+                      height="100px"
+                    ></apx-chart>
+                  </div>
+                </div>
+              </div>  -->
+             
+            </div>
+          </div>
+        </div>
+
+         <!-- end time line -->
         </div>
 
 
@@ -148,6 +265,228 @@
     </div>
   </div>
 
+
+
+
+  <!-- this for test Ui  -->
+
+
+  <div class="col-xl-6 pr-0 py-2 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title py-2">
+          <!-- status-ball -->
+          <span [ngClass]="machineCurrentState == 1?'status-green':'status-gray'">•</span> {{ machineID }}   <span class="m-2 bg-red text-white p-2 rounded ">Current Status <span [ngClass]="machineCurrentState ==1?'online':'offline'">{{machineCurrentStatus}}</span> </span>
+        </h5>
+      
+
+
+        <!-- this row is for two progress bars and the three btns  -->
+        <div class="row align-items-center">
+          <div class="col-xl-12 row justify-content-center">
+            <div class="col-md-6">
+              <div class="row justify-content-center align-items-center">
+                <!-- role="progressbar"
+                style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}" -->
+               
+                <div role="progressbar"   style="--value:{{ machineindicator?.oee * 100  | number }}" class="progressbar-circle">
+                   <small
+                  >{{ machineindicator?.oee * 100 | number: "1.0-0" }} %</small
+                > 
+                  <!-- <small>{{machineindicator.oee}}</small> -->
+                </div>
+              </div>
+              <div class="text-center pt-4 font-weight-bold" id="kpiDiv">
+                SLE
+              </div>
+            </div>
+            <!--  -->
+            <div class="col-md-6">
+              <div class="row justify-content-center align-items-center">
+                <!-- style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}" -->
+                <div role="progressbar"  style="--value:{{ machineindicator?.avalability * 100  | number }} ; --fg: {{ machineindicator?.avalability * 100 <= 50 ? '#e61d2b':'' }};" class="bg-warning progressbar-circle">
+                  <small
+                  >{{ machineindicator?.avalability * 100 | number: "1.0-0" }} %</small
+                >
+                  <!-- <small>{{machineindicator.avalability}}</small> -->
+                </div>
+              </div>
+              <div class="text-center pt-4 font-weight-bold" id="kpiDiv">
+                Availability
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-xl-4 d-flex flex-column justify-content-center">
+            <button class="m-2" mat-raised-button color="warn">Current Status <span [class]="machineCurrentState ==1?'online':'offline'">{{machineCurrentStatus}}</span> </button>
+           
+          </div> -->
+
+        </div>
+
+
+
+
+        <div class="row mt-5">
+          <div class="col-md-12">
+            <div class="progress">
+              <div id="availbilBar" class="progress-bar" [style.width.%]="machineAvailabilityBottle" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">{{machineAvailabilityBottle}}%
+              </div>
+            </div>
+            <div>
+
+            </div>
+            <div class="row mt-3">
+              <div class="col-6 text-center">
+                <span style="font-weight: bold; text-transform: capitalize;">actually</span>
+                <p class="mt-2  w-100  p-2 bg-red text-white rounded" >{{machineindicator.productionOutput | number: "1.0-1"}} Bottle</p>
+              </div>
+              <div class="col-6 text-center">
+                <span style="font-weight: bold; text-transform: capitalize;">expected</span>
+                <p class="mt-2 w-100  p-2 bg-red text-white rounded">{{machineindicator.expected | number: "1.0-1"}} Bottle</p>
+              </div>
+            </div>
+          </div>
+         <!-- start time line -->
+         <div class="col-xl-12 stretch-card mt-2" >
+          <div class="card">
+            <div class="card-body" style="padding: 3rem ;">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <h6 class="card-title pt-1 mr-3">Time line chart</h6>
+                  <div>
+                    <span class="m-3 font-weight-bold">
+                      <i
+                        class="link-icon m-2 mb-1 redIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >Off</span
+                    >
+                    <span class="m-3 font-weight-bold"
+                      ><i
+                        class="link-icon m-2 mb-1 greenIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >On</span
+                    >
+                    <span class="m-3 font-weight-bold"
+                      ><i
+                        class="link-icon m-2 mb-1 greyIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >Waiting</span
+                    >
+                    <span class="m-3 font-weight-bold"
+                      ><i
+                        class="link-icon m-2 mb-1 blueIcon"
+                        data-feather="square"
+                        appFeatherIcon
+                      ></i
+                      >Cleaning</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="col-12" id="history-chart"*ngIf="line1Data?.data.length != 0">
+                <div class="row align-items-end">
+                  <div class="col-12 h-5 text-center time-line-full-title1">
+                    <p
+                      style="
+                        margin-top: 50px;
+                        font-weight: bold;
+                        font-size: 16px;
+                        color: grey;
+                      "
+                    >
+                     {{machineID}}
+                    </p>
+                  </div>
+                  <div class="col-11" style="height: 60px">
+                    <apx-chart
+                      [series]="line1Timeline.series"
+                      [chart]="line1Timeline.chart"
+                      [fill]="line1Timeline.fill"
+                      [grid]="line1Timeline.grid"
+                      [dataLabels]="line1Timeline.dataLabels"
+                      [plotOptions]="line1Timeline.plotOptions"
+                      [xaxis]="line1Timeline.xaxis"
+                      [yaxis]="line1Timeline.yaxis"
+                      [tooltip]="line1Timeline?.tooltip"
+                      [legend]="line1Timeline?.legend"
+                      [title]="line1Timeline?.title"
+                    ></apx-chart>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-12" *ngIf="line2Data?.data.length != 0">
+                <div class="row align-items-end">
+                  <div class="col-1 h-5 text-center time-line-full-title1">
+                    <p
+                      style="
+                        margin-top: 50px;
+                        font-weight: bold;
+                        font-size: 16px;
+                        color: grey;
+                      "
+                    >
+                    {{machineID}}
+                    </p>
+                  </div>
+                  <div class="col-11" style="height: 60px">
+                    <apx-chart
+                      [series]="line2Timeline?.series"
+                      [chart]="line2Timeline.chart"
+                      [fill]="line2Timeline.fill"
+                      [grid]="line2Timeline.grid"
+                      [dataLabels]="line2Timeline.dataLabels"
+                      [plotOptions]="line2Timeline.plotOptions"
+                      [xaxis]="line2Timeline.xaxis"
+                      [yaxis]="line2Timeline.yaxis"
+                      [tooltip]="line2Timeline?.tooltip"
+                      [legend]="line2Timeline?.legend"
+                      [title]="line2Timeline?.title"
+                      height="100px"
+                    ></apx-chart>
+                  </div>
+                </div>
+              </div>  -->
+             
+            </div>
+          </div>
+        </div>
+
+         <!-- end time line -->
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 <div class="row" *ngIf="emptyArray && !displayData">
@@ -155,26 +494,3 @@
 </div>
 
 
-<!-- Time line data  -->
-<div class="row">
-  <div class="col-12" id="history-chart" *ngIf="line1Data.data.length != 0">
-    <div class="row">
-      <div class="col-1 h-5 text-center time-line-full-title1">
-        <p style="
-          margin-top: 42px;
-          font-weight: bold;
-          font-size: 16px;
-          color: grey;
-        ">
-          Line 1
-        </p>
-      </div>
-      <div class="col-11" style="height: 60px">
-        <apx-chart [series]="line1Timeline.series" [chart]="line1Timeline.chart" [fill]="line1Timeline.fill"
-          [grid]="line1Timeline.grid" [dataLabels]="line1Timeline.dataLabels" [plotOptions]="line1Timeline.plotOptions"
-          [xaxis]="line1Timeline.xaxis" [yaxis]="line1Timeline.yaxis" [tooltip]="line1Timeline?.tooltip"
-          [legend]="line1Timeline?.legend" [title]="line1Timeline?.title"></apx-chart>
-      </div>
-    </div>
-  </div>
-</div>
