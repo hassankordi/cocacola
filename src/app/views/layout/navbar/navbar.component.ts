@@ -11,7 +11,7 @@ import { SignalRService } from 'src/app/signal-r.service';
 })
 export class NavbarComponent implements OnInit {
   todayDate:any = new Date();
-  notifiData  : any
+  notifiData  : any;
   modifyNotifiData  : any = []
   constructor(
  
