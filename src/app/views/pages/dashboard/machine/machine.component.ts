@@ -100,7 +100,6 @@ export class MachineComponent implements OnInit {
   constructor(private dashboardService: DashboardService, public dialog: MatDialog, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
- 
     //Factories
     this.dashboardService.getFactories().subscribe((res) => {
       console.log(res);
@@ -153,6 +152,7 @@ export class MachineComponent implements OnInit {
   getAllMachines(event) {
 
     if(!this.functionlaityId) {
+      this.allMachines = []
       this.waterKey = []
       this.waterVal = []
       this.energyKey = []
@@ -183,105 +183,95 @@ export class MachineComponent implements OnInit {
             this.disableSearch = false
           }
           this.allMachines = res[0];
-        
+          console.log("2", this.allMachines)
+          console.log('heyyy', this.allMachines)
           this.blowMoulders = this.allMachines.blow_Moulders;
-          
-          this.blowMoulders.forEach((element , i) => {
-         
+
+          this.blowMoulders.forEach((element) => {
+            console.log("elment", element);
             this.timeStamp1 = element.timeStamp;
-            this.state1 = element.state;
-            this.status1 = element.status;
+           
             this.blowMouldersKey.push(Object.keys(element));
             this.blowMouldersVal.push(Object.values(element));
           });
-         
-          
+          console.log(this.blowMouldersVal);
 
           this.dPalletizers = this.allMachines.dPalletizers;
-          this.dPalletizers.forEach((element , i) => {
+          this.dPalletizers.forEach((element) => {
             this.timeStamp2 = element.timeStamp;
-            this.state2 = element.state;
-            this.status2 = element.status;
+            
             this.DpalletizerKey.push(Object.keys(element));
             this.DpalletizerVal.push(Object.values(element));
           });
           this.mixers = this.allMachines.mixers;
-          this.mixers.forEach((element , i) => {
+          this.mixers.forEach((element) => {
+            console.log(element)
             this.timeStamp3 = element.timeStamp;
-            this.state3 = element.state;
-            this.status3 = element.status;
-
+            
             this.mixersKey.push(Object.keys(element));
             this.mixersVal.push(Object.values(element));
           });
           this.filler = this.allMachines.fillers;
-          this.filler.forEach((element , i) => {
+          this.filler.forEach((element) => {
             this.timeStamp4 = element.timeStamp;
-            this.state4 = element.state;
-            this.status4 = element.status;
+          
             this.fillerKey.push(Object.keys(element));
             this.fillerVal.push(Object.values(element));
           });
           this.cartonizerShrink = this.allMachines.cartonizers_Shrinks;
-          this.cartonizerShrink.forEach((element , i) => {
+          this.cartonizerShrink.forEach((element) => {
             this.timeStamp5 = element.timeStamp;
-            this.state5 = element.state;
-            this.status5 = element.status;
+            
             this.cartonizerShrinkKey.push(Object.keys(element));
             this.cartonizerShrinkVal.push(Object.values(element));
           });
           this.palletizer = this.allMachines.palletizers;
-          this.palletizer.forEach((element , i) => {
-            
+          this.palletizer.forEach((element) => {
+            console.log(element);
             this.timeStamp6 = element.timeStamp;
-            this.state6 = element.state;
-            this.status6 = element.status;
+          
+            console.log(this.status6);
 
             this.palletizerKey.push(Object.keys(element));
             this.palletizerVal.push(Object.values(element));
           });
           this.energy = this.allMachines.energy
-          this.energy.forEach((element , i) => {
+          this.energy.forEach(element => {
             this.timeStamp7 = element.timeStamp;
-            this.state7 = element.state
-            this.status7 = element.status
+          
             this.energyKey.push(Object.keys(element))
             this.energyVal.push(Object.values(element))
           });
   
           this.labelers = this.allMachines.labelers
-          this.labelers.forEach((element , i) => {
+          this.labelers.forEach(element => {
             this.timeStamp8 = element.timeStamp;
-            this.state8 = element.state
-            this.status8 = element.status
+           
             this.labelersKey.push(Object.keys(element))
             this.labelersVal.push(Object.values(element))
           });
           this.signalBroker = this.allMachines.signalBroker
-          this.signalBroker.forEach((element , i )=> {
+          this.signalBroker.forEach(element => {
             this.timeStamp9 = element.timeStamp;
-            this.state9 = element.state
-            this.status9 = element.status
+          
             this.signalBrokerKey.push(Object.keys(element))
             this.signalBrokerVal.push(Object.values(element))
           });
           this.water = this.allMachines.water
-          this.water.forEach((element , i) => {
+          this.water.forEach(element => {
             this.timeStamp10 = element.timeStamp;
-            this.state10 = element.state
-            this.status10 = element.status
+           
             this.waterKey.push(Object.keys(element))
             this.waterVal.push(Object.values(element))
           });
-      
-          
         });
 
     }
 
     if(this.functionlaityId) {
       this.dashboardService.getAllMachinesForFunctionality(this.functionlaityId).subscribe(res=>{
-
+        console.log("withline" , res)
+        this.allMachines = []
        this.waterKey = []
       this.waterVal = []
       this.energyKey = []
@@ -313,92 +303,81 @@ export class MachineComponent implements OnInit {
         console.log('heyyy', this.allMachines)
         this.blowMoulders = this.allMachines.blow_Moulders;
 
-        this.blowMoulders.forEach((element , i) => {
+        this.blowMoulders.forEach((element) => {
           console.log("elment", element);
           this.timeStamp1 = element.timeStamp;
-          this.state1 = element.state;
-          this.status1 = element.status;
+         
           this.blowMouldersKey.push(Object.keys(element));
           this.blowMouldersVal.push(Object.values(element));
         });
         console.log(this.blowMouldersVal);
 
         this.dPalletizers = this.allMachines.dPalletizers;
-        this.dPalletizers.forEach((element , i) => {
+        this.dPalletizers.forEach((element) => {
           this.timeStamp2 = element.timeStamp;
-          this.state2 = element.state;
-          this.status2 = element.status;
+         
           this.DpalletizerKey.push(Object.keys(element));
           this.DpalletizerVal.push(Object.values(element));
         });
         this.mixers = this.allMachines.mixers;
-        this.mixers.forEach((element , i) => {
+        this.mixers.forEach((element) => {
           console.log(element)
           this.timeStamp3 = element.timeStamp;
-          this.state3 = element.state;
-          this.status3 = element.status;
+     
           this.mixersKey.push(Object.keys(element));
           this.mixersVal.push(Object.values(element));
         });
         this.filler = this.allMachines.fillers;
-        this.filler.forEach((element , i) => {
+        this.filler.forEach((element) => {
           this.timeStamp4 = element.timeStamp;
-          this.state4 = element.state;
-          this.status4 = element.status;
+        
           this.fillerKey.push(Object.keys(element));
           this.fillerVal.push(Object.values(element));
         });
         this.cartonizerShrink = this.allMachines.cartonizers_Shrinks;
-        this.cartonizerShrink.forEach((element , i) => {
+        this.cartonizerShrink.forEach((element) => {
           this.timeStamp5 = element.timeStamp;
-          this.state5 = element.state;
-          this.status5 = element.status;
+       
           this.cartonizerShrinkKey.push(Object.keys(element));
           this.cartonizerShrinkVal.push(Object.values(element));
         });
         this.palletizer = this.allMachines.palletizers;
-        this.palletizer.forEach((element , i) => {
+        this.palletizer.forEach((element) => {
           this.timeStamp6 = element.timeStamp;
-          this.state6 = element.state;
-          console.log(this.state6);
-          this.status6 = element.status;
+        
           console.log(this.status6);
 
           this.palletizerKey.push(Object.keys(element));
           this.palletizerVal.push(Object.values(element));
         });
         this.energy = this.allMachines.energy
-        this.energy.forEach((element , i) => {
+        this.energy.forEach(element => {
           this.timeStamp7 = element.timeStamp;
-          this.state7 = element.state
-          this.status7 = element.status
+       
           this.energyKey.push(Object.keys(element))
           this.energyVal.push(Object.values(element))
         });
 
         this.labelers = this.allMachines.labelers
-        this.labelers.forEach((element , i) => {
+        this.labelers.forEach(element => {
           this.timeStamp8 = element.timeStamp;
-          this.state8 = element.state
-          this.status8 = element.status
+        
           this.labelersKey.push(Object.keys(element))
           this.labelersVal.push(Object.values(element))
         });
         this.signalBroker = this.allMachines.signalBroker
-        this.signalBroker.forEach((element , i) => {
+        this.signalBroker.forEach(element => {
           this.timeStamp9 = element.timeStamp;
-          this.state9 = element.state
-          this.status9 = element.status
+         
           this.signalBrokerKey.push(Object.keys(element))
           this.signalBrokerVal.push(Object.values(element))
 
         
         });
         this.water = this.allMachines.water
-        this.water.forEach((element , i) => {
+        this.water.forEach(element => {
           this.timeStamp10 = element.timeStamp;
-          this.state10 = element.state
-          this.status10 = element.status
+   
           this.waterKey.push(Object.keys(element))
           this.waterVal.push(Object.values(element))
         });
@@ -406,7 +385,7 @@ export class MachineComponent implements OnInit {
     }
 
 
-    event.stopPropagation()
+   
   }
   plantLineNull() {
     this.plantLineSelected = false
@@ -435,12 +414,15 @@ export class MachineComponent implements OnInit {
   }
   // hassan will not use dashboard filter (interface) because (m4 mohem) in this componant
   // this fun takes elem on click and split his data in obj and send obj to get the graph
+
+
+  // this machine array has a problem if ouda change machine index (add any new property)
   selectMachineName(machine) {
     this.machine = machine
     console.log(machine);
     const obj = {
       machineId: machine[2],
-      fun: machine[5],
+      fun: machine[6],
       from: this.startDate,
       to: this.endDate
     }
