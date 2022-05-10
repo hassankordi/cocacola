@@ -11,7 +11,7 @@
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>Plant</mat-label>
               <mat-select [(ngModel)]="selectedLocation" name="plant">
-                <mat-option [value]="null"></mat-option>
+                <mat-option [value]="null" ></mat-option>
                 <mat-option
                   *ngFor="let elem of location"
                   [value]="elem.name"
@@ -27,7 +27,7 @@
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>All Lines</mat-label>
               <mat-select [(ngModel)]="selectedLines" name="line">
-                <mat-option [value]="null"></mat-option>
+                <mat-option [value]="null" (click)="plantemptyValue()"></mat-option>
 
                 <mat-option
                   *ngFor="let elem of allLines"

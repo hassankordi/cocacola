@@ -1171,6 +1171,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   // drwa loss tree
   drawLossTree(data: any) {
     if (data[0] !== null) {
+      console.log("lololo",this.totalDashboardInfoObj.scheduledMaintenance * 100)
+      console.log("lololo22",this.totalDashboardInfoObj.installed_Capacity -
+      this.totalDashboardInfoObj.nonScheduled * 100)
       console.log("i'm Data", data);
       data.forEach((element) => {
         console.log("okkkkk", element);
@@ -1208,7 +1211,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                 },
                 {
                   x: "Scheduled Maintenance",
-                  fillColor: "#5081bc",
+                  fillColor: "#d72424",
                   y: [
                     Math.ceil(
                       this.totalDashboardInfoObj.installed_Capacity -
@@ -1388,21 +1391,17 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   selectLocation(elem, id) {
     this.selectedLines = "";
 
-    console.log("ok", elem);
     this.dashboardFilter.Factory = elem;
 
     this.dashboardService.getLinesFactories(id).subscribe((res) => {
-      console.log("jjjj", res);
       this.allLines = res;
     });
   }
   selectLine(elem) {
-    console.log(elem);
-    this.dashboardFilter.LineID = elem;
+    this.dashboardFilter.LineID = elem ? elem : null;
   }
   shiftType(elem) {
-    console.log(elem);
-    this.dashboardFilter.TimeType = elem;
+    this.dashboardFilter.TimeType = elem ;
   }
 
   selectTime(element, formVal) {
@@ -1467,18 +1466,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.dateByDay) {
       this.dashboardFilter.startDate = this.dateByDay;
       this.dashboardFilter.endDate = this.dateByDay;
-      console.log(this.dashboardFilter);
     }
-    this.dashboardService
-      .getDashboard(this.dashboardFilter)
+    this.dashboardService.getDashboard(this.dashboardFilter)
       .subscribe((res) => {
         if (res) {
-          console.log(">>>>>>>", res);
           this.totalDashboardInfo = res;
           this.totalDashboardInfo.forEach((element) => {
             element.forEach((elem) => {
               this.totalDashboardInfoObj = elem;
-              console.log("uuuuuu", elem)
               this.totalProduction = this.totalDashboardInfoObj.total_Production
               this.totalMaterial = this.totalDashboardInfoObj.total_Materials
             })
@@ -1492,12 +1487,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.DrawTimeLine(res);
         ((res) => {
           if (res) {
-            console.log(">>>>>>>", res);
             this.totalDashboardInfo = res;
             this.totalDashboardInfo.forEach((element) => {
               element.forEach((elem) => {
                 this.totalDashboardInfoObj = elem;
-                console.log("uuuuuu", elem)
                 this.totalProduction = this.totalDashboardInfoObj.total_Production
                 this.totalMaterial = this.totalDashboardInfoObj.total_Materials
               })
@@ -1509,7 +1502,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
           if (res) {
           
-            console.log("Time" , res)
             this.DrawTimeLine(res);
             this.data = res;
           }
@@ -1521,6 +1513,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     }) 
   }
 
+  plantemptyValue() {
+    this.dashboardFilter.LineID = null
+  }
  
 
 }
