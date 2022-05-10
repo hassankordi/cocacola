@@ -10,8 +10,11 @@
               <mat-label>Factory</mat-label>
               <mat-select [(ngModel)]="selectedLocation" name="plant">
                 <mat-option [value]="null"></mat-option>
-                <mat-option *ngFor="let elem of location" [value]="elem.name"
-                  (click)="selectLocation(elem)">
+                <mat-option
+                  *ngFor="let elem of location"
+                  [value]="elem.name"
+                  (click)="selectLocation(elem)"
+                >
                   {{ elem.location }}
                 </mat-option>
               </mat-select>
@@ -22,66 +25,106 @@
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>All Lines</mat-label>
               <mat-select [(ngModel)]="selectedLine" name="line">
-                <mat-option (click)="selectedLineNumber =0" [value]="null"> All Lines</mat-option>
+                <mat-option (click)="selectedLineNumber = 0" [value]="null">
+                  All Lines</mat-option
+                >
 
-                <mat-option *ngFor="let elem of allLines" (click)="selectLine(elem)" [value]="elem.name">
+                <mat-option
+                  *ngFor="let elem of allLines"
+                  (click)="selectLine(elem)"
+                  [value]="elem.name"
+                >
                   {{ elem.name }}
                 </mat-option>
               </mat-select>
-              
             </mat-form-field>
           </div>
           <div class="col-md-2 d-flex">
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>Machines</mat-label>
-              <mat-select [disabled]="!openMachineSelect" [(ngModel)]="selectedMachine" name="machine">
-                <mat-option  (click)="selectMachine()" [value]="null">All Machines</mat-option>
-                <mat-option *ngFor="let elem of allMachines" (click)="selectMachine()" [value]="elem.plcName">
+              <mat-select
+                [disabled]="!openMachineSelect"
+                [(ngModel)]="selectedMachine"
+                name="machine"
+              >
+                <mat-option (click)="selectMachine()" [value]="null"
+                  >All Machines</mat-option
+                >
+                <mat-option
+                  *ngFor="let elem of allMachines"
+                  (click)="selectMachine()"
+                  [value]="elem.plcName"
+                >
                   {{ elem.plcName }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
-        
-          <div class="col-md-2 d-flex">
 
-            
-            <input  (dateTimeChange)="durationStatus($event)" class="form-control p-3 h-100 rounded"
-             placeholder="Duration"  [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [selectMode]="'range'">
-            <owl-date-time  #dt12></owl-date-time>
+          <div class="col-md-2 d-flex">
+            <input
+              (dateTimeChange)="durationStatus($event)"
+              class="form-control p-3 h-100 rounded"
+              placeholder="Duration"
+              [owlDateTimeTrigger]="dt12"
+              [owlDateTime]="dt12"
+              [selectMode]="'range'"
+            />
+            <owl-date-time #dt12></owl-date-time>
           </div>
-        
-          <div class="d-flex ">
+
+          <div class="d-flex">
             <!-- openDialogBtn -->
-            <button class="btn btn-danger mx-1 px-4"  (click)="filter($event)">
+            <button
+              [disabled]="!openDialogBtn"
+              class="btn btn-danger mx-1 px-4"
+              (click)="filter($event)"
+            >
               Search
             </button>
           </div>
-          
         </form>
       </div>
     </div>
   </div>
 </div>
 
-
-
 <!--  -->
 
-
-<div class="row " *ngIf="displayData && !emptyArray" >
-  <div class="col-xl-6 py-2 stretch-card" *ngFor="let machine of allMachinesIndicatorData ">
-    <div class="card" >
+<div class="row" *ngIf="displayData && !emptyArray">
+  <div
+    class="col-xl-6 py-2 stretch-card"
+    *ngFor="let machine of allMachinesIndicatorData; let n = index"
+  >
+    <div class="card">
       <div class="card-body">
         <h5 class="card-title py-2">
           <!-- status-ball -->
-          <span [ngClass]="machineCurrentState == 1?'status-green':'status-gray'">•</span>
-           <span class="m-2 bg-dark text-white p-2 rounded">{{ machine?.machineID }}  </span> 
-          <span class="m-2 bg-red text-white p-2 rounded ">Current Status  </span>
-          <span *ngIf="machineID" class="m-2 p-2 rounded" [ngClass]="machineCurrentStatus =='OnLine'?'bg-success text-white':'bg-light text-dark'">{{machineCurrentStatus}}</span>
+          <span
+            [ngClass]="
+              machineCurrentState == 1 ? 'status-green' : 'status-gray'
+            "
+            >•</span
+          >
+          <span class="m-2 bg-dark text-white p-2 rounded"
+            >{{ machine?.machineID }}
+          </span>
+          <span *ngIf="machineID" class="m-2 bg-red text-white p-2 rounded"
+            >Current Status
+          </span>
+          <span
+            *ngIf="machineID"
+            class="m-2 p-2 rounded"
+            [ngClass]="
+              machineCurrentStatus == 'OnLine'
+                ? 'bg-success text-white'
+                : 'bg-light text-dark'
+            "
+            >{{ machineCurrentStatus }}</span
+          >
         </h5>
-      
-          <hr>
+
+        <hr />
         <!-- this row is for two progress bars and the three btns  -->
         <div class="row align-items-center">
           <div class="col-xl-12 row justify-content-center">
@@ -89,12 +132,13 @@
               <div class="row justify-content-center align-items-center">
                 <!-- role="progressbar"
                 style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}" -->
-               
-                <div role="progressbar"   style="--value:{{ machine?.oee * 100  | number }}" class="progressbar-circle">
-                   <small
-                  >{{ machine?.oee * 100 | number: "1.0-0" }} %</small
-                > 
-                 
+
+                <div
+                  role="progressbar"
+                  style="--value:{{ machine?.oee * 100 | number }}"
+                  class="progressbar-circle"
+                >
+                  <small>{{ machine?.oee * 100 | number: "1.0-0" }} %</small>
                 </div>
               </div>
               <div class="text-center pt-4 font-weight-bold" id="kpiDiv">
@@ -105,10 +149,18 @@
             <div class="col-md-6">
               <div class="row justify-content-center align-items-center">
                 <!-- style="--value:{{ totalDashboardInfoObj?.sle * 100 | number }}" -->
-                <div role="progressbar"  style="--value:{{ machine?.avalability * 100  | number }} ; --fg: {{ machine?.avalability * 100 <= 50 ? '#e61d2b':'#29a32cd9' }};" class=" progressbar-circle">
-                  <small
-                  >{{ machine?.avalability * 100 | number: "1.0-0" }} %</small
+                <div
+                  role="progressbar"
+                  style="--value:{{
+                    machine?.avalability * 100 | number
+                  }} ; --fg: {{
+                    machine?.avalability * 100 <= 50 ? '#e61d2b' : '#29a32cd9'
+                  }};"
+                  class="progressbar-circle"
                 >
+                  <small
+                    >{{ machine?.avalability * 100 | number: "1.0-0" }} %</small
+                  >
                   <!-- <small>{{machineindicator.avalability}}</small> -->
                 </div>
               </div>
@@ -121,108 +173,130 @@
             <button class="m-2" mat-raised-button color="warn">Current Status <span [class]="machineCurrentState ==1?'online':'offline'">{{machineCurrentStatus}}</span> </button>
            
           </div> -->
-
         </div>
-
-
-
 
         <div class="row mt-5">
           <div class="col-md-12">
             <div class="progress">
-              <div id="availbilBar" class="progress-bar" [style.width.%]="(machine?.productionOutput / machine?.expected)*100" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">{{(machine?.productionOutput / machine?.expected)*100 | number: "1.0-1"}}%
+              <div
+                id="availbilBar"
+                class="progress-bar"
+                [style.width.%]="
+                  (machine?.productionOutput / machine?.expected) * 100
+                "
+                aria-valuenow="80"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{
+                  (machine?.productionOutput / machine?.expected) * 100
+                    | number: "1.0-1"
+                }}%
               </div>
             </div>
-            <div>
-
-            </div>
+            <div></div>
             <div class="row mt-3">
               <div class="col-6 text-center">
-                <span style="font-weight: bold; text-transform: capitalize;">actually</span>
-                <p class="mt-2  w-100  p-2 bg-red text-white rounded" >{{machine?.productionOutput | number: "1.0-1"}} Bottle</p>
+                <span style="font-weight: bold; text-transform: capitalize"
+                  >actually</span
+                >
+                <p class="mt-2 w-100 p-2 bg-red text-white rounded">
+                  {{ machine?.productionOutput | number: "1.0-1" }} Bottle
+                </p>
               </div>
               <div class="col-6 text-center">
-                <span style="font-weight: bold; text-transform: capitalize;">expected</span>
-                <p class="mt-2 w-100  p-2 bg-red text-white rounded">{{machine?.expected | number: "1.0-1"}} Bottle</p>
+                <span style="font-weight: bold; text-transform: capitalize"
+                  >expected</span
+                >
+                <p class="mt-2 w-100 p-2 bg-red text-white rounded">
+                  {{ machine?.expected | number: "1.0-1" }} Bottle
+                </p>
               </div>
             </div>
           </div>
-         <!-- start time line -->
-         <div class="col-xl-12 stretch-card mt-2" >
-          <div class="card">
-            <div class="card-body" style="padding: 3rem ;">
-              <div class="row">
-                <div class="col-12 text-center">
-                  <h6 class="card-title pt-1 mr-3">Time line chart</h6>
-                  <div>
-                    <span class="m-3 font-weight-bold">
-                      <i
-                        class="link-icon m-2 mb-1 redIcon"
-                        data-feather="square"
-                        appFeatherIcon
-                      ></i
-                      >Off</span
-                    >
-                    <span class="m-3 font-weight-bold"
-                      ><i
-                        class="link-icon m-2 mb-1 greenIcon"
-                        data-feather="square"
-                        appFeatherIcon
-                      ></i
-                      >On</span
-                    >
-                    <span class="m-3 font-weight-bold"
-                      ><i
-                        class="link-icon m-2 mb-1 greyIcon"
-                        data-feather="square"
-                        appFeatherIcon
-                      ></i
-                      >Waiting</span
-                    >
-                    <span class="m-3 font-weight-bold"
-                      ><i
-                        class="link-icon m-2 mb-1 blueIcon"
-                        data-feather="square"
-                        appFeatherIcon
-                      ></i
-                      >Cleaning</span
-                    >
+          <!-- start time line -->
+          <div
+            class="col-xl-12 stretch-card mt-2"
+            *ngIf="line1Timeline.series[n].data.length"
+          >
+            <div class="card">
+              <div class="card-body" style="padding: 3rem">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <h6 class="card-title pt-1 mr-3">Time line chart</h6>
+                    <div>
+                      <span class="m-3 font-weight-bold">
+                        <i
+                          class="link-icon m-2 mb-1 redIcon"
+                          data-feather="square"
+                          appFeatherIcon
+                        ></i
+                        >Off</span
+                      >
+                      <span class="m-3 font-weight-bold"
+                        ><i
+                          class="link-icon m-2 mb-1 greenIcon"
+                          data-feather="square"
+                          appFeatherIcon
+                        ></i
+                        >On</span
+                      >
+                      <span class="m-3 font-weight-bold"
+                        ><i
+                          class="link-icon m-2 mb-1 greyIcon"
+                          data-feather="square"
+                          appFeatherIcon
+                        ></i
+                        >Waiting</span
+                      >
+                      <span class="m-3 font-weight-bold"
+                        ><i
+                          class="link-icon m-2 mb-1 blueIcon"
+                          data-feather="square"
+                          appFeatherIcon
+                        ></i
+                        >Cleaning</span
+                      >
+                    </div>
                   </div>
                 </div>
-              </div>
-              <hr />
-              <div class="col-12" id="history-chart"*ngIf="line1Data?.data.length != 0">
-                <div class="row align-items-end">
-                  <div class="col-12 h-5 text-center time-line-full-title1">
-                    <p
-                      style="
-                        margin-top: 50px;
-                        font-weight: bold;
-                        font-size: 16px;
-                        color: grey;
-                      "
-                    >
-                     {{machineID}}
-                    </p>
-                  </div>
-                  <div class="col-11" style="height: 60px">
-                    <apx-chart
-                      [series]="line1Timeline.series"
-                      [chart]="line1Timeline.chart"
-                      [fill]="line1Timeline.fill"
-                      [grid]="line1Timeline.grid"
-                      [dataLabels]="line1Timeline.dataLabels"
-                      [plotOptions]="line1Timeline.plotOptions"
-                      [xaxis]="line1Timeline.xaxis"
-                      [yaxis]="line1Timeline.yaxis"
-                      [tooltip]="line1Timeline?.tooltip"
-                      [legend]="line1Timeline?.legend"
-                      [title]="line1Timeline?.title"
-                    ></apx-chart>
+                <hr />
+                <div
+                  class="col-12"
+                  id="history-chart"
+                  *ngIf="line1Data?.data.length != 0"
+                >
+                  <div class="row align-items-end">
+                    <div class="col-12 h-5 text-center time-line-full-title1">
+                      <p
+                        style="
+                          margin-top: 50px;
+                          font-weight: bold;
+                          font-size: 16px;
+                          color: grey;
+                        "
+                      >
+                        {{ machineID }}
+                      </p>
+                    </div>
+                    <div class="col-11" style="height: 60px">
+                      <apx-chart
+                        [series]="[line1Timeline.series[n]]"
+                        [chart]="line1Timeline.chart"
+                        [fill]="line1Timeline.fill"
+                        [grid]="line1Timeline.grid"
+                        [dataLabels]="line1Timeline.dataLabels"
+                        [plotOptions]="line1Timeline.plotOptions"
+                        [xaxis]="line1Timeline.xaxis"
+                        [yaxis]="line1Timeline.yaxis"
+                        [tooltip]="line1Timeline?.tooltip"
+                        [legend]="line1Timeline?.legend"
+                        [title]="line1Timeline?.title"
+                      ></apx-chart>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!-- <div class="col-12" *ngIf="line2Data?.data.length != 0">
+                <!-- <div class="col-12" *ngIf="line2Data?.data.length != 0">
                 <div class="row align-items-end">
                   <div class="col-1 h-5 text-center time-line-full-title1">
                     <p
@@ -254,57 +328,38 @@
                   </div>
                 </div>
               </div>  -->
-             
+              </div>
             </div>
           </div>
+          <!-- No Time Line Data  -->
+          <div
+            class="col-12 d-flex justify-content-center"
+            style="padding-top: 100px"
+            *ngIf="!line1Timeline.series[n].data.length"
+          >
+            <div>
+              <h1 class="px-4 d-inline">No Time Line Data</h1>
+              <span>
+                <i class="fas fa-history fa-2x"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- end time line -->
         </div>
-
-         <!-- end time line -->
-        </div>
-
-
-
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
 <div class="row" *ngIf="emptyArray && !displayData">
   <h2 class="text-center w-100 mt-5">No Data</h2>
 </div>
 
-
-
-
 <div class="row pt-3" *ngIf="showGifImg">
-  <div class="col-12 ">
-    <div class="d-flex justify-content-center align-items-center  bg-white">
-      <img width="200" src="/assets/images/loader.gif">
+  <div class="col-12">
+    <div class="d-flex justify-content-center align-items-center bg-white">
+      <img width="200" src="/assets/images/loader.gif" />
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-

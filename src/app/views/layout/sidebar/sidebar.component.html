@@ -1,8 +1,8 @@
-<nav class="sidebar bg-red" style="overflow: hidden;">
-  <div class="sidebar-header bg-red ">
+<nav class="sidebar bg-red" style="overflow: hidden">
+  <div class="sidebar-header bg-red">
     <!--- Toggler -->
     <div
-      class="sidebar-toggler not-active "
+      class="sidebar-toggler not-active"
       #sidebarToggler
       (click)="toggleSidebar($event)"
     >
@@ -12,9 +12,13 @@
     </div>
   </div>
   <!--- Logo -->
-<div class=" animate__animated animate__fadeIn animate__delay-1s p-2"  >
-  <img src="assets/images/Coca-Cola-logo-108E6559A3-seeklogo.com.png" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
-</div>
+  <div class="animate__animated animate__fadeIn animate__delay-1s p-2">
+    <img
+      src="assets/images/Coca-Cola-logo-108E6559A3-seeklogo.com.png"
+      class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
+      alt=""
+    />
+  </div>
   <div class="sidebar-body d-flex flex-wrap align-content-stretch bg-red">
     <!--- Sidemenu start -->
 
@@ -26,25 +30,25 @@
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink='dashboard/Plan' class="nav-link">
+        <a routerLink="dashboard/Plan" class="nav-link">
           <i class="link-icon" data-feather="activity" appFeatherIcon></i>
           <span class="link-title">Plan</span>
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink='dashboard/machine' class="nav-link">
-          <i class="link-icon" data-feather="cpu" appFeatherIcon></i>
+        <a routerLink="dashboard/machine" class="nav-link">
+          <i class="far fa-dryer"></i>
           <span class="link-title">Machine</span>
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink='dashboard/machine-indecators' class="nav-link">
+        <a routerLink="dashboard/machine-indecators" class="nav-link">
           <i class="link-icon" data-feather="cpu" appFeatherIcon></i>
           <span class="link-title">Machines Indicators</span>
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink='dashboard/machine-tag-explore' class="nav-link">
+        <a routerLink="dashboard/machine-tag-explore" class="nav-link">
           <i class="link-icon" data-feather="cpu" appFeatherIcon></i>
           <span class="link-title">Machines Tags Explore</span>
         </a>

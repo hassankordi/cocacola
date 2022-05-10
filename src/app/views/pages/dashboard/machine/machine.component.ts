@@ -388,7 +388,7 @@ export class MachineComponent implements OnInit {
    
   }
   plantLineNull() {
-    this.plantLineSelected = false
+    this.plantLineSelected = true
     this.openLines = true
     this.line = ''
   }
