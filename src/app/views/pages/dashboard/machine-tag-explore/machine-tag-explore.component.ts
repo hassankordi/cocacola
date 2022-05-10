@@ -58,6 +58,8 @@ export class MachineTagExploreComponent implements OnInit {
 
   emptyArray: any = false;
 
+  showGifImg: any = false;
+
 
   tagsData: any = []
   mySeries: any = []
@@ -210,6 +212,7 @@ export class MachineTagExploreComponent implements OnInit {
 
   filter(event) {
     this.displayData = false
+    this.showGifImg = true;
     let data = {
       machineId: this.selectedMachine,
       factory: Number(this.factoryId),
@@ -240,7 +243,7 @@ export class MachineTagExploreComponent implements OnInit {
 
     // get machine tag data (speed data) ..ect 
     this.dashboardService.getMachineTag(data).subscribe((res: any) => {
-
+      this.showGifImg = false
       console.log(res);
       this.tagsData = [];
       this.mySeries = [];
@@ -289,6 +292,8 @@ export class MachineTagExploreComponent implements OnInit {
 
       }
      
+    },(err)=>{
+      this.showGifImg = false
     })
 
 
