@@ -385,6 +385,10 @@ export class DashboardService {
   getFunctionsList() {
     return this.http.get<any[]>(environment.sourceUrl + "/functions");
   }
+  //  git all offline  getOffMachine
+  getOffMachine() {
+    return this.http.get<any[]>(environment.sourceUrl + "/Machines/AllOfflineMachines");
+  }
 
   getAllMachines(factoryId, lineId) {
     if (factoryId !== undefined && lineId !== undefined) {
@@ -416,3 +420,5 @@ export class DashboardService {
     );
   }
 }
+
+

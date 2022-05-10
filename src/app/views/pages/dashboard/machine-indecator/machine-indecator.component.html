@@ -135,10 +135,14 @@
 
                 <div
                   role="progressbar"
-                  style="--value:{{ machine?.oee * 100 | number }}"
+                  style=" --value:{{ machine?.oee * 100 | number }}"
                   class="progressbar-circle"
                 >
-                  <small>{{ machine?.oee * 100 | number: "1.0-0" }} %</small>
+                  <small *ngIf="machine?.oee > 0 &&  machine?.oee * 100< 100"
+                    >{{ machine?.oee * 100 | number: "1.0-0" }} %</small
+                  >
+                  <small *ngIf="machine?.oee == 0">NA</small>
+                  <small *ngIf="machine?.oee *100 > 100">NA</small>
                 </div>
               </div>
               <div class="text-center pt-4 font-weight-bold" id="kpiDiv">

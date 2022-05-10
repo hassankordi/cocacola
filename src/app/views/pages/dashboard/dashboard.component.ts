@@ -714,7 +714,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                           this.totalDashboardInfoObj.installed_Capacity -
                           this.totalDashboardInfoObj.nonScheduled * 100
                         ) -
-                        this.totalDashboardInfoObj.scheduledMaintenance * 100,
+                        Math.ceil(this.totalDashboardInfoObj.scheduledMaintenance * 100)
                       ],
                     },
                     {
@@ -1221,7 +1221,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                       this.totalDashboardInfoObj.installed_Capacity -
                       this.totalDashboardInfoObj.nonScheduled * 100
                     ) -
-                    this.totalDashboardInfoObj.scheduledMaintenance * 100,
+                    Math.ceil(this.totalDashboardInfoObj.scheduledMaintenance * 100)
                   ],
                 },
                 {

@@ -38,3 +38,11 @@
   table {
     width: 100%;
   }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.bg-red{
+  background-color: #e51e2a;
+}

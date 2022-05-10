@@ -275,6 +275,8 @@ export class MachineComponent implements OnInit {
        this.waterKey = []
       this.waterVal = []
       this.energyKey = []
+      this.energyVal = []
+
       this.waterVal = []
       this.signalBrokerKey = []
       this.signalBrokerVal = []

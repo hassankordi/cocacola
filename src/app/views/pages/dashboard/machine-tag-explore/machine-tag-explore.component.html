@@ -9,20 +9,28 @@
                 <mat-label>Factory</mat-label>
                 <mat-select [(ngModel)]="selectedLocation" name="plant">
                   <mat-option [value]="null"></mat-option>
-                  <mat-option *ngFor="let elem of location" [value]="elem.name" (click)="selectLocation(elem)">
+                  <mat-option
+                    *ngFor="let elem of location"
+                    [value]="elem.name"
+                    (click)="selectLocation(elem)"
+                  >
                     {{ elem.location }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-  
+
             <div class="col-md-2 d-flex">
               <mat-form-field class="w-100" [appearance]="'outline'">
                 <mat-label>All Lines</mat-label>
                 <mat-select [(ngModel)]="selectedLine" name="line">
                   <mat-option [value]="null"></mat-option>
-  
-                  <mat-option *ngFor="let elem of allLines" (click)="selectLine(elem)" [value]="elem.name">
+
+                  <mat-option
+                    *ngFor="let elem of allLines"
+                    (click)="selectLine(elem)"
+                    [value]="elem.name"
+                  >
                     {{ elem.name }}
                   </mat-option>
                 </mat-select>
@@ -31,39 +39,54 @@
             <div class="col-md-2 d-flex">
               <mat-form-field class="w-100" [appearance]="'outline'">
                 <mat-label>Machines</mat-label>
-                <mat-select [disabled]="!openMachineSelect" [(ngModel)]="selectedMachine" name="machine">
-                  <mat-option (click)="selectMachine()" [value]="null"></mat-option>
-                  <mat-option *ngFor="let elem of allMachines" (click)="selectMachine()" [value]="elem.plcName">
+                <mat-select
+                  [disabled]="!openMachineSelect"
+                  [(ngModel)]="selectedMachine"
+                  name="machine"
+                >
+                  <mat-option
+                    (click)="selectMachine()"
+                    [value]="null"
+                  ></mat-option>
+                  <mat-option
+                    *ngFor="let elem of allMachines"
+                    (click)="selectMachine()"
+                    [value]="elem.plcName"
+                  >
                     {{ elem.plcName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-  
-            <div class="col-md-2 d-flex">  
-              <input [disabled]="!openDuration" (dateTimeChange)="durationStatus($event)"
-                class="form-control p-3 h-100 rounded" placeholder="Duration" [owlDateTimeTrigger]="dt12"
-                [owlDateTime]="dt12" [selectMode]="'range'">
+
+            <div class="col-md-2 d-flex">
+              <input
+                [disabled]="!openDuration"
+                (dateTimeChange)="durationStatus($event)"
+                class="form-control p-3 h-100 rounded"
+                placeholder="Duration"
+                [owlDateTimeTrigger]="dt12"
+                [owlDateTime]="dt12"
+                [selectMode]="'range'"
+              />
               <owl-date-time [disabled]="!openDuration" #dt12></owl-date-time>
             </div>
-  
+
             <div class="d-flex">
-              <button class="btn btn-danger mx-1 px-4" [disabled]="!openDialogBtn" (click)="filter($event)">
+              <button
+                class="btn bg-red text-white mx-1 px-4"
+                [disabled]="!openDialogBtn"
+                (click)="filter($event)"
+              >
                 Search
               </button>
             </div>
           </div>
-
         </form>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
 
 <div class="row" *ngIf="emptyArray && !displayData">
   <h2 class="text-center w-100 mt-5">No Data</h2>
@@ -71,84 +94,95 @@
 
 <!-- *ngIf="displayData" -->
 <div class="row justify-content-center" *ngIf="displayData && !showGifImg">
+  <div class="col-12 my-2">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">
+          {{ selectedMachine }}
+        </h6>
 
-    <div class="col-md-12 my-2">
-      <div class="card">
-        <div class="card-body">
-          <h6 class="card-title">
-           {{selectedMachine}}
-          </h6>
+        <div class="row justify-content-center">
+          <!-- (click)="getTagReads(activeTag , $event)" activeLink -->
+          <button
+            (click)="filterTagReads(activeTag, $event)"
+            class="btn activeLink tag-btn my-3"
+          >
+            {{ activeTag.displayName }}
+          </button>
 
-          <div class="row justify-content-center">
-            <!-- (click)="getTagReads(activeTag , $event)" activeLink -->
-            <button (click)="filterTagReads(activeTag , $event)" class="btn activeLink tag-btn my-3">
-              {{activeTag.displayName}}</button>
-            
-            <!-- (click)="getTagReads(tag , $event)" -->
-            <button (click)="filterTagReads(tag , $event)" class="btn tag-btn my-3"
-              *ngFor="let tag of tags">{{tag.displayName}}</button>
-
-          </div>
-
+          <!-- (click)="getTagReads(tag , $event)" -->
+          <button
+            (click)="filterTagReads(tag, $event)"
+            class="btn tag-btn my-3"
+            *ngFor="let tag of tags"
+          >
+            {{ tag.displayName }}
+          </button>
         </div>
       </div>
-    <div class="col-md-12 my-5">
-      <!-- <mat-tab-group (focusChange)="doSomthing()">
-        <mat-tab label="tabular">
-
-        </mat-tab>
-        <mat-tab label="Graph">
-     
-
-        </mat-tab>
-
-      </mat-tab-group> -->
-
-      <div id="chart"  *ngIf="showChart">
-        <apx-chart
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis"
-          [stroke]="chartOptions.stroke"
-          [colors]="chartOptions.colors"
-          [dataLabels]="chartOptions.dataLabels"
-          [legend]="chartOptions.legend"
-          [markers]="chartOptions.markers"
-          [grid]="chartOptions.grid"
-          [yaxis]="chartOptions.yaxis"
-          [title]="chartOptions.title"
-        ></apx-chart>
-      </div>
-    </div>
-    <div style="height: 400px; overflow-y: auto;" class="col-md-12" *ngIf="showChart">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Index</th>
-            <th scope="col">Date</th>
-            <th scope="col">{{tagTableName}}</th>
-           
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let i of tableTagData ; let x = index">
-           
-            <td>{{x+1}}</td>
-            <td>{{tableDate[x]}}</td>
-            <td>{{i}}</td>
-            
-          </tr>
-         
-       
-         
-        </tbody>
-      </table>
-      
     </div>
   </div>
+  <!--  -->
+  <div class="col-12 my-2">
+    <div class="card">
+      <div class="card-body">
+        <!-- <mat-tab-group (focusChange)="doSomthing()">
+      <mat-tab label="tabular">
 
+      </mat-tab>
+      <mat-tab label="Graph">
+   
+
+      </mat-tab>
+
+    </mat-tab-group> -->
+
+        <div id="chart" *ngIf="showChart">
+          <apx-chart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [xaxis]="chartOptions.xaxis"
+            [stroke]="chartOptions.stroke"
+            [colors]="chartOptions.colors"
+            [dataLabels]="chartOptions.dataLabels"
+            [legend]="chartOptions.legend"
+            [markers]="chartOptions.markers"
+            [grid]="chartOptions.grid"
+            [yaxis]="chartOptions.yaxis"
+            [title]="chartOptions.title"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div
+    class="col-12 my-2"
+    style="height: 400px; overflow-y: scroll"
+    *ngIf="showChart"
+  >
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="bg-red  ">
+              <th scope="col" class="text-white">Index</th>
+              <th scope="col" class="text-white">Date</th>
+              <th scope="col" class="text-white">{{ tagTableName }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of tableTagData; let x = index">
+              <td>{{ x + 1 }}</td>
+              <td>{{ tableDate[x] | date: "medium" }}</td>
+              <td>{{ i }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-
 
 <div class="row pt-3" *ngIf="showGifImg">
   <div class="col-12">
