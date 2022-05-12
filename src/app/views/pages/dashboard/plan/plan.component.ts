@@ -279,9 +279,7 @@ export class PlanComponent implements OnInit, AfterViewInit {
       this.datePicker = myDate.toISOString().replace("22:00:00.000Z", "");
       this.openTime1 = false;
       this.openAddBtnInDate = false;
-      this.dashboardService
-        .getGridplanTableData(this.calenderEventToTable)
-        .subscribe((res) => {
+      this.dashboardService.getGridplanTableData(this.calenderEventToTable).subscribe((res) => {
           this.tableGridData = res;
           this.tableGridData2 = res;
           this.tableGridData2.forEach((elem) => {
@@ -511,12 +509,13 @@ export class PlanComponent implements OnInit, AfterViewInit {
         console.log(this.dateAndTime);
       }
 
-      this.dashboardService
-        .getPlanShiftMaterialConsumptions(this.calenderPlanDate)
+      this.dashboardService.getPlanShiftMaterialConsumptions(this.calenderPlanDate)
         .subscribe((res) => {
           this.planTableGrid = res;
           console.log(this.planTableGrid);
         });
+
+        
     }
   }
 

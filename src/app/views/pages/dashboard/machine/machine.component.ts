@@ -61,6 +61,7 @@ export class MachineComponent implements OnInit {
   status8: any;
   status9: any;
   status10: any;
+  disPlant : boolean = false
 
   blowMouldersKey = [];
   blowMouldersVal = [];
@@ -146,17 +147,28 @@ export class MachineComponent implements OnInit {
   }
   selectFunctionality(functionlityId) {
     this.functionlaityId = functionlityId
+    this.disPlant = true
   }
 
 
   getAllMachines(event) {
 
     if(!this.functionlaityId) {
+      this.energy = []
+      this.water = []
+      this.blowMoulders = []
+      this.dPalletizers = []
+      this.labelers = []
+      this.cartonizerShrink = []
+      this.mixers = []
+      this.palletizer = []
+      this.signalBroker = []
+      this.filler = []
       this.allMachines = []
       this.waterKey = []
       this.waterVal = []
       this.energyKey = []
-      this.waterVal = []
+      this.energyVal = []
       this.signalBrokerKey = []
       this.signalBrokerVal = []
       this.labelersKey = []
@@ -271,29 +283,37 @@ export class MachineComponent implements OnInit {
     if(this.functionlaityId) {
       this.dashboardService.getAllMachinesForFunctionality(this.functionlaityId).subscribe(res=>{
         console.log("withline" , res)
+        this.energy = []
+        this.water = []
+        this.blowMoulders = []
+        this.dPalletizers = []
+        this.labelers = []
+        this.cartonizerShrink = []
+        this.mixers = []
+        this.palletizer = []
+        this.signalBroker = []
+        this.filler = []
         this.allMachines = []
-       this.waterKey = []
-      this.waterVal = []
-      this.energyKey = []
-      this.energyVal = []
-
-      this.waterVal = []
-      this.signalBrokerKey = []
-      this.signalBrokerVal = []
-      this.labelersKey = []
-      this.labelersVal = []
-      this.blowMouldersKey = []
-      this.blowMouldersVal = []
-      this.DpalletizerKey = []
-      this.DpalletizerVal = []
-      this.mixersKey = []
-      this.mixersVal = []
-      this.fillerKey = []
-      this.fillerVal = []
-      this.cartonizerShrinkKey = []
-      this.cartonizerShrinkVal = []
-      this.palletizerKey = []
-      this.palletizerVal = []
+        this.waterKey = []
+        this.waterVal = []
+        this.energyKey = []
+        this.energyVal = []
+        this.signalBrokerKey = []
+        this.signalBrokerVal = []
+        this.labelersKey = []
+        this.labelersVal = []
+        this.blowMouldersKey = []
+        this.blowMouldersVal = []
+        this.DpalletizerKey = []
+        this.DpalletizerVal = []
+        this.mixersKey = []
+        this.mixersVal = []
+        this.fillerKey = []
+        this.fillerVal = []
+        this.cartonizerShrinkKey = []
+        this.cartonizerShrinkVal = []
+        this.palletizerKey = []
+        this.palletizerVal = []
         this.showGifImg = true
         this.disableSearch = true
         if (res) {
@@ -389,11 +409,22 @@ export class MachineComponent implements OnInit {
 
    
   }
-  plantLineNull() {
-    this.plantLineSelected = true
-    this.openLines = true
+  plantNull() {
     this.line = ''
+    this.openLines = true
+    this.plantLineSelected = false
   }
+  lineNull() {
+    this.lineId = ''
+  }
+  
+  functionlaityNull() {
+    this.functionlaityId = null
+    this.disPlant = false
+  }
+   
+   
+  // }
 
 
   // hassan's code 

@@ -190,6 +190,7 @@
                                   </h6>
                                   <div id="chart">
                                     <apx-chart
+                                    *ngIf="this.tableGridData.length > 0"
                                       [series]="chartOptions.series"
                                       [chart]="chartOptions.chart"
                                       [fill]="chartOptions.fill"

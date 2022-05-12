@@ -7,8 +7,8 @@
           <div class="col-md-2 d-flex">
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>Plant</mat-label>
-              <mat-select [(ngModel)]="factory">
-                <mat-option [value]="null" (click)="plantLineNull()"></mat-option>
+              <mat-select [(ngModel)]="factory" [disabled]="disPlant">
+                <mat-option [value]="null" (click)="plantNull()"></mat-option>
                 <mat-option *ngFor="let elem of location" [value]="elem.name"
                   (click)="selectLocation(elem.name, elem.id)">
                   {{ elem.location }}
@@ -21,7 +21,7 @@
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>All Lines</mat-label>
               <mat-select [disabled]="openLines" [(ngModel)]="line">
-                <mat-option [value]="null" (click)="plantLineNull()"></mat-option>
+                <mat-option [value]="null" (click)="lineNull()"></mat-option>
                 <mat-option *ngFor="let elem of allLines" (click)="selectLine(elem.id )" [value]="elem.name">
 
                   {{ elem.name }}
@@ -33,7 +33,7 @@
             <mat-form-field class="w-100" [appearance]="'outline'">
               <mat-label>Functionality</mat-label>
               <mat-select [disabled]="plantLineSelected" [(ngModel)]="FunctionlaityValue">
-                <mat-option [value]="null"></mat-option>
+                <mat-option [value]="null" (click)="functionlaityNull()"></mat-option>
                 <mat-option *ngFor="let elem of machineFunctionlity" (click)="selectFunctionality(elem.id)" [value]="elem.name">
                  {{elem.name}}
                 </mat-option>
@@ -74,6 +74,7 @@
 <!-- start  -->
 
 <!-- done -->
+<div *ngIf="blowMouldersVal.length">
 <div class="row" *ngFor="let elem of blowMouldersVal">
   <div class="col-12 py-2">
     <div class="card">
@@ -125,6 +126,7 @@
     </div>
   </div>
 </div>
+</div>
 
 
 <!-- 
@@ -175,6 +177,7 @@
 </div> -->
 
 <!-- Dpall -->
+<div *ngIf="DpalletizerVal.length">
 <div class="row" *ngFor="let elem of DpalletizerVal">
   <div class="col-12 py-2">
     <div class="card">
@@ -226,7 +229,7 @@
     </div>
   </div>
 </div>
-
+</div>
 <!-- <div class="row" *ngFor="let elem of DpalletizerVal;">
   <div class="col-12 py-2">
     <div class="card">
@@ -272,7 +275,7 @@
     </div>
   </div>
 </div> -->
-
+<div *ngIf="mixersVal.length">
 <div class="row" *ngFor="let elem of mixersVal">
   <div class="col-12 py-2">
     <div class="card">
@@ -323,6 +326,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- <div class="row" *ngFor="let elem of mixersVal;">
@@ -665,9 +669,7 @@
   </div>
 </div> -->
 <!-- start -->
-
-
-
+<div *ngIf="energyVal.length">
 <div class="row" *ngFor="let elem of energyVal">
   <div class="col-12 py-2">
     <div class="card">
@@ -718,6 +720,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 

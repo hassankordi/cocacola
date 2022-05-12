@@ -57,15 +57,14 @@ export type ChartOptions = {
   styleUrls: ["./machine-indecator.component.scss"],
 })
 export class MachineIndecatorComponent implements OnInit {
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
   positionOptions: TooltipPosition[] = ["above"];
   position = new FormControl(this.positionOptions[0]);
   public line1Timeline: Partial<ChartOptions>;
   dashboardFilter: DashboardFilter = new DashboardFilter();
 
-  public line2Timeline: Partial<ChartOptions>;
-  public line3Timeline: Partial<ChartOptions>;
-  public line4Timeline: Partial<ChartOptions>;
-  public line5Timeline: Partial<ChartOptions>;
+ 
   line1Data = {
     name: "Line 1",
     data: [],
@@ -75,8 +74,7 @@ export class MachineIndecatorComponent implements OnInit {
 
   line1Null = null;
 
-  @ViewChild("chart") chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  
 
   location: any;
   allLines: any;
@@ -130,7 +128,6 @@ export class MachineIndecatorComponent implements OnInit {
   //constructor
   constructor(
     public _CurrentActivityService: CurrentActivityService,
-
     private dashboardService: DashboardService,
     public signalRService: SignalRService,
     private datePipe: DatePipe
@@ -211,14 +208,11 @@ export class MachineIndecatorComponent implements OnInit {
         },
       },
     };
-
     // end
   }
   ngOnDestroy(): void {}
   ngAfterViewInit(): void {}
   ngOnInit(): void {
-    // this.availbilBar.style.width ='90%'
-
     this.plantName = "Alex";
 
     //Factories
@@ -234,6 +228,7 @@ export class MachineIndecatorComponent implements OnInit {
     });
   }
 
+  // select duraciton 
   durationStatus(event) {
     console.log(event);
     // check if start date or end date is null
@@ -265,9 +260,9 @@ export class MachineIndecatorComponent implements OnInit {
     this.openDuration = false;
 
     this.factoryId = elem.id;
-    // console.log("ok", elem );
-    // this.dashboardFilter.Factory = elem.name;
+   
 
+    // get lines after select factory 
     this.dashboardService.getLinesFactories(elem.id).subscribe(
       (res) => {
         console.log("jjjj", res);
@@ -287,6 +282,7 @@ export class MachineIndecatorComponent implements OnInit {
     this.selectedLineNumber = elem.lineNum;
     this.openMachineSelect = true;
 
+    // get machines after select line 
     this.dashboardService.getMachinePlan(elem.id).subscribe(
       (res) => {
         console.log(res);
@@ -306,16 +302,21 @@ export class MachineIndecatorComponent implements OnInit {
     }
   }
 
-  fromDate(event) {
-    let date = new Date(event.value);
-    let modifiedTime = date.toISOString();
-    // this.date1 = modifiedTime.replace('22:00:00.000Z' , "").concat("00:00:00.000Z");
-    // this.dashboardFilter.startDate = this.date1
-    console.log(this.dashboardFilter);
-  }
+  // this function has no invoke !! 
+  // fromDate(event) {
+  //   let date = new Date(event.value);
+  //   let modifiedTime = date.toISOString();
+  //   // this.date1 = modifiedTime.replace('22:00:00.000Z' , "").concat("00:00:00.000Z");
+  //   // this.dashboardFilter.startDate = this.date1
+  //   console.log(this.dashboardFilter);
+  // }
 
   filter(event) {
+    // logic after click 
     this.showGifImg = true;
+    this.displayData = false;
+    this.emptyArray = false;
+
 
     this.line1Timeline.series = [];
     this.hassanArrayTest = [];
@@ -325,8 +326,7 @@ export class MachineIndecatorComponent implements OnInit {
     this.machineCurrentStatus = "offline";
     this.machineAvailabilityBottle = 0;
 
-    this.displayData = false;
-    this.emptyArray = false;
+  //  this (data) for send it to machine indicator 
     let data = {
       machineId: this.selectedMachine,
       factory: this.plantName,
@@ -444,99 +444,12 @@ export class MachineIndecatorComponent implements OnInit {
             this.hassanArrayTest.push(singleMachineObj);
 
             console.log(this.hassanArrayTest);
-            //                element.forEach((myObj)=>{
-            // console.log(myObj.machineId);
+           
+         
+          
 
-            //                 if (myObj.state == "Offline") {
-            //                           let obj = {
-            //                             x: "Time",
-            //                             y: [
-            //                               new Date(myObj.stateStartTime).getTime(),
-            //                               new Date(myObj.stateEndTime).getTime(),
-            //                             ],
-            //                             fillColor: "#e22517",
-            //                           };
-
-            //                         } else if (element.state == "Waiting") {
-            //                           let obj = {
-            //                             x: "Time",
-            //                             y: [
-            //                               new Date(element.stateStartTime).getTime(),
-            //                               new Date(element.stateEndTime).getTime(),
-            //                             ],
-            //                             fillColor: "#dadada",
-            //                           };
-            //                           this.line1Data.data.push(obj);
-            //                           console.log(this.line1Data)
-            //                         } else if (element.state == "Online") {
-            //                           let obj = {
-            //                             x: "Time",
-            //                             y: [
-            //                               new Date(element.stateStartTime).getTime(),
-            //                               new Date(element.stateEndTime).getTime(),
-            //                             ],
-            //                             fillColor: "#29a32c",
-            //                           };
-            //                           this.line1Data.data.push(obj);
-            //                         }else if(element.state == 'Cleaning in Process') {
-            //                           let obj = {
-            //                             x: "Time",
-            //                             y: [
-            //                               new Date(element.stateStartTime).getTime(),
-            //                               new Date(element.stateEndTime).getTime(),
-            //                             ],
-            //                             fillColor: "#576FE6",
-            //                           };
-            //                           this.line1Data.data.push(obj);
-            //                         }
-
-            //                })
-            // element is a single time line machine
-            //         // element is array of obj
-            //  console.log( "this is a single machine and mokarrar", element);
-
-            //       if (element.state == "Offline") {
-            //         let obj = {
-            //           x: "Time",
-            //           y: [
-            //             new Date(element.stateStartTime).getTime(),
-            //             new Date(element.stateEndTime).getTime(),
-            //           ],
-            //           fillColor: "#e22517",
-            //         };
-            //         this.line1Data.data.push(obj);
-            //       } else if (element.state == "Waiting") {
-            //         let obj = {
-            //           x: "Time",
-            //           y: [
-            //             new Date(element.stateStartTime).getTime(),
-            //             new Date(element.stateEndTime).getTime(),
-            //           ],
-            //           fillColor: "#dadada",
-            //         };
-            //         this.line1Data.data.push(obj);
-            //         console.log(this.line1Data)
-            //       } else if (element.state == "Online") {
-            //         let obj = {
-            //           x: "Time",
-            //           y: [
-            //             new Date(element.stateStartTime).getTime(),
-            //             new Date(element.stateEndTime).getTime(),
-            //           ],
-            //           fillColor: "#29a32c",
-            //         };
-            //         this.line1Data.data.push(obj);
-            //       }else if(element.state == 'Cleaning in Process') {
-            //         let obj = {
-            //           x: "Time",
-            //           y: [
-            //             new Date(element.stateStartTime).getTime(),
-            //             new Date(element.stateEndTime).getTime(),
-            //           ],
-            //           fillColor: "#576FE6",
-            //         };
-            //         this.line1Data.data.push(obj);
-            //       }
+          
+        
 
             console.log(this.hassanArrayTest);
           });
@@ -587,13 +500,6 @@ export class MachineIndecatorComponent implements OnInit {
         console.log(err);
       }
     );
-    // hassan's last ay haga
-
-    // this.dashboardService.getTimeLine(this.dashboardFilter).subscribe((res) => {
-    //   if (res.lines_Timeline) {
-    //     this.DrawTimeLine(res.lines_Timeline);
-
-    //   }
-    // });
+   
   }
 }
