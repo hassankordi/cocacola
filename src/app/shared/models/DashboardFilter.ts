@@ -6,6 +6,8 @@ export class DashboardFilter {
     endDate: string;
     LineID: number;
     duration: number;
+    factoryId : any;
+    functionlaityId  :any
   
     constructor() { 
       this.id = null;

@@ -1407,22 +1407,28 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   selectTime(element, formVal) {
     if (element == 0) {
       this.openShifts = false;
+      this.openDate = true
+      this.range.reset()
     }
 
-    if (element == 3) {
-      this.openDate = false;
-    }
+  
 
     if (element == 1 || element == 2 || element == 3) {
       this.showPickerMultiple = true;
       this.showPickerDay = false;
       this.selectedTimeShift = "";
       this.openShifts = true;
+      this.openDate = true
+      this.range.reset()
     } else if (element == 4) {
       this.showPickerMultiple = false;
       this.showPickerDay = true;
       this.calenderByDay = "";
-      this.openShifts = false;
+      this.openShifts = false; 
+      this.openDate = false
+    }
+    if (element == 3) {
+      this.openDate = false;
     }
 
     console.log(element);
@@ -1435,19 +1441,25 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fromDate(event) {
+
+
+
     let date = new Date(event.value);
-    let modifiedTime = date.toISOString()
-    this.date1 = modifiedTime.replace('22:00:00.000Z', "").concat("00:00:00.000Z");
+    date.setDate(date.getDate() + 1);
+
+    //let modifiedTime = date.toISOString()
+    this.date1 = date.toISOString().replace("22:00:00.000Z", "") + "00:00:00.000Z";
     this.dashboardFilter.startDate = this.date1
-    console.log(this.dashboardFilter)
+    console.log(this.date1)
 
   }
   fromDate2(event) {
     let date = new Date(event.value);
-    let modifiedTime = date.toISOString()
-    this.date2 = modifiedTime.replace('22:00:00.000Z', "").concat("00:00:00.000Z");
-    this.dashboardFilter.endDate = this.date2
+    date.setDate(date.getDate() + 1);
 
+    this.date2 = date.toISOString().replace('22:00:00.000Z', "").concat("00:00:00.000Z");
+    this.dashboardFilter.endDate = this.date2
+    console.log(this.date2)
   }
 
   fromDateByDay(event) {
