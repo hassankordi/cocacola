@@ -195,6 +195,7 @@ export class MachineTagExploreComponent implements OnInit {
 
   ngOnInit() {
 
+    this.dashboardService.pageName.next('Machine Tag')
     //Factories
     this.dashboardService.getFactories().subscribe((res) => {
       this.location = res;

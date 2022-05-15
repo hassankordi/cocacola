@@ -102,6 +102,8 @@ export class MachineComponent implements OnInit {
 
   ngOnInit(): void {
     //Factories
+
+    this.dashboardService.pageName.next('Machine')
     this.dashboardService.getFactories().subscribe((res) => {
       console.log(res);
 

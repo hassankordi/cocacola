@@ -214,6 +214,7 @@ export class MachineIndecatorComponent implements OnInit {
   ngAfterViewInit(): void {}
   ngOnInit(): void {
     this.plantName = "Alex";
+    this.dashboardService.pageName.next('Machine Indicators')
 
     //Factories
     this.dashboardService.getFactories().subscribe((res) => {

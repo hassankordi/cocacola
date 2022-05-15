@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   todayDate:any = new Date();
   notifiData  : any;
   modifyNotifiData  : any = []
+  pageName = ""
   constructor(
  
     @Inject(DOCUMENT) private document: Document, 
@@ -24,6 +25,10 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.dashService.pageName.subscribe((res)=>{
+this.pageName = res
+    })
     
     this.dashService.getNotifications().subscribe(res=>{
       this.notifiData = res[0]

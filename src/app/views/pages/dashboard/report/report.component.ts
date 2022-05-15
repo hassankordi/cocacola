@@ -26,6 +26,7 @@ export class ReportComponent implements OnInit , AfterViewInit {
 
   ngOnInit(): void {
     
+    this.dashboardService.pageName.next('Report')
     this.dashboardService.getOffMachine().subscribe(res=>{
       this.dataSource.data = res
       // this.showGifImg = false

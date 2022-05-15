@@ -165,7 +165,7 @@ export class PlanComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
- 
+    this.dashboardService.pageName.next('Plan')
 
 
     this.dataSource = new MatTableDataSource<PeriodicElement>(

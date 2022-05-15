@@ -637,6 +637,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void { }
   ngOnInit(): void {
 
+    this.dashboardService.pageName.next('DashBoard')
     this.showPickerMultiple = true;
     console.log(this.barChartOptions);
 

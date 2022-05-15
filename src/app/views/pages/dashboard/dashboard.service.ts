@@ -4,7 +4,7 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { DashboardFilter } from "src/app/Shared/models/DashboardFilter";
 import { environment } from "src/environments/environment.prod";
 export interface tableData {
@@ -35,6 +35,10 @@ export class DashboardService {
       "Content-Type": "application/json",
     }),
   };
+
+
+
+  pageName  = new BehaviorSubject("DashBoard")
 
   constructor(private http: HttpClient) {}
 
